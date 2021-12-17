@@ -24,6 +24,9 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.8" />
           <element id="library" level="project" name="Maven: com.ToxicBakery.library.bcrypt:bcrypt:1.0.9" />
+          <element id="library" level="project" name="Maven: javax.mail:javax.mail-api:1.5.2" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.5" />
         </element>
       </element>
       <element id="directory" name="META-INF">

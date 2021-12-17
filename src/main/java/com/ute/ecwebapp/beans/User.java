@@ -4,6 +4,26 @@ public class User {
     private int id;
     private String username, password, name, email,address;
     private int permission;
+    private String code;
+
+    public User(int id, String username, String password, String name, String email, String address, int permission, String code) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.permission = permission;
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public User(int id, String username, String password, String name, String email, String address, int permission) {
         this.id = id;
@@ -13,6 +33,10 @@ public class User {
         this.email = email;
         this.address = address;
         this.permission = permission;
+    }
+
+    public User(String email) {
+        this.email = email;
     }
 
     public User() {

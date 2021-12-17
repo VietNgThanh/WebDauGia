@@ -32,7 +32,7 @@
                     $('#frmRegister').off('submit').submit();
                 }
                 else {
-                    alert('Số điện thoại này đã được đăng kí');
+                    alert('Username này đã được đăng kí');
                 }
             });
         });
