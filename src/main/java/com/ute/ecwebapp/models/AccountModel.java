@@ -33,7 +33,7 @@ public class AccountModel {
         }
     }
     public static User findByEmail(String email){
-         String query = "select * from users where email = :email";
+        String query = "select * from users where email = :email";
         try (Connection con = DbUtils.getConnection()) {
             List<User> list = con.createQuery(query)
                     .addParameter("email", email)
@@ -58,5 +58,17 @@ public class AccountModel {
                     .executeUpdate();
         }
     }
-
+//    public static User checkUser(String sdt, String pw){
+//         String query = "select * from user where sdt = :sdt and password = :pw";
+//        try (Connection con = DbUtils.getConnection()) {
+//            List<User> list = con.createQuery(query)
+//                    .addParameter("pw", pw)
+//                    .addParameter("sdt", sdt)
+//                    .executeAndFetch(User.class);
+//            if (list.size() == 0) {
+//                return null;
+//            }
+//            return list.get(0);
+//        }
+   // }
 }
