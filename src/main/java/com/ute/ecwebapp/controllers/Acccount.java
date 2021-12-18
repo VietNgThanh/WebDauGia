@@ -24,11 +24,11 @@ public class Acccount extends HttpServlet {
         String path = request.getPathInfo();
         switch (path) {
                 case "/Register":
-                    ServletUtils.forward("/views/vwAccount/Register.jsp", request, response);
-                    break;
+                ServletUtils.forward("/views/vwAccount/Register.jsp", request, response);
+                break;
                 case "/Login":
-                    ServletUtils.forward("/views/vwAccount/Login.jsp", request, response);
-                    break;
+                ServletUtils.forward("/views/vwAccount/Login.jsp", request, response);
+                break;
                 case "/IsAvailable":
                     String username = request.getParameter("username");
                     User user = AccountModel.findByusername(username);
@@ -38,21 +38,32 @@ public class Acccount extends HttpServlet {
                     response.setCharacterEncoding("utf-8");
                     out.print(isAvailable);
                     out.flush();
-                    break;
-                case "/Verify":
-                   ServletUtils.forward("/views/vwAccount/RegisterVerify.jsp", request, response);
-                   break;
-                case "/FogotPassWord":
-                    ServletUtils.forward("/views/vwAccount/FogotPassWord.jsp", request, response);
-                    break;
-                case "/OTPFogotPassWord":
-                    ServletUtils.forward("/views/vwAccount/OTPFogotPassWord.jsp", request, response);
-                    break;
-                case "/NewPassWord":
-                    ServletUtils.forward("/views/vwAccount/NewPassWord.jsp", request, response);
-                    break;
-                case "/ChangePassWord":
-                    ServletUtils.forward("/views/vwAccount/ChangePassWord.jsp", request, response);
+               break;
+            case "/IsEmail":
+                String email = request.getParameter("email");
+                User c = AccountModel.findByEmail(email);
+                boolean IsEmail = (c == null);
+                PrintWriter outem = response.getWriter();
+                response.setContentType("application/json");
+                response.setCharacterEncoding("utf-8");
+                outem.print(IsEmail);
+                outem.flush();
+                break;
+            case "/Verify":
+                ServletUtils.forward("/views/vwAccount/RegisterVerify.jsp", request, response);
+                break;
+            case "/FogotPassWord":
+                ServletUtils.forward("/views/vwAccount/FogotPassWord.jsp", request, response);
+                break;
+            case "/OTPFogotPassWord":
+                ServletUtils.forward("/views/vwAccount/OTPFogotPassWord.jsp", request, response);
+                break;
+            case "/NewPassWord":
+                ServletUtils.forward("/views/vwAccount/NewPassWord.jsp", request, response);
+                break;
+            case "/ChangePassWord":
+                ServletUtils.forward("/views/vwAccount/ChangePassWord.jsp", request, response);
+
         }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
@@ -90,10 +101,10 @@ public class Acccount extends HttpServlet {
             case "/ChangePassWord":
                 changePassWord(request,response);
                 break;
-
         }
 
     }
+
     private void changePassWord(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         String rawpw = request.getParameter("rawpw");
         String cfmpw = request.getParameter("cfmpw");
@@ -188,6 +199,7 @@ public class Acccount extends HttpServlet {
             ServletUtils.forward("/views/vwAccount/FogotPassWord.jsp", request, response);
         }
     }
+
     private void verify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String codecf = request.getParameter("code");
         HttpSession session = request.getSession();
@@ -204,15 +216,11 @@ public class Acccount extends HttpServlet {
             AccountModel.add(c);
             String  urlz = "/Account/Login";
             ServletUtils.redirect(urlz, request, response);
-            System.out.println(codecf);
-            System.out.println(code);
         }
         else{
             request.setAttribute("hasError", true);
             request.setAttribute("errorMessage", "Invalid login.");
             ServletUtils.forward("/views/vwAccount/RegisterVerify.jsp", request, response);
-            System.out.println(codecf);
-            System.out.println(code);
         }
     }
 
@@ -227,7 +235,7 @@ public class Acccount extends HttpServlet {
         SendMail sendMail = new SendMail();
         String code = sendMail.getRandom();
         User c = new User(0, username,bcryptHashString,name,email,address,permission,code);
-        boolean sm = sendMail.Sendmail(c);
+        boolean sm = sendMail.Sendmail(c.getEmail(),code);
         if(sm){
             HttpSession session  = request.getSession();
             session.setAttribute("authcode", c);
