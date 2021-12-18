@@ -33,5 +33,8 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: mysql:mysql-connector-java:8.0.27" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
     <orderEntry type="library" name="Maven: org.sql2o:sql2o:1.6.0" level="project" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="font-awesome" level="application" />
+    <orderEntry type="library" name="jquery-3.6.0" level="application" />
   </component>
 </module>

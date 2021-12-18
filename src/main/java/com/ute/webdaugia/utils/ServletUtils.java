@@ -1,4 +1,4 @@
-package com.ute.ecwebapp.utils;
+package com.ute.webdaugia.utils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
