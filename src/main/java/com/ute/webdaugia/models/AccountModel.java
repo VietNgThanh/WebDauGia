@@ -1,7 +1,7 @@
-package com.ute.ecwebapp.models;
+package com.ute.webdaugia.models;
 
-import com.ute.ecwebapp.beans.User;
-import com.ute.ecwebapp.utils.DbUtils;
+import com.ute.webdaugia.beans.User;
+import com.ute.webdaugia.utils.DbUtils;
 import org.sql2o.Connection;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.ute.ecwebapp.filters;
+package com.ute.webdaugia.filters;
 
-import com.ute.ecwebapp.beans.User;
+import com.ute.webdaugia.beans.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;

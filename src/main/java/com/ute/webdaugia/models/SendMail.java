@@ -1,6 +1,6 @@
-package com.ute.ecwebapp.models;
+package com.ute.webdaugia.models;
 
-import com.ute.ecwebapp.beans.User;
+import com.ute.webdaugia.beans.User;
 
 import javax.mail.MessagingException;
 import javax.mail.Session;

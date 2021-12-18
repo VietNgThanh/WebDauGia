@@ -1,6 +1,6 @@
-package com.ute.ecwebapp.controllers;
+package com.ute.webdaugia.controllers;
 
-import com.ute.ecwebapp.utils.ServletUtils;
+import com.ute.webdaugia.utils.ServletUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

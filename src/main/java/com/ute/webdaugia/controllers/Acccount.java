@@ -1,11 +1,11 @@
-package com.ute.ecwebapp.controllers;
+package com.ute.webdaugia.controllers;
 
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.ute.ecwebapp.models.AccountModel;
-import com.ute.ecwebapp.models.SendMail;
-import com.ute.ecwebapp.utils.*;
-import com.ute.ecwebapp.beans.User;
+import com.ute.webdaugia.models.AccountModel;
+import com.ute.webdaugia.models.SendMail;
+import com.ute.webdaugia.utils.*;
+import com.ute.webdaugia.beans.User;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;

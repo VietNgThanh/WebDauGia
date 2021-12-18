@@ -1,4 +1,4 @@
-package com.ute.ecwebapp.beans;
+package com.ute.webdaugia.beans;
 
 public class User {
     private int id;
