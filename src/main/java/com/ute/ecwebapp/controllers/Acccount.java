@@ -24,11 +24,11 @@ public class Acccount extends HttpServlet {
         String path = request.getPathInfo();
         switch (path) {
                 case "/Register":
-                ServletUtils.forward("/views/vwAccount/Register.jsp", request, response);
-                break;
+                    ServletUtils.forward("/views/vwAccount/Register.jsp", request, response);
+                    break;
                 case "/Login":
-                ServletUtils.forward("/views/vwAccount/Login.jsp", request, response);
-                break;
+                    ServletUtils.forward("/views/vwAccount/Login.jsp", request, response);
+                    break;
                 case "/IsAvailable":
                     String username = request.getParameter("username");
                     User user = AccountModel.findByusername(username);
@@ -38,11 +38,21 @@ public class Acccount extends HttpServlet {
                     response.setCharacterEncoding("utf-8");
                     out.print(isAvailable);
                     out.flush();
-               break;
-               case "/Verify":
+                    break;
+                case "/Verify":
                    ServletUtils.forward("/views/vwAccount/RegisterVerify.jsp", request, response);
                    break;
-
+                case "/FogotPassWord":
+                    ServletUtils.forward("/views/vwAccount/FogotPassWord.jsp", request, response);
+                    break;
+                case "/OTPFogotPassWord":
+                    ServletUtils.forward("/views/vwAccount/OTPFogotPassWord.jsp", request, response);
+                    break;
+                case "/NewPassWord":
+                    ServletUtils.forward("/views/vwAccount/NewPassWord.jsp", request, response);
+                    break;
+                case "/ChangePassWord":
+                    ServletUtils.forward("/views/vwAccount/ChangePassWord.jsp", request, response);
         }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
@@ -65,20 +75,119 @@ public class Acccount extends HttpServlet {
                 verify(request,response);
                 break;
             case "/FogotPassWord":
-                ServletUtils.forward("/views/vwAccount/FogotPassWord.jsp", request, response);
+                try {
+                    Fogot(request,response);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "/OTPFogotPassWord":
-                ServletUtils.forward("/views/vwAccount/OTPFogotPassWord.jsp", request, response);
+                otpFogot(request,response);
                 break;
             case "/NewPassWord":
-                ServletUtils.forward("/views/vwAccount/NewPassWord.jsp", request, response);
+                newPassWord(request,response);
                 break;
             case "/ChangePassWord":
+                changePassWord(request,response);
+                break;
+
+        }
+
+    }
+    private void changePassWord(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        String rawpw = request.getParameter("rawpw");
+        String cfmpw = request.getParameter("cfmpw");
+        String oldpassword = request.getParameter("oldpw");
+        HttpSession session = request.getSession();
+        User user= (User) session.getAttribute("authUser");
+        BCrypt.Result result = BCrypt.verifyer().verify(oldpassword.toCharArray(), user.getPassword());
+        if(rawpw.equals(cfmpw)){
+            if(result.verified){
+                String bcryptHashString = BCrypt.withDefaults().hashToString(12, rawpw.toCharArray());
+                user.setPassword(bcryptHashString);
+                AccountModel.updateUserFogotPassword(user);
+                session.setAttribute("authUser",user);
+                String  urlz = "/Home/Index";
+                ServletUtils.redirect(urlz, request, response);
+            }else {
+                request.setAttribute("hasError", true);
+                request.setAttribute("errorMessage", "Sai");
                 ServletUtils.forward("/views/vwAccount/ChangePassWord.jsp", request, response);
+            }
+        }
+        else {
+            request.setAttribute("hasError", true);
+            request.setAttribute("errorMessage", "Sai");
+            ServletUtils.forward("/views/vwAccount/ChangePassWord.jsp", request, response);
+        }
+    }
+
+    private void newPassWord(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String rawpw = request.getParameter("rawpw");
+        String cfmpw = request.getParameter("cfmpw");
+        String password = BCrypt.withDefaults().hashToString(12, rawpw.toCharArray());
+        if(rawpw.equals(cfmpw)){
+            HttpSession session = request.getSession();
+            User user= (User) session.getAttribute("FogotEmail");
+            user.setPassword(password);
+            AccountModel.updateUserFogotPassword(user);
+
+        }
+        else{
+            request.setAttribute("hasError", true);
+            request.setAttribute("errorMessage", "Sai");
+            ServletUtils.forward("/views/vwAccount/NewPassWord.jsp", request, response);
         }
 
     }
 
+    private void otpFogot(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String codecf = request.getParameter("code");
+        HttpSession session = request.getSession();
+        User user= (User) session.getAttribute("FogotEmail");
+        String rawpwd = user.getPassword();
+        String bcryptHashString = BCrypt.withDefaults().hashToString(12, rawpwd.toCharArray());
+        String username = user.getUsername();
+        String name = user.getName();
+        String email = user.getEmail();
+        String address = user.getAddress();
+        int permission = user.getPermission();
+        int id = user.getId();
+        User c = new User(id,username,bcryptHashString,name,email,address,permission);
+        String code = (String) session.getAttribute("FogotCodeAccess");
+        if(codecf.equals(code)){
+            session.setAttribute("FogotEmail",c);
+            String  urlz = "/Account/NewPassWord";
+            ServletUtils.redirect(urlz, request, response);
+        }
+        else {
+            request.setAttribute("hasError", true);
+            request.setAttribute("errorMessage", "Sai");
+            ServletUtils.forward("/views/vwAccount/OTPFogotPassWord.jsp", request, response);
+        }
+    }
+
+    private void Fogot(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, MessagingException {
+        String email = request.getParameter("email");
+        User user =  AccountModel.findByEmail(email);
+        if(user != null){
+            SendMail sendMail = new SendMail();
+            String code = sendMail.getRandom();
+            boolean sm = sendMail.Sendmail(email,code);
+            if(sm){
+                HttpSession session  = request.getSession();
+                session.setAttribute("FogotEmail", user);
+                session.setAttribute("FogotCodeAccess",code);
+                String  urlz = "/Account/OTPFogotPassWord";
+                ServletUtils.redirect(urlz, request, response);
+            }
+        }
+        else {
+            request.setAttribute("hasError", true);
+            request.setAttribute("errorMessage", "Sai");
+            ServletUtils.forward("/views/vwAccount/FogotPassWord.jsp", request, response);
+        }
+    }
     private void verify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String codecf = request.getParameter("code");
         HttpSession session = request.getSession();

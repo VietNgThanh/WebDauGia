@@ -30,10 +30,9 @@ public class SendMail {
         int number = rnd.nextInt(999999);
         return String.format("%06d",number);
     }
-    public boolean Sendmail(User c) throws ServletException, IOException, MessagingException {
+    public boolean Sendmail(String Email, String code) throws ServletException, IOException, MessagingException {
         boolean test =false;
-        String code = c.getCode();
-        String tomail = c.getEmail();
+
         Properties mailServerProperties;
         Session getMailSession;
         MimeMessage mailMessage;
@@ -45,7 +44,7 @@ public class SendMail {
         // Step2: get Mail Session
         getMailSession = Session.getDefaultInstance(mailServerProperties, null);
         mailMessage = new MimeMessage(getMailSession);
-        mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(tomail)); //Thay abc bằng địa chỉ người nhận
+        mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(Email)); //Thay abc bằng địa chỉ người nhận
         // Bạn có thể chọn CC, BCC
 //    generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("cc@gmail.com")); //Địa chỉ cc gmail
         mailMessage.setSubject("Demo send gmail from Java");
