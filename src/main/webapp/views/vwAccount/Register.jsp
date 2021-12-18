@@ -28,13 +28,22 @@
             }
 
             $.getJSON('${pageContext.request.contextPath}/Account/IsAvailable?username=' + username, function (data){
-                if(data === true){
-                    $('#frmRegister').off('submit').submit();
-                }
-                else {
+
+                if(data === false){
                     alert('Username này đã được đăng kí');
                 }
+                else {
+                    $.getJSON('${pageContext.request.contextPath}/Account/IsEmail?email='+ email,function (dataem){
+                        if(dataem === false){
+                            alert('Email này đã được đăng kí');
+                        }
+                        else {
+                            $('#frmRegister').off('submit').submit();
+                        }
+                    });
+                }
             });
+
         });
         $('#txtUsername').select();
     </script>
