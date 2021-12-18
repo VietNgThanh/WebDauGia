@@ -42,6 +42,7 @@ public class Acccount extends HttpServlet {
                case "/Verify":
                    ServletUtils.forward("/views/vwAccount/RegisterVerify.jsp", request, response);
                    break;
+
         }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
@@ -63,6 +64,17 @@ public class Acccount extends HttpServlet {
             case "/Verify":
                 verify(request,response);
                 break;
+            case "/FogotPassWord":
+                ServletUtils.forward("/views/vwAccount/FogotPassWord.jsp", request, response);
+                break;
+            case "/OTPFogotPassWord":
+                ServletUtils.forward("/views/vwAccount/OTPFogotPassWord.jsp", request, response);
+                break;
+            case "/NewPassWord":
+                ServletUtils.forward("/views/vwAccount/NewPassWord.jsp", request, response);
+                break;
+            case "/ChangePassWord":
+                ServletUtils.forward("/views/vwAccount/ChangePassWord.jsp", request, response);
         }
 
     }
