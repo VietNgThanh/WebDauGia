@@ -1,8 +1,8 @@
 package com.ute.webdaugia.controllers;
 
-import com.ute.ecwebapp.beans.Product;
-import com.ute.ecwebapp.models.ProductModel;
-import com.ute.ecwebapp.utils.ServletUtils;
+import com.ute.webdaugia.beans.Product;
+import com.ute.webdaugia.models.ProductModel;
+import com.ute.webdaugia.utils.ServletUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

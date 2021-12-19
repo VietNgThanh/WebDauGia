@@ -77,11 +77,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.9.8</version>
         </dependency>
-        <dependency>
-            <groupId>com.ToxicBakery.library.bcrypt</groupId>
-            <artifactId>bcrypt</artifactId>
-            <version>1.0.9</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.ToxicBakery.library.bcrypt</groupId>-->
+<!--            <artifactId>bcrypt</artifactId>-->
+<!--            <version>1.0.9</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
