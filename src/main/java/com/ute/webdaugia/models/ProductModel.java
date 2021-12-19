@@ -1,0 +1,37 @@
+package com.ute.webdaugia.models;
+import com.ute.ecwebapp.beans.Product;
+import com.ute.ecwebapp.utils.DbUtils;
+import org.sql2o.Connection;
+
+import java.util.List;
+
+public class ProductModel {
+    public static List<Product> findAll() {
+        final String query = "select * from product";
+        try (Connection con = DbUtils.getConnection()) {
+            return con.createQuery(query)
+                    .executeAndFetch(Product.class);
+        }
+    }
+    public static List<Product> findByCatId(int id_Cat) {
+        final String query = "select * from product where id_Cat = :id_Cat";
+        try (Connection con = DbUtils.getConnection()) {
+            return con.createQuery(query)
+                    .addParameter("id_Cat", id_Cat)
+                    .executeAndFetch(Product.class);
+        }
+    }
+    public static Product findById(int id) {
+        final String query = "select * from product where idProduct = :idProduct";
+        try (Connection con = DbUtils.getConnection()) {
+            List<Product> list = con.createQuery(query)
+                    .addParameter("idProduct", id)
+                    .executeAndFetch(Product.class);
+
+            if (list.size() == 0) {
+                return null;
+            }
+            return list.get(0);
+        }
+    }
+}
