@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "AdminCategoryServlet", value = "/Admin/Category/*")
 public class AdminCategoryServlet extends HttpServlet {
@@ -33,15 +34,33 @@ public class AdminCategoryServlet extends HttpServlet {
                 break;
 
             case "/AddChild":
-                int id = 0;
+            case "/Edit":
+                System.out.println("hello");
+                int parentId = 0;
+                int childId = 0;
                 try {
-                    id = Integer.parseInt(request.getParameter("parentid"));
+                    parentId = Integer.parseInt(request.getParameter("parentid"));
                 } catch (NumberFormatException e) {
                 }
-                ParentCategory parentCategory = ParentCategoryModel.findById(id);
+                try {
+                    childId = Integer.parseInt(request.getParameter("childid"));
+                } catch (NumberFormatException e) {
+                }
+                ParentCategory parentCategory = ParentCategoryModel.findById(parentId);
+                ChildCategory childCategory = ChildCategoryModel.findById(childId);
                 if (parentCategory != null) {
                     request.setAttribute("parentCategory", parentCategory);
-                    ServletUtils.forward("/views/vwCategory/AddChildCategory.jsp", request, response);
+
+                    if (path.equals("/AddChild")) {
+                        ServletUtils.forward("/views/vwCategory/AddChildCategory.jsp", request, response);
+                    }
+                    else {
+                        ServletUtils.forward("/views/vwCategory/Edit.jsp", request, response);
+                    }
+
+                } else if (childCategory != null){
+                    request.setAttribute("childCategory", childCategory);
+                    ServletUtils.forward("/views/vwCategory/Edit.jsp", request, response);
                 } else {
                     ServletUtils.redirect("/Admin/Category", request, response);
                 }
@@ -71,20 +90,36 @@ public class AdminCategoryServlet extends HttpServlet {
         String path = request.getPathInfo();
         switch (path) {
             case "/Add":
-                addMainCategory(request, response);
+                addParentCategory(request, response);
                 break;
 
             case "/AddChild":
                 addChildCategory(request, response);
                 break;
-//
+
+            case "/Update":
+                updateParentCategory(request, response);
+                break;
+
+            case "/UpdateChild":
+                updateChildCategory(request, response);
+                break;
+
+            case "/Delete":
+                deleteParentCategory(request, response);
+                break;
+
+            case "/DeleteChild":
+                deleteChildCategory(request, response);
+                break;
+
             default:
                 ServletUtils.forward("/views/404.jsp", request, response);
                 break;
         }
     }
 
-    private void addMainCategory(HttpServletRequest request, HttpServletResponse response) throws
+    private void addParentCategory(HttpServletRequest request, HttpServletResponse response) throws
         ServletException, IOException {
         String name = request.getParameter("ParentCategory");
         ParentCategory c = new ParentCategory(name);
@@ -112,6 +147,48 @@ public class AdminCategoryServlet extends HttpServlet {
         assert parent != null;
         ChildCategory c = new ChildCategory(childName, parent.getId());
         ChildCategoryModel.add(c);
+        ServletUtils.redirect("/Admin/Category", request, response);
+    }
+
+    private void updateParentCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = 0;
+        try {
+            id = Integer.parseInt(request.getParameter("CatID"));
+        } catch (NumberFormatException e) {
+        }
+
+        String name = request.getParameter("CatName");
+        ParentCategory c = new ParentCategory(id, name);
+        ParentCategoryModel.update(c);
+        ServletUtils.redirect("/Admin/Category", request, response);
+    }
+
+    private void updateChildCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = 0;
+        try {
+            id = Integer.parseInt(request.getParameter("CatID"));
+        } catch (NumberFormatException e) {
+        }
+
+        String name = request.getParameter("CatName");
+        ChildCategory c = new ChildCategory(id, name);
+        ChildCategoryModel.update(c);
+        ServletUtils.redirect("/Admin/Category", request, response);
+    }
+
+    private void deleteParentCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int parentId = Integer.parseInt(request.getParameter("CatID"));
+        List<ChildCategory> childs = ChildCategoryModel.findByParentId(parentId);
+        for (ChildCategory c : childs) {
+            ChildCategoryModel.delete(c.getId());
+        }
+        ParentCategoryModel.delete(parentId);
+        ServletUtils.redirect("/Admin/Category", request, response);
+    }
+
+    private void deleteChildCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("CatID"));
+        ChildCategoryModel.delete(id);
         ServletUtils.redirect("/Admin/Category", request, response);
     }
 }
