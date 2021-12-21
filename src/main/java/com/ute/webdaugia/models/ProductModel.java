@@ -34,4 +34,12 @@ public class ProductModel {
             return list.get(0);
         }
     }
+    public static void deteleProduct(int id){
+        String sql = "DELETE FROM product where idProduct =:id \n";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
 }

@@ -50,4 +50,12 @@ public class AdminUserModel {
             return list.get(0);
         }
     }
+    public static void deleteSeller(int id){
+        String sql = "UPDATE user SET permission = 0 WHERE idUser =:id \n";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
 }

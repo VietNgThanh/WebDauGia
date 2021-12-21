@@ -1,53 +1,41 @@
 package com.ute.webdaugia.beans;
 
 public class User {
-    private int id;
+    private int idUser;
     private String username, password, name, email,address;
     private int permission;
     private String code;
 
-    public User(int id, String username, String password, String name, String email, String address, int permission, String code) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        this.address = address;
-        this.permission = permission;
-        this.code = code;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public User(int id, String username, String password, String name, String email, String address, int permission) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        this.address = address;
-        this.permission = permission;
-    }
-
-    public User(String email) {
-        this.email = email;
-    }
-
     public User() {
     }
 
-    public int getId() {
-        return id;
+    public User(int idUser, String username, String password, String name, String email, String address, int permission, String code) {
+        this.idUser = idUser;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.permission = permission;
+        this.code = code;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public User(int idUser, String username, String password, String name, String email, String address, int permission) {
+        this.idUser = idUser;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.permission = permission;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public String getUsername() {
@@ -96,6 +84,14 @@ public class User {
 
     public void setPermission(int permission) {
         this.permission = permission;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
 
