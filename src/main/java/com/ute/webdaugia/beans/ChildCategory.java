@@ -10,6 +10,12 @@ public class ChildCategory {
         this.name = name;
     }
 
+    public ChildCategory(int id, String name) {
+        this.id = id;
+        this.parent_id = -1;
+        this.name = name;
+    }
+
     public ChildCategory(int id, String name, int parent_id) {
         this.id = id;
         this.parent_id = parent_id;

@@ -14,6 +14,19 @@
         <element id="directory" name="classes">
           <element id="module-output" name="WebDauGia" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.apache.taglibs:taglibs-standard-spec:1.2.5" />
+          <element id="library" level="project" name="Maven: org.apache.taglibs:taglibs-standard-impl:1.2.5" />
+          <element id="library" level="project" name="Maven: org.sql2o:sql2o:1.6.0" />
+          <element id="library" level="project" name="Maven: at.favre.lib:bcrypt:0.9.0" />
+          <element id="library" level="project" name="Maven: at.favre.lib:bytes:1.3.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.8" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.8" />
+          <element id="library" level="project" name="Maven: javax.mail:javax.mail-api:1.5.2" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.5" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/WebDauGia-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />

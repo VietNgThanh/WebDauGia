@@ -54,4 +54,23 @@ public class ParentCategoryModel {
             return list.get(0);
         }
     }
+
+    public static void update(ParentCategory c) {
+        String sql = "UPDATE parentcategory SET  name = :name WHERE id = :id";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                .addParameter("id", c.getId())
+                .addParameter("name", c.getName())
+                .executeUpdate();
+        }
+    }
+
+    public static void delete(int id) {
+        String sql = "DELETE FROM parentcategory WHERE id = :id";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                .addParameter("id", id)
+                .executeUpdate();
+        }
+    }
 }
