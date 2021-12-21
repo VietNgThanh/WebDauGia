@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Montserrat:wght@400;600&family=Roboto:wght@300&display=swap");
+
+html,
+body {
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #1a94ff;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.6;
+    position: sticky;
+    z-index: 1;
+}
+
+header .gavel {
+    width: 3rem;
+}
+
+header .logo {
+    color: white;
+    font-family: "Comfortaa", cursive;
+}
+
+header .user-font {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+}
+
+header .user-size {
+    font-size: 0.7rem;
+}
+
+#user {
+    color: white;
+}
+
+#user:hover {
+    text-decoration: none;
+}
+
+#btn-search {
+    color: white;
+    background-color: #1c70cf;
+}
+
+#btn-search:hover {
+    background-color: #0d5cb6;
+}
+
+header .search-box {
+    width: 25rem;
+}
+
+header a.link {
+    color: white;
+    text-decoration: none;
+}
+
+header a.link:hover {
+    color: #1a5394;
+}
+
+header ul {
+    list-style: none;
+}
+
+#menu > li,
+#menu > a {
+    display: inline-block;
+}
+
+#menu > li {
+    transition: background-color .22s ease, color .22s ease;
+}
+
+#menu a {
+    display: inline-block;
+}
+
+.sub-menu {
+    position: absolute;
+    background-color: #1a94ff;
+    width: 20rem;
+    top: 4rem;
+    display: none;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.sub-menu2 {
+    position: absolute;
+    left: 100%;
+    width: 20rem;
+    background-color: #1a94ff;
+    display: none;
+    top: 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#shop li {
+    height: 2.5rem;
+    font-weight: lighter;
+    box-sizing: content-box;
+}
+
+#shop > li  a {
+    color: white;
+}
+
+#shop a:hover {
+    color: #1a5394;
+    font-weight: 600;
+    text-decoration: none;
+    background-color: white;
+}
+
+#shop li:hover {
+    border-left: 6px solid #1a5394;
+
+}
+
+#menu > li:hover.nav-item > a {
+    color: #1a94ff;
+    background-color: white;
+}
+
+#menu > li:hover > .sub-menu {
+    display: block;
+}
+
+.sub-menu > li:hover > .sub-menu2 {
+    display: block;
+}
