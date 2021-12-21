@@ -54,7 +54,7 @@ public class AccountModel {
                     .addParameter("email", c.getEmail())
                     .addParameter("address", c.getAddress())
                     .addParameter("permission", c.getPermission())
-                    .addParameter("id", c.getId())
+                    .addParameter("id", c.getIdUser())
                     .executeUpdate();
         }
     }

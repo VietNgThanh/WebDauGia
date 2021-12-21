@@ -1,8 +1,10 @@
 package com.ute.webdaugia.controllers;
 
 
+import com.ute.webdaugia.beans.Product;
 import com.ute.webdaugia.beans.User;
 import com.ute.webdaugia.models.AdminUserModel;
+import com.ute.webdaugia.models.ProductModel;
 import com.ute.webdaugia.utils.ServletUtils;
 
 
@@ -42,6 +44,37 @@ public class AdminUser extends HttpServlet {
                 User user = AdminUserModel.findById(idseller);
                 request.setAttribute("seller",user);
                 ServletUtils.forward("/views/vwAdminUser/InfoSeller.jsp", request, response);
+                break;
+            case "/QuanLiSeller/DeleteSeller":
+                int id_seller =0;
+                id_seller = Integer.parseInt(request.getParameter("id"));
+                AdminUserModel.deleteSeller(id_seller);
+                String  url = "/Admin/QuanLiSeller/Index";
+                ServletUtils.redirect(url, request, response);
+                break;
+            case "/QuanLiSanPham/Index":
+                List<Product> listproduct = ProductModel.findAll();
+                List<User> sellers = AdminUserModel.findAllSeller();
+                request.setAttribute("sellers",sellers);
+                request.setAttribute("products",listproduct);
+                ServletUtils.forward("/views/vwAdminUser/ListProduct.jsp", request, response);
+                break;
+            case "/QuanLiSanPham/Info":
+                int id_pro =0;
+                id_pro = Integer.parseInt(request.getParameter("id"));
+                Product product = ProductModel.findById(id_pro);
+                User seller_pro = AdminUserModel.findById(product.getUserid());
+                request.setAttribute("product",product);
+                request.setAttribute("seller",seller_pro);
+                ServletUtils.forward("/views/vwAdminUser/InfoProduct.jsp", request, response);
+                break;
+            case"/QuanLiSanPham/DeleteProduct":
+                int id_product =0;
+                id_product = Integer.parseInt(request.getParameter("id"));
+                //Xoá trong bảng Order ...........
+                ProductModel.deteleProduct(id_product);
+                String  urlproduct = "/Admin/QuanLiSanPham/Index";
+                ServletUtils.redirect(urlproduct, request, response);
                 break;
         }
     }
