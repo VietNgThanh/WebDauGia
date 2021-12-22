@@ -45,6 +45,15 @@ public class ProductModel {
         }
     }
 
+    public static List<Product> findbySeller(int id) {
+        final String query = "select * from product where User_id = :User_id";
+        try (Connection con = DbUtils.getConnection()) {
+            return con.createQuery(query)
+                .addParameter("User_id", id)
+                .executeAndFetch(Product.class);
+        }
+    }
+
     public static List<Product> findBySearch(String txtSearch) {
         final String queryProducts = "SELECT * FROM product WHERE MATCH(Name) AGAINST('" + txtSearch + "')";
         final String queryCat = "SELECT * FROM childcategory WHERE MATCH(name) AGAINST('" + txtSearch + "')";

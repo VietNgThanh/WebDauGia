@@ -1,10 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 <jsp:useBean id="sellers" scope="request" type="java.util.List<com.ute.webdaugia.beans.User>"/>
 
-<t:Account>
+<t:adminUser>
   <jsp:attribute name="css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha512-f0tzWhCwVFS3WeYaofoLWkTP62ObhewQ1EZn65oSYDZUg1+CyywGKkWzm8BxaJj5HGKI72PnMH9jYyIFz+GH7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </jsp:attribute>
@@ -37,7 +39,7 @@
                             <tr>
                                 <td>${c.name}</td>
                                 <td>xxxx</td>
-                                <td>${c.current_Price}</td>
+                                <td> <fmt:formatNumber value="${c.start_price}" /></td>
                                 <td class="text-right">
                                     <a class="btn btn-outline-danger btn-sm " href="${pageContext.request.contextPath}/Admin/Dkiseller/Access?id=${c.idProduct}" role="button">
                                         <i class=" fa fa-trash" aria-hidden="true"></i>
@@ -55,4 +57,4 @@
         </c:choose>
         </div>
     </jsp:body>
-</t:Account>
+</t:adminUser>

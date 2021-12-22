@@ -1,9 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:useBean id="seller" scope="request" type="com.ute.webdaugia.beans.User"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<t:Account>
+<jsp:useBean id="seller" scope="request" type="com.ute.webdaugia.beans.User"/>
+<jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
+
+<t:adminUser>
   <jsp:attribute name="css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha512-f0tzWhCwVFS3WeYaofoLWkTP62ObhewQ1EZn65oSYDZUg1+CyywGKkWzm8BxaJj5HGKI72PnMH9jYyIFz+GH7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </jsp:attribute>
@@ -51,8 +54,38 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-5">
-            </div>
+
         </div>
+        <div class="card">
+            <h4 class="card-header d-flex justify-content-between">
+                Các Sản Phẩm Đang Bán
+            </h4>
+            <div class="card-body d-flex justify-content-between ">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Tên </th>
+                        <th>Giá khởi điểm</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${products}" var="c">
+                        <tr>
+                            <td>${c.name}</td>
+                            <td> <fmt:formatNumber value="${c.start_price}" /></td>
+                            <td class="text-right">
+                                <a class="btn btn-outline-danger btn-sm " href="${pageContext.request.contextPath}/Admin/Dkiseller/Access?id=${c.idProduct}" role="button">
+                                    <i class=" fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Admin/QuanLiSanPham/Info?id=${c.idProduct}" role="button">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+    </div>
     </jsp:body>
-</t:Account>
+</t:adminUser>
