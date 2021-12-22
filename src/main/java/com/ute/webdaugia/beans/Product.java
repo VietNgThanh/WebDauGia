@@ -1,24 +1,24 @@
 package com.ute.webdaugia.beans;
 
 public class Product {
-    private  int idProduct,id_Cat,User_id,Availability,Start_price;
+    private  int idProduct,id_Cat,User_id,Availability,Start_price,id_ParentCat,Imme_Price,Current_Price;
     private String Name,Detail_tiny,Detail_full;
-    private double Imme_Price,Current_Price;
 
     public Product() {
     }
 
-    public Product(int idProduct, String name, int id_Cat, int userid, String detail_tiny, String detail_full, int start_price, double imme_Price, int availability, double current_Price) {
+    public Product(int idProduct, int id_Cat, int user_id, int availability, int start_price, int id_ParentCat, int imme_Price, int current_Price, String name, String detail_tiny, String detail_full) {
         this.idProduct = idProduct;
         this.id_Cat = id_Cat;
-        User_id = userid;
+        User_id = user_id;
         Availability = availability;
+        Start_price = start_price;
+        this.id_ParentCat = id_ParentCat;
+        Imme_Price = imme_Price;
+        Current_Price = current_Price;
         Name = name;
         Detail_tiny = detail_tiny;
         Detail_full = detail_full;
-        Start_price = start_price;
-        Imme_Price = imme_Price;
-        Current_Price = current_Price;
     }
 
     public int getIdProduct() {
@@ -53,11 +53,15 @@ public class Product {
         return Start_price;
     }
 
-    public double getImme_Price() {
+    public int getImme_Price() {
         return Imme_Price;
     }
 
-    public double getCurrent_Price() {
+    public int getId_ParentCat() {
+        return id_ParentCat;
+    }
+
+    public int getCurrent_Price() {
         return Current_Price;
     }
 }

@@ -27,7 +27,6 @@ public class ProductModel {
             List<Product> list = con.createQuery(query)
                     .addParameter("idProduct", id)
                     .executeAndFetch(Product.class);
-
             if (list.size() == 0) {
                 return null;
             }
