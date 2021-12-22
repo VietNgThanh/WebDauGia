@@ -29,7 +29,7 @@
                 <i class="fa fa-backward" aria-hidden="true"></i>
                 List
             </a>
-            <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Product/Detail?id=${c.idProduct}" role="button">
+            <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${product.idProduct}" role="button">
                 <i class="fa fa-heart" aria-hidden="true"></i>
             </a>
         </div>
