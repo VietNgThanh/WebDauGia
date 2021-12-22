@@ -6,7 +6,7 @@
 <jsp:useBean id="product" scope="request" type="com.ute.webdaugia.beans.Product" />
 <jsp:useBean id="seller" scope="request" type="com.ute.webdaugia.beans.User" />
 
-<t:main>
+<t:adminUser>
     <jsp:body>
         <div class="card">
             <h4 class="card-header">
@@ -43,4 +43,4 @@
             </div>
         </div>
     </jsp:body>
-</t:main>
+</t:adminUser>
