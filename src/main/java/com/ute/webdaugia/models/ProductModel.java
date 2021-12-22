@@ -1,9 +1,12 @@
 package com.ute.webdaugia.models;
+import com.ute.webdaugia.beans.ChildCategory;
 import com.ute.webdaugia.beans.Product;
 import com.ute.webdaugia.utils.DbUtils;
 import org.sql2o.Connection;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductModel {
     public static List<Product> findAll() {
@@ -39,6 +42,40 @@ public class ProductModel {
             con.createQuery(sql)
                     .addParameter("id", id)
                     .executeUpdate();
+        }
+    }
+
+    public static List<Product> findBySearch(String txtSearch) {
+        final String queryProducts = "SELECT * FROM product WHERE MATCH(Name) AGAINST('" + txtSearch + "')";
+        final String queryCat = "SELECT * FROM childcategory WHERE MATCH(name) AGAINST('" + txtSearch + "')";
+        try (Connection con = DbUtils.getConnection()) {
+            List<Product> products = con.createQuery(queryProducts)
+                .executeAndFetch(Product.class);
+
+            List<Integer> proIds = products
+                .stream().map(Product::getIdProduct)
+                .collect(Collectors.toList());
+
+            List<Integer> catIdsSearchByCatName = con.createQuery(queryCat)
+                .executeAndFetch(ChildCategory.class)
+                .stream().map(ChildCategory::getId)
+                .collect(Collectors.toList());
+
+            List<Product> proByCatID = new ArrayList<>();
+            for (int catId : catIdsSearchByCatName) {
+                proByCatID.addAll(ProductModel.findByCatId(catId));
+            }
+
+            for (Product pro : proByCatID) {
+                if (!proIds.contains(pro.getIdProduct())) {
+                    products.add(pro);
+                }
+            }
+
+            if (products.isEmpty()) {
+                return null;
+            }
+            return products;
         }
     }
 }

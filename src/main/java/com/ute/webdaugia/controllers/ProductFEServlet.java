@@ -20,11 +20,11 @@ public class ProductFEServlet extends HttpServlet {
         String path = request.getPathInfo();
         switch (path) {
             case "/ByCat":
-            int catId = Integer.parseInt(request.getParameter("id"));
-            List<Product> list = ProductModel.findByCatId(catId);
-            request.setAttribute("products", list);
-            ServletUtils.forward("/views/vwProduct/ByCat.jsp", request, response);
-            break;
+                int catId = Integer.parseInt(request.getParameter("id"));
+                List<Product> list = ProductModel.findByCatId(catId);
+                request.setAttribute("products", list);
+                ServletUtils.forward("/views/vwProduct/ByCat.jsp", request, response);
+                break;
 
             case "/Detail":
                 int proId = Integer.parseInt(request.getParameter("id"));
@@ -42,6 +42,19 @@ public class ProductFEServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String path = request.getPathInfo();
+        switch (path) {
+            case "/Search":
+                String txtSearch = request.getParameter("search-box");
+                List<Product> products = ProductModel.findBySearch(txtSearch);
+                request.setAttribute("products", products);
+                ServletUtils.forward("/views/vwProduct/Search.jsp", request, response);
+                break;
+
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
+                break;
+        }
     }
 }
 
