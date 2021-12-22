@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "AdminCategoryServlet", value = "/Admin/Category/*")
+    @WebServlet(name = "AdminCategoryServlet", value = "/Admin/Category/*")
 public class AdminCategoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

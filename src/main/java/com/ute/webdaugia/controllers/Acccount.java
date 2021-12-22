@@ -163,7 +163,7 @@ public class Acccount extends HttpServlet {
         String email = user.getEmail();
         String address = user.getAddress();
         int permission = user.getPermission();
-        int id = user.getId();
+        int id = user.getIdUser();
         User c = new User(id,username,bcryptHashString,name,email,address,permission);
         String code = (String) session.getAttribute("FogotCodeAccess");
         if(codecf.equals(code)){
