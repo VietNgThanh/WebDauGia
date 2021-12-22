@@ -41,4 +41,13 @@ public class ProductModel {
                     .executeUpdate();
         }
     }
+    public static void addWatchList(int id_user, int id_product){
+        String sql ="INSERT INTO wish_list(id_user,id_product) VALUES(:id_user,:id_product)";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id_user", id_user)
+                    .addParameter("id_product", id_product)
+                    .executeUpdate();
+        }
+        }
 }

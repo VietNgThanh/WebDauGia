@@ -40,6 +40,10 @@
                                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                 Add to cart
                                             </a>
+<%--                                            <input id="sendMailBtn" type="submit" />--%>
+                                            <a id="sendMailBtn" type="submit" class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}" role="button">
+                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -50,6 +54,19 @@
             </c:choose>
         </div>
 
-
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#sendMailBtn').click(function (){
+                    $.ajax({
+                        type: "post",
+                        url: "${pageContext.request.contextPath}/Product/addwatlist",
+                        //data: "email=" + $('#email').val() + "&subject="+$('#subject').val() + "&msg=" + $('#msg').val(),
+                        success: function(msg){
+                            //
+                        }
+                    });
+                });
+            });
+        </script>
     </jsp:body>
 </t:main>

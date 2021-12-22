@@ -24,10 +24,15 @@
                 <p class="card-text">${product.detail_full}</p>
                 <p class="card-text"></p>
             </div>
+        <div class="card-footer text-muted">
             <a class="btn btn-outline-success" href="${pageContext.request.contextPath}/Product/ByCat?id=${product.idCat}" role="button">
                 <i class="fa fa-backward" aria-hidden="true"></i>
                 List
             </a>
+            <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Product/Detail?id=${c.idProduct}" role="button">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+            </a>
+        </div>
         </div>
     </jsp:body>
 </t:main>
