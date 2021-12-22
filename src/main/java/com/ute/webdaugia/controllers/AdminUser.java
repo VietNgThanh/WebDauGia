@@ -21,16 +21,15 @@ public class AdminUser extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getPathInfo();
         switch (path) {
-            case "/Dkiseller/Index":
+            case "/DkiSeller/Index":
                 List<User> list = AdminUserModel.findAllUser();
                 request.setAttribute("users", list);
                 ServletUtils.forward("/views/vwAdminUser/UptoSeller.jsp", request, response);
-            case "/Dkiseller/Access":
+            case "/DkiSeller/Access":
                 int id =0;
                 id = Integer.parseInt(request.getParameter("id"));
                 AdminUserModel.uptoSeller(id);
-                AdminUserModel.deteleDki(id);
-                String  urlz = "/Admin/Dkiseller/Index";
+                String  urlz = "/Admin/DkiSeller/Index";
                 ServletUtils.redirect(urlz, request, response);
                 break;
             case"/QuanLiSeller/Index":
@@ -42,6 +41,8 @@ public class AdminUser extends HttpServlet {
                 int idseller =0;
                 idseller = Integer.parseInt(request.getParameter("id"));
                 User user = AdminUserModel.findById(idseller);
+                List<Product> productbySeller = ProductModel.findbySeller(idseller);
+                request.setAttribute("products",productbySeller);
                 request.setAttribute("seller",user);
                 ServletUtils.forward("/views/vwAdminUser/InfoSeller.jsp", request, response);
                 break;
@@ -71,14 +72,12 @@ public class AdminUser extends HttpServlet {
             case"/QuanLiSanPham/DeleteProduct":
                 int id_product =0;
                 id_product = Integer.parseInt(request.getParameter("id"));
-                //Xoá trong bảng Order ...........
                 ProductModel.deteleProduct(id_product);
                 String  urlproduct = "/Admin/QuanLiSanPham/Index";
                 ServletUtils.redirect(urlproduct, request, response);
                 break;
         }
     }
-
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getPathInfo();
         switch (path) {

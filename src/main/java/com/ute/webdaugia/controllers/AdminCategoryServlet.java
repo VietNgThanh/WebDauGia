@@ -35,7 +35,6 @@ public class AdminCategoryServlet extends HttpServlet {
 
             case "/AddChild":
             case "/Edit":
-                System.out.println("hello");
                 int parentId = 0;
                 int childId = 0;
                 try {

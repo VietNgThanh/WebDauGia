@@ -1,9 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:useBean id="seller" scope="request" type="com.ute.webdaugia.beans.User"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<t:Account>
+<jsp:useBean id="seller" scope="request" type="com.ute.webdaugia.beans.User"/>
+<jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
+
+<t:adminUser>
   <jsp:attribute name="css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha512-f0tzWhCwVFS3WeYaofoLWkTP62ObhewQ1EZn65oSYDZUg1+CyywGKkWzm8BxaJj5HGKI72PnMH9jYyIFz+GH7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </jsp:attribute>
@@ -12,7 +15,21 @@
   </jsp:attribute>
     <jsp:body>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col">
+                <div class="d-flex mb-2">
+                    <div>
+                        <a class="btn btn-sm btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/Index" role="button">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            Quit
+                        </a>
+                    </div>
+                    <div class="flex-fill ml-1">
+                        <a class="btn btn-sm btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/DeleteSeller?id=${seller.idUser}" role="button">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Không cho bán hàng
+                        </a>
+                    </div>
+                </div>
                 <div class="card">
                     <h4 class="card-header d-flex justify-content-between">
                         Thong Tin Seller
@@ -32,15 +49,15 @@
                                         <label for="txtAddress">Địa Chỉ</label>
                                         <input type="text" class="form-control" id="txtAddress" readonly value="${seller.address}">
                                     </div>
-                                    <div class="form-group d-flex">
+                                    <div class="form-group d-flex ml-6">
                                         <div>
-                                            <a class="btn btn-lg btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/Index" role="button">
+                                            <a class="btn btn-sm btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/Index" role="button">
                                                 <i class="fa fa-home" aria-hidden="true"></i>
                                                 Quit
                                             </a>
                                         </div>
                                         <div class="flex-fill ml-1">
-                                            <a class="btn btn-lg btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/DeleteSeller?id=${seller.idUser}" role="button">
+                                            <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/DeleteSeller?id=${seller.idUser}" role="button">
                                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                                                 Không cho bán hàng
                                             </a>
@@ -51,8 +68,37 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-5">
-            </div>
         </div>
+        <div class="card mt-3">
+            <h4 class="card-header d-flex justify-content-between">
+                Các Sản Phẩm Đang Bán
+            </h4>
+            <div class="card-body d-flex justify-content-between ">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Tên </th>
+                        <th>Giá khởi điểm</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${products}" var="c">
+                        <tr>
+                            <td>${c.name}</td>
+                            <td> <fmt:formatNumber value="${c.start_price}" /></td>
+                            <td class="text-right">
+                                <a class="btn btn-outline-danger btn-sm " href="${pageContext.request.contextPath}/Admin/Dkiseller/Access?id=${c.idProduct}" role="button">
+                                    <i class=" fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Admin/QuanLiSanPham/Info?id=${c.idProduct}" role="button">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+    </div>
     </jsp:body>
-</t:Account>
+</t:adminUser>

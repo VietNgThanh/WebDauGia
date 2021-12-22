@@ -2,8 +2,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:useBean id="users" scope="request" type="java.util.List<com.ute.webdaugia.beans.User>"/>
-
-<t:Account>
+<t:adminUser>
   <jsp:attribute name="css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha512-f0tzWhCwVFS3WeYaofoLWkTP62ObhewQ1EZn65oSYDZUg1+CyywGKkWzm8BxaJj5HGKI72PnMH9jYyIFz+GH7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </jsp:attribute>
@@ -38,10 +37,10 @@
                             <tbody>
                             <c:forEach items="${users}" var="c">
                                 <tr>
-                                    <td>${c.id}</td>
+                                    <td>${c.idUser}</td>
                                     <td>${c.name}</td>
                                     <td class="text-right">
-                                        <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Admin/Dkiseller/Access?id=${c.id}" role="button">
+                                        <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Admin/DkiSeller/Access?id=${c.idUser}" role="button">
                                             <i class=" fa fa-check" aria-hidden="true"></i>
                                         </a>
                                     </td>
@@ -54,4 +53,4 @@
             </c:choose>
         </div>
     </jsp:body>
-</t:Account>
+</t:adminUser>
