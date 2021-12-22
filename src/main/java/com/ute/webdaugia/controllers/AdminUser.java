@@ -78,7 +78,6 @@ public class AdminUser extends HttpServlet {
                 break;
         }
     }
-
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getPathInfo();
         switch (path) {
