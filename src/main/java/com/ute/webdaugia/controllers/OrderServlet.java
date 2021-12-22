@@ -1,0 +1,44 @@
+package com.ute.webdaugia.controllers;
+
+import com.ute.webdaugia.beans.Orders;
+import com.ute.webdaugia.beans.Product;
+import com.ute.webdaugia.beans.User;
+import com.ute.webdaugia.models.OrderModel;
+import com.ute.webdaugia.models.ProductModel;
+import com.ute.webdaugia.utils.ServletUtils;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+
+@WebServlet(name = "OrderServlet", value = "/Main/*")
+public class OrderServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String path = request.getPathInfo();
+        switch (path) {
+            case "/Index":
+                List<Orders> list = OrderModel.find_top_highest_price();
+                List<Orders> list2=OrderModel.find_top_count_order();
+                List<Orders> list3=OrderModel.find_top_gonna_expire();
+                List<Product> list1 = ProductModel.findAll();
+                request.setAttribute("top_product", list);
+                request.setAttribute("top_product2",list2);
+                request.setAttribute("top_product3",list2);
+                request.setAttribute("products", list1);
+                ServletUtils.forward("/views/vwHome/Home1.jsp", request, response);
+                break;
+        }
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+}
+
+
