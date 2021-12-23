@@ -29,17 +29,6 @@ public class User {
         this.permission = permission;
     }
 
-    public User(int idUser, int mark, String username, String name, String password, String email, String address, int permission) {
-        this.idUser = idUser;
-        Mark = mark;
-        this.username = username;
-        this.name = name;
-        this.password = password;
-        this.email = email;
-        this.address = address;
-        this.permission = permission;
-    }
-
     public int getIdUser() {
         return idUser;
     }
