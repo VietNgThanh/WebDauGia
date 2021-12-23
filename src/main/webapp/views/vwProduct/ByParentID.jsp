@@ -1,3 +1,6 @@
+<%@ page import="com.ute.webdaugia.beans.Orders" %>
+<%@ page import="java.time.Duration" %>
+<%@ page import="java.time.LocalDateTime" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
@@ -9,7 +12,6 @@
 <jsp:useBean id="products_PaCaID" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 <jsp:useBean id="list_user" scope="request" type="java.util.List<com.ute.webdaugia.beans.User>"/>
 <jsp:useBean id="list_date_update" scope="request" type="java.util.List<com.ute.webdaugia.beans.Orders>"/>
-
 <t:main>
     <jsp:body>
         <div class="card">
@@ -48,12 +50,19 @@
                                                                        type="both"/>
                                                         <fmt:formatDate pattern="dd.MM.yyyy HH:mm"
                                                                         value="${ parsedDateTime }"/>
+<%--                                                                                                                <script>var startDate = ${c2.time_to_close};--%>
+<%--                                                                                                                // Do your operations--%>
+<%--                                                                                                                var today = new Date();--%>
+<%--                                                                                                                var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();--%>
+<%--                                                                                                                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();--%>
+<%--                                                                                                                var dateTime = date+' '+time;--%>
+<%--                                                                                                                var seconds = (dateTime.getTime() - startDate.getTime());--%>
+<%--                                                                                                                document.getElementById(`date`).innerHTML=seconds;--%>
+<%--                                                                                                                </script>--%>
+
                                                     </c:if>
                                                 </c:forEach>
-
-
                                                 <p class="card-text"> Giá mua ngay ${c.imme_Price} </p>
-
                                             </h5>
                                             <p class="card-text">${c.detail_tiny}</p>
                                         </div>

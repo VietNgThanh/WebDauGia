@@ -9,6 +9,7 @@ import com.ute.webdaugia.models.ProductModel;
 import com.ute.webdaugia.models.OrderModel;
 import com.ute.webdaugia.utils.ServletUtils;
 import org.sql2o.converters.Convert;
+import java.time.Duration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,7 +61,7 @@ public class ProductFEServlet extends HttpServlet {
                 List<Product> list1 = ProductModel.findbyparentID(PaCaID);
                 List<User> list2 = AdminUserModel.findAllUser_verpa();
                 List<Orders> list3 = OrderModel.find_all_product_per1();
-
+//                Duration a=Orders.main()
                 request.setAttribute("products_PaCaID", list1);
                 request.setAttribute("list_user", list2);
                 request.setAttribute("list_date_update", list3);

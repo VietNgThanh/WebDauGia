@@ -65,7 +65,6 @@
                         <p class="card-text">Giá mua ngay: <span class="text-danger font-weight-bold">
                             <fmt:formatNumber value="${product.imme_Price}" /> </span></p>
                         <p class="card-text">${product.detail_full}</p>
-                        <p class="card-text"></p>
                     </div>
                 </div>
             </div>

@@ -1,13 +1,13 @@
 package com.ute.webdaugia.beans;
 
 public class Product {
-    private  int idProduct,id_Cat,User_id,Availability,Start_price,id_ParentCat,Imme_Price,Current_Price,id_Bidder_current,highest_price;
+    private  int idProduct,id_Cat,User_id,Availability,Start_price,id_ParentCat,Imme_Price,Current_Price,id_Bidder_current,highest_price,buoc_nhay,dathongbao;
     private String Name,Detail_tiny,Detail_full;
 
     public Product() {
     }
 
-    public Product(int idProduct, int id_Cat, int user_id, int availability, int start_price, int id_ParentCat, int imme_Price, int current_Price, int id_Bidder_current, int highest_price, String name, String detail_tiny, String detail_full) {
+    public Product(int idProduct, int id_Cat, int user_id, int availability, int start_price, int id_ParentCat, int imme_Price, int current_Price, int id_Bidder_current, int highest_price, int buoc_nhay, int dathongbao, String name, String detail_tiny, String detail_full) {
         this.idProduct = idProduct;
         this.id_Cat = id_Cat;
         User_id = user_id;
@@ -18,9 +18,19 @@ public class Product {
         Current_Price = current_Price;
         this.id_Bidder_current = id_Bidder_current;
         this.highest_price = highest_price;
+        this.buoc_nhay = buoc_nhay;
+        this.dathongbao = dathongbao;
         Name = name;
         Detail_tiny = detail_tiny;
         Detail_full = detail_full;
+    }
+
+    public int getBuoc_nhay() {
+        return buoc_nhay;
+    }
+
+    public int getDathongbao() {
+        return dathongbao;
     }
 
     public int getIdProduct() {
