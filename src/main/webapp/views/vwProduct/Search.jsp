@@ -1,26 +1,19 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.ute.webdaugia.beans.Product" %>
-<%@ page import="java.util.stream.IntStream" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
+<c:catch var="catchException">
+  <jsp:useBean id="txtSearch" scope="request" type="java.lang.String"/>
+  <jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
+  <jsp:useBean id="pageNo" scope="request" type="java.lang.Integer"/>
+  <jsp:useBean id="pages" scope="request" type="java.lang.Integer"/>
+</c:catch>
 
 <t:main>
-
-  <%--  <%--%>
-  <%--    int productsPerPage = 3;--%>
-  <%--    int totalPages = products.size() / productsPerPage + 1;--%>
-  <%--    List<Integer> paging = IntStream.range(2, totalPages + 1);--%>
-  <%--    if (page < totalPages) {--%>
-  <%--      List<Product> productsPaging = products.subList(page * productsPerPage, page * productsPerPage + totalPages);--%>
-  <%--    }--%>
-  <%--    else {--%>
-  <%--      List<Product> productsPaging = products.subList(page * productsPerPage, products.size() + 1);--%>
-  <%--    }--%>
-  <%--  %>--%>
 
   <jsp:attribute name="css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/public/paging/styles.css">
@@ -32,7 +25,7 @@
         Products
       </h4>
       <c:choose>
-        <c:when test="${products.size() == 0}">
+        <c:when test="${empty products}">
           <div class="card-body">
             <p class="card-text">Không có dữ liệu.</p>
           </div>
@@ -74,12 +67,36 @@
     <footer class="d-flex justify-content-center align-items-center my-5">
       <nav>
         <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link" href="Product/ByCat?id">1</a></li>
-            <%--          <c:forEach items="paging" var="p">--%>
-            <%--            <li class="page-item"><a class="page-link" href="#">2</a></li>--%>
-            <%--          </c:forEach>--%>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          <li class="page-item">
+            <a class="page-link"
+               <c:if test="${pageNo eq 1}">style="pointer-events: none;" </c:if>
+               href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo-1}">
+              Previous
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link"
+               <c:if test="${pageNo eq 1}">style="pointer-events: none;" </c:if>
+               href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=1">
+              1
+            </a>
+          </li>
+          <c:forEach begin="2" end="${pages}" step="1" var="i">
+            <li class="page-item">
+              <a class="page-link"
+                 <c:if test="${pageNo eq i}">style="pointer-events: none;"</c:if>
+                 href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${i}">
+                  ${i}
+              </a>
+            </li>
+          </c:forEach>
+          <li class="page-item">
+            <a class="page-link"
+               <c:if test="${pageNo eq pages}">style=" pointer-events: none;"</c:if>
+               href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo+1}">
+              Next
+            </a>
+          </li>
         </ul>
       </nav>
     </footer>

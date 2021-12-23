@@ -15,6 +15,13 @@ public class AdminUserModel {
                     .executeAndFetch(User.class);
         }
     }
+    public static List<User> findAllUser_verpa() {
+        final String query = "select * from user where permission = 1";
+        try (Connection con = DbUtils.getConnection()) {
+            return con.createQuery(query)
+                    .executeAndFetch(User.class);
+        }
+    }
     public static void uptoSeller(int id){
         String sql = "UPDATE user SET permission = 2 WHERE idUser =:id \n";
         try (Connection con = DbUtils.getConnection()) {

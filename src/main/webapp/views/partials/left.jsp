@@ -54,6 +54,12 @@
                     </c:forEach>
                 </c:forEach>
                 </tbody>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th colspan="2" > <a href="${pageContext.request.contextPath}/Product/WatList"  >Watch List</a></th>
+                </tr>
+                </thead>
             </table>
         </div>
     </c:otherwise>

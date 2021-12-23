@@ -28,14 +28,14 @@
                   <c:set var="x" value="0"/>
                   <c:forEach items="${parentCategories}" var="parentCat">
                     <li>
-                    <a class="w-100 h-100 d-flex align-items-center pl-4">${parentCat.name}</a>
+                    <a class="w-100 h-100 d-flex align-items-center pl-4" href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${parentCat.id}&p=1">${parentCat.name}</a>
                     <ul class="sub-menu2" style="top: ${x}rem">
                       <c:set var="x" value="${x+2.5}"/>
                       <c:forEach items="${childCategories}" var="childCat">
                         <c:if test="${parentCat.id eq childCat.parent_id}">
                           <li>
                             <a class="w-100 h-100 d-flex align-items-center pl-3"
-                               href="${pageContext.request.contextPath}/Product/ByCat?id=${childCat.id}">${childCat.name}</a>
+                               href="${pageContext.request.contextPath}/Product/ByCat?id=${childCat.id}&p=1">${childCat.name}</a>
                           </li>
                         </c:if>
                       </c:forEach>
@@ -68,6 +68,7 @@
                   </button>
                 </div>
               </div>
+              <input type="hidden" id="p" name="p" value="1">
             </form>
             <a href="#" id="user" class="container-fluid" role="button">
               <i class="fa fa-user fa-lg mx-4" aria-hidden="true"></i>

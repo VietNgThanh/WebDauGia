@@ -41,7 +41,7 @@ public class AdminUser extends HttpServlet {
                 int idseller =0;
                 idseller = Integer.parseInt(request.getParameter("id"));
                 User user = AdminUserModel.findById(idseller);
-                List<Product> productbySeller = ProductModel.findbySeller(idseller);
+                List<Product> productbySeller = ProductModel.findByCatId(idseller);
                 request.setAttribute("products",productbySeller);
                 request.setAttribute("seller",user);
                 ServletUtils.forward("/views/vwAdminUser/InfoSeller.jsp", request, response);
