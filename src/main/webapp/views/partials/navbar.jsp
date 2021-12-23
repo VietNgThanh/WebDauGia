@@ -28,7 +28,7 @@
                   <c:set var="x" value="0"/>
                   <c:forEach items="${parentCategories}" var="parentCat">
                     <li>
-                    <a class="w-100 h-100 d-flex align-items-center pl-4">${parentCat.name}</a>
+                    <a class="w-100 h-100 d-flex align-items-center pl-4" href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${parentCat.id}">${parentCat.name}</a>
                     <ul class="sub-menu2" style="top: ${x}rem">
                       <c:set var="x" value="${x+2.5}"/>
                       <c:forEach items="${childCategories}" var="childCat">

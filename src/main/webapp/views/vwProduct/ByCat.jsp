@@ -28,7 +28,8 @@
                                         <div class="card-body">
                                             <h6 class="card-title">${c.name}</h6>
                                             <h5 class="card-title text-danger">
-                                                <fmt:formatNumber value="${c.start_price}" type="number" />
+                                                <fmt:formatNumber value="${c.current_Price}" type="number" />
+
                                             </h5>
                                             <p class="card-text">${c.detail_tiny}</p>
                                         </div>

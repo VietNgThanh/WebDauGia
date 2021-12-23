@@ -2,10 +2,9 @@ package com.ute.webdaugia.beans;
 
 public class User {
     private int idUser;
-    private String username, password, name, email,address;
+    private String username,name, password, email,address;
     private int permission;
     private String code;
-
     public User() {
     }
     public User(int idUser, String username, String password, String name, String email, String address, int permission) {

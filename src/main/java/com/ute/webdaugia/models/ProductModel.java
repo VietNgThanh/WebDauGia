@@ -50,6 +50,23 @@ public class ProductModel {
                     .executeUpdate();
         }
     }
+    public static List<Product> findbySeller(int id) {
+        final String query = "select * from product where User_id = :User_id";
+        try (Connection con = DbUtils.getConnection()) {
+            return con.createQuery(query)
+                    .addParameter("User_id", id)
+                    .executeAndFetch(Product.class);
+        }
+    }
+    public static List<Product> findbyparentID(int id) {
+        final String query = "select * from product where id_ParentCat = :id_ParentCat";
+        try (Connection con = DbUtils.getConnection()) {
+            return con.createQuery(query)
+                    .addParameter("id_ParentCat", id)
+                    .executeAndFetch(Product.class);
+        }
+    }
+
     public static void addWatchList(int id_user, int id_product){
         String sql ="INSERT INTO wish_list(id_user,id_product) VALUES(:id_user,:id_product)";
         try (Connection con = DbUtils.getConnection()) {
@@ -58,7 +75,7 @@ public class ProductModel {
                     .addParameter("id_product", id_product)
                     .executeUpdate();
         }
-        }
+    }
     public static List<Product> findByIdWatList() {
         final String query = "select idProduct,Name,id_Cat,User_id,Detail_tiny,Detail_full,Start_price,Imme_Price,Availability,Current_Price,id_ParentCat from product inner join wish_list\n" +
                 "on product.idProduct = wish_list.id_product";

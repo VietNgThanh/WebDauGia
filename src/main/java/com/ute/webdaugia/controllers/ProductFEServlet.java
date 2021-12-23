@@ -3,7 +3,10 @@ package com.ute.webdaugia.controllers;
 import com.ute.webdaugia.beans.Product;
 import com.ute.webdaugia.beans.User;
 import com.ute.webdaugia.beans.Wishlist;
+import com.ute.webdaugia.beans.Orders;
+import com.ute.webdaugia.models.AdminUserModel;
 import com.ute.webdaugia.models.ProductModel;
+import com.ute.webdaugia.models.OrderModel;
 import com.ute.webdaugia.utils.ServletUtils;
 import org.sql2o.converters.Convert;
 
@@ -50,6 +53,17 @@ public class ProductFEServlet extends HttpServlet {
                     request.setAttribute("wlists",wlist2);
                     ServletUtils.forward("/views/vwProduct/Detail.jsp", request, response);
                 }
+                break;
+            case "/ByParentCatID":
+                int PaCaID = Integer.parseInt(request.getParameter("id"));
+                List<Product> list1 = ProductModel.findbyparentID(PaCaID);
+                List<User> list2 = AdminUserModel.findAllUser_verpa();
+                List<Orders> list3 = OrderModel.find_all_product_per1();
+
+                request.setAttribute("products_PaCaID", list1);
+                request.setAttribute("list_user", list2);
+                request.setAttribute("list_date_update", list3);
+                ServletUtils.forward("/views/vwProduct/ByParentID.jsp", request, response);
                 break;
             case "/addwatlist":
                 int catId1 = 0;
