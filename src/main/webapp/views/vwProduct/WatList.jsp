@@ -40,7 +40,7 @@
                                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                 Add to cart
                                             </a>
-                                            <a  class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Product/delwatlist?id_product=${c.idProduct}" role="button">
+                                            <a  class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Product/delwatlistinWatList?id_product=${c.idProduct}" role="button">
                                                 Unlike
                                             </a>
                                         </div>

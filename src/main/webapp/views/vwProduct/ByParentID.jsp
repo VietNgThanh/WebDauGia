@@ -56,6 +56,16 @@
                                            type="both"/>
                             <fmt:formatDate pattern="dd.MM.yyyy HH:mm"
                                             value="${ parsedDateTime }"/>
+                            <%--                                                                                                                <script>var startDate = ${c2.time_to_close};--%>
+                            <%--                                                                                                                // Do your operations--%>
+                            <%--                                                                                                                var today = new Date();--%>
+                            <%--                                                                                                                var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();--%>
+                            <%--                                                                                                                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();--%>
+                            <%--                                                                                                                var dateTime = date+' '+time;--%>
+                            <%--                                                                                                                var seconds = (dateTime.getTime() - startDate.getTime());--%>
+                            <%--                                                                                                                document.getElementById(`date`).innerHTML=seconds;--%>
+                            <%--                                                                                                                </script>--%>
+
                           </c:if>
                         </c:forEach>
 

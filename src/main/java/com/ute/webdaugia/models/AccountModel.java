@@ -32,6 +32,33 @@ public class AccountModel {
             return list.get(0);
         }
     }
+    public static User findByidUser(int idUser) {
+        String query = "select * from user where idUser = :idUser";
+        try (Connection con = DbUtils.getConnection()) {
+            List<User> list = con.createQuery(query)
+                    .addParameter("idUser", idUser)
+                    .executeAndFetch(User.class);
+            if (list.size() == 0) {
+                return null;
+            }
+            return list.get(0);
+        }
+    }
+    public static void updateProfile(User p){
+            String sql = "UPDATE user SET  username = :username, password = :password, name = :name, email = :email, address = :address, permission = :permission WHERE idUser = :idUser \n";
+            try(Connection con = DbUtils.getConnection()) {
+                con.createQuery(sql)
+                        .addParameter("username",p.getUsername())
+                        .addParameter("password",p.getPassword())
+                        .addParameter("permission",p.getPermission())
+                        .addParameter("name",p.getName())
+                        .addParameter("email",p.getEmail())
+                        .addParameter("address",p.getAddress())
+                        .addParameter("idUser",p.getIdUser())
+                        .executeUpdate();
+            }
+    }
+
     public static User findByEmail(String email){
         String query = "select * from user where email = :email";
         try (Connection con = DbUtils.getConnection()) {
@@ -45,7 +72,7 @@ public class AccountModel {
         }
     }
     public static void updateUserFogotPassword(User c) {
-        String sql = "UPDATE user SET  username = :username, password = :password, name = :name, email = :email, address = :address, permission = :permission WHERE id = :id \n";
+        String sql = "UPDATE user SET  username = :username, password = :password, name = :name, email = :email, address = :address, permission = :permission WHERE idUser = :id \n";
         try (Connection con = DbUtils.getConnection()) {
             con.createQuery(sql)
                     .addParameter("username", c.getUsername())
