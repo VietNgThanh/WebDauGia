@@ -49,4 +49,13 @@ public class ProductModel {
                     .executeAndFetch(Product.class);
         }
     }
+    public static List<Product> findbyparentID(int id) {
+        final String query = "select * from product where id_ParentCat = :id_ParentCat";
+        try (Connection con = DbUtils.getConnection()) {
+            return con.createQuery(query)
+                    .addParameter("id_ParentCat", id)
+                    .executeAndFetch(Product.class);
+        }
+    }
+
 }

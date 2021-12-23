@@ -6,28 +6,66 @@
 
 
 <t:main>
+<jsp:attribute name="css">
+        <style>
+
+            ul li{
+                margin-left: 20px;
+                display: inline-block;
+                list-style: none;
+            }
+            ul, #main-img{
+                float: left;
+            }
+            ul li img{
+                width: 100px;
+                cursor: pointer;
+            }
+            #main-img{
+                width: 500px;
+            }
+            #main-img img{
+                width: 400px;
+                margin-top: 10px;
+                margin-left: 20px;
+                margin-bottom: 20px;
+            }
+        </style>
+    </jsp:attribute>
+    <jsp:attribute name="js">
+        <script>
+            function changeImage(id){
+                let imagePath = document.getElementById(id).getAttribute('src');
+                document.getElementById('main-image').setAttribute('src',imagePath);
+            }
+        </script>
+    </jsp:attribute>
     <jsp:body>
         <div class="card">
             <h4 class="card-header">
-                    ${product.name}
+                ABC
             </h4>
             <div class="card-body">
-                <img src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/main.jpg" alt="${product.name}" title="${product.name}">
-                <p class="card-text mt-3">
-                    Giá bán:
-                    <span class="text-danger font-weight-bold">
-            <fmt:formatNumber value="${product.start_price}" />
-          </span>
-                </p>
-                <p class="card-text">Giá mua ngay: <span class="text-danger font-weight-bold">
-        <fmt:formatNumber value="${product.imme_Price}" /> </span></p>
-                <p class="card-text">${product.detail_full}</p>
-                <p class="card-text"></p>
+                <div class ="row">
+                    <div class="col-sm-5">
+                        <div id = "main-img">
+                            <img src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/main.jpg"  id="main-image">
+                        </div>
+                        <ul>
+                            <li><img src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/main.jpg" onclick="changeImage('one')" id="one"></li>
+                            <li><img src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/1.jpg"     onclick="changeImage('two')" id="two"></li>
+                            <li><img src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/2.jpg"     onclick="changeImage('three')" id="three"></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-5">
+                        <h3>Tên Sản Phẩm: ${product.name}</h3>
+                        <p class="card-text">Giá mua ngay: <span class="text-danger font-weight-bold">
+                            <fmt:formatNumber value="${product.imme_Price}" /> </span></p>
+                        <p class="card-text">${product.detail_full}</p>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
             </div>
-            <a class="btn btn-outline-success" href="${pageContext.request.contextPath}/Product/ByCat?id=${product.idCat}" role="button">
-                <i class="fa fa-backward" aria-hidden="true"></i>
-                List
-            </a>
         </div>
     </jsp:body>
 </t:main>

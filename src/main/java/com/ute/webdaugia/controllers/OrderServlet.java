@@ -29,7 +29,7 @@ public class OrderServlet extends HttpServlet {
                 List<Product> list1 = ProductModel.findAll();
                 request.setAttribute("top_product", list);
                 request.setAttribute("top_product2",list2);
-                request.setAttribute("top_product3",list2);
+                request.setAttribute("top_product3",list3);
                 request.setAttribute("products", list1);
                 ServletUtils.forward("/views/vwHome/Home1.jsp", request, response);
                 break;
