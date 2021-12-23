@@ -1,4 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.ute.webdaugia.beans.Product" %>
+<%@ page import="java.util.stream.IntStream" %>
+
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -6,6 +9,23 @@
 <jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 
 <t:main>
+
+  <%--  <%--%>
+  <%--    int productsPerPage = 3;--%>
+  <%--    int totalPages = products.size() / productsPerPage + 1;--%>
+  <%--    List<Integer> paging = IntStream.range(2, totalPages + 1);--%>
+  <%--    if (page < totalPages) {--%>
+  <%--      List<Product> productsPaging = products.subList(page * productsPerPage, page * productsPerPage + totalPages);--%>
+  <%--    }--%>
+  <%--    else {--%>
+  <%--      List<Product> productsPaging = products.subList(page * productsPerPage, products.size() + 1);--%>
+  <%--    }--%>
+  <%--  %>--%>
+
+  <jsp:attribute name="css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/public/paging/styles.css">
+  </jsp:attribute>
+
   <jsp:body>
     <div class="card">
       <h4 class="card-header">
@@ -51,7 +71,18 @@
         </c:otherwise>
       </c:choose>
     </div>
-
+    <footer class="d-flex justify-content-center align-items-center my-5">
+      <nav>
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="Product/ByCat?id">1</a></li>
+            <%--          <c:forEach items="paging" var="p">--%>
+            <%--            <li class="page-item"><a class="page-link" href="#">2</a></li>--%>
+            <%--          </c:forEach>--%>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+    </footer>
 
   </jsp:body>
 </t:main>
