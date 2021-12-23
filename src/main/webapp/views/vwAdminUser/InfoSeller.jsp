@@ -15,7 +15,21 @@
   </jsp:attribute>
     <jsp:body>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col">
+                <div class="d-flex mb-2">
+                    <div>
+                        <a class="btn btn-sm btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/Index" role="button">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            Quit
+                        </a>
+                    </div>
+                    <div class="flex-fill ml-1">
+                        <a class="btn btn-sm btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/DeleteSeller?id=${seller.idUser}" role="button">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Không cho bán hàng
+                        </a>
+                    </div>
+                </div>
                 <div class="card">
                     <h4 class="card-header d-flex justify-content-between">
                         Thong Tin Seller
@@ -35,15 +49,15 @@
                                         <label for="txtAddress">Địa Chỉ</label>
                                         <input type="text" class="form-control" id="txtAddress" readonly value="${seller.address}">
                                     </div>
-                                    <div class="form-group d-flex">
+                                    <div class="form-group d-flex ml-6">
                                         <div>
-                                            <a class="btn btn-lg btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/Index" role="button">
+                                            <a class="btn btn-sm btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/Index" role="button">
                                                 <i class="fa fa-home" aria-hidden="true"></i>
                                                 Quit
                                             </a>
                                         </div>
                                         <div class="flex-fill ml-1">
-                                            <a class="btn btn-lg btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/DeleteSeller?id=${seller.idUser}" role="button">
+                                            <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/DeleteSeller?id=${seller.idUser}" role="button">
                                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                                                 Không cho bán hàng
                                             </a>
@@ -54,9 +68,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <div class="card">
+        <div class="card mt-3">
             <h4 class="card-header d-flex justify-content-between">
                 Các Sản Phẩm Đang Bán
             </h4>

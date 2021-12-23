@@ -2,15 +2,14 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:catch var="catchException">
+
 <jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
-<jsp:useBean id="wlists" scope="request" type="java.util.List<com.ute.webdaugia.beans.Wishlist>"/>
-</c:catch>
+
 <t:main>
     <jsp:body>
         <div class="card">
             <h4 class="card-header">
-                Products
+                Watch List
             </h4>
             <c:choose>
                 <c:when test="${products.size() == 0}">
@@ -28,8 +27,7 @@
                                         <div class="card-body">
                                             <h6 class="card-title">${c.name}</h6>
                                             <h5 class="card-title text-danger">
-                                                <fmt:formatNumber value="${c.current_Price}" type="number" />
-
+                                                <fmt:formatNumber value="${c.start_price}" type="number" />
                                             </h5>
                                             <p class="card-text">${c.detail_tiny}</p>
                                         </div>
@@ -42,34 +40,17 @@
                                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                 Add to cart
                                             </a>
-                                            <c:set scope="request" var="check" value="" />
-                                            <c:forEach items="${wlists}" var="wl">
-
-                                                <c:if test="${c.idProduct == wl.id_product}">
-                                                    <c:set scope="request" var="check" value="true" />
-                                                </c:if>
-                                            </c:forEach>
-                                            <c:if test="${check.length() == 0}">
-                                                <a  class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}" role="button">
-                                                    <i class="fa fa-heart" aria-hidden="true"></i>
-                                                </a>
-                                            </c:if>
-                                            <c:if test="${check.length() != 0}">
-                                                <a  class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Product/delwatlist?id_product=${c.idProduct}" role="button">
-                                                    Unlike
-                                                </a>
-                                                <c:set scope="request" var="check" value="" />
-                                            </c:if>
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </div>
-                                                    </div>
-                                                </c:otherwise>
-                                            </c:choose>
+                                            <a  class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Product/delwatlist?id_product=${c.idProduct}" role="button">
+                                                Unlike
+                                            </a>
                                         </div>
-                                    </jsp:body>
-                                </t:main>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </jsp:body>
+</t:main>

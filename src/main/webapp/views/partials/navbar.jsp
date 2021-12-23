@@ -34,7 +34,8 @@
                       <c:forEach items="${childCategories}" var="childCat">
                         <c:if test="${parentCat.id eq childCat.parent_id}">
                           <li>
-                            <a class="w-100 h-100 d-flex align-items-center pl-3" href="${pageContext.request.contextPath}/Product/ByCat?id=${childCat.id}">${childCat.name}</a>
+                            <a class="w-100 h-100 d-flex align-items-center pl-3"
+                               href="${pageContext.request.contextPath}/Product/ByCat?id=${childCat.id}">${childCat.name}</a>
                           </li>
                         </c:if>
                       </c:forEach>
@@ -53,7 +54,7 @@
           </span>
 
       <span class="d-flex align-items-center">
-            <form action="#" method="post">
+            <form action="${pageContext.request.contextPath}/Product/Search" method="post">
               <div class="input-group search-box">
                 <input
                         name="search-box"

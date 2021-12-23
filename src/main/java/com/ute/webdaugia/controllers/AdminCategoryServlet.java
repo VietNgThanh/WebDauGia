@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "AdminCategoryServlet", value = "/Admin/Category/*")
+    @WebServlet(name = "AdminCategoryServlet", value = "/Admin/Category/*")
 public class AdminCategoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +35,6 @@ public class AdminCategoryServlet extends HttpServlet {
 
             case "/AddChild":
             case "/Edit":
-                System.out.println("hello");
                 int parentId = 0;
                 int childId = 0;
                 try {
