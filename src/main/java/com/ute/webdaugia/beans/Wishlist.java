@@ -1,6 +1,7 @@
 package com.ute.webdaugia.beans;
 
 public class Wishlist {
+    private int id;
     private int id_user;
     private int id_product;
 
