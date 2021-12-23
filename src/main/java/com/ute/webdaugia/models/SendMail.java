@@ -52,7 +52,7 @@ public class SendMail {
         // Step3: Send mail
         Transport transport = getMailSession.getTransport("smtp");
         // Thay your_gmail thành gmail của bạn, thay your_password thành mật khẩu gmail của bạn
-        transport.connect("smtp.gmail.com", "phucngoc0109@gmail.com", "Baophuc123");
+        transport.connect("smtp.gmail.com", "ltwdaugia2021@@gmail.com", "Daihocspkt2021");
         transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
         transport.close();
         test = true;
