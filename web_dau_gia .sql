@@ -300,7 +300,7 @@ DELIMITER ;
 
 CREATE TABLE `users` (
   `iduser` int(11) NOT NULL,
-  `usename` varchar(45) DEFAULT NULL,
+  `username` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   `name` varchar(60) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
@@ -313,7 +313,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`iduser`, `usename`, `password`, `name`, `email`, `address`, `permission`, `mark`) VALUES
+INSERT INTO `users` (`iduser`, `username`, `password`, `name`, `email`, `address`, `permission`, `mark`) VALUES
 (1, 'Khoa', '123', NULL, 'ntdkhoa123456789@gmail.com', '105 Nguyen Trong Ky,Cam Ranh, Khanh Hoa', 3, NULL),
 (2, 'Phuc', '1234', NULL, 'phuc1234@gmail.com', 'Duc Trong,Lam Dong', 2, 38),
 (3, 'Minh', '123', NULL, 'minh123@gmail.com', 'Di An, Binh  Duong', 1, NULL),
@@ -436,6 +436,14 @@ ALTER TABLE `childcategory`
 ALTER TABLE `orders_product`
   ADD CONSTRAINT `fk_Order_Pro` FOREIGN KEY (`id_Product`) REFERENCES `product` (`idProduct`),
   ADD CONSTRAINT `fk_Order_User` FOREIGN KEY (`id_User`) REFERENCES `users` (`iduser`);
+
+-- Add full-text search for table product
+ALTER TABLE product
+    ADD FULLTEXT (Name);
+
+-- Add full-text search for table childcategory
+ALTER TABLE childcategory
+    ADD FULLTEXT (name);
 
 --
 -- Constraints for table `product`
