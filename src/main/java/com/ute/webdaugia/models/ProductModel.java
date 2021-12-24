@@ -135,7 +135,10 @@ public class ProductModel {
                 .collect(Collectors.toList());
             List<Product> proByCatID = new ArrayList<>();
             for (int catId : catIdsSearchByCatName) {
-                proByCatID.addAll(ProductModel.findByCatId(catId));
+                try {
+                    proByCatID.addAll(ProductModel.findByCatId(catId));
+                }
+                catch (NullPointerException e){}
             }
             for (Product pro : proByCatID) {
                 if (!proIds.contains(pro.getIdProduct())) {
