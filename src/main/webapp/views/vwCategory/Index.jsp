@@ -5,7 +5,7 @@
 <jsp:useBean id="parentCategories" scope="request" type="java.util.List<com.ute.webdaugia.beans.ParentCategory>"/>
 <jsp:useBean id="childCategories" scope="request" type="java.util.List<com.ute.webdaugia.beans.ChildCategory>"/>
 
-<t:admin>
+<t:adminUser>
   <jsp:body>
     <div class="card">
       <h4 class="card-header d-flex justify-content-between">
@@ -77,4 +77,4 @@
       </c:choose>
     </div>
   </jsp:body>
-</t:admin>
+</t:adminUser>

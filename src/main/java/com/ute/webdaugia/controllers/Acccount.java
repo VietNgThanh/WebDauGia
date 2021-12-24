@@ -230,7 +230,7 @@ public class Acccount extends HttpServlet {
         String codecf = request.getParameter("code");
         HttpSession session = request.getSession();
         User user= (User) session.getAttribute("authcode");
-        String code = user.getCode();
+        String code = session.getAttribute("codex");
         String rawpwd = user.getPassword();
         String username = user.getUsername();
         String name = user.getName();
@@ -258,13 +258,15 @@ public class Acccount extends HttpServlet {
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         int permission = 0;
+        int mark =0;
         SendMail sendMail = new SendMail();
         String code = sendMail.getRandom();
-        User c = new User(0, username,bcryptHashString,name,email,address,permission,code);
+        User c = new User(0, username,bcryptHashString,name,email,address,permission,mark);
         boolean sm = sendMail.Sendmail(c.getEmail(),code);
         if(sm){
             HttpSession session  = request.getSession();
             session.setAttribute("authcode", c);
+            session.setAttribute("codex",code);
             String  urlz = "/Account/Verify";
             ServletUtils.redirect(urlz, request, response);
         }else{

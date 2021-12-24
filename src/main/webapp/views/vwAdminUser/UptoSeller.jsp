@@ -10,14 +10,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </jsp:attribute>
     <jsp:body>
-<%--        <div class="card">--%>
-<%--            <h4 class="card-header d-flex justify-content-between">--%>
-<%--                Categories--%>
-<%--                <a class="btn btn-outline-success" href="${pageContext.request.contextPath}/Admin/Category/Add" role="button">--%>
-<%--                    <i class="fa fa-plus" aria-hidden="true"></i>--%>
-<%--                    Add Category--%>
-<%--                </a>--%>
-<%--            </h4>--%>
             <c:choose>
                 <c:when test="${users.size() == 0}">
                     <div class="card-body">

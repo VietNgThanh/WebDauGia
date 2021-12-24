@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AccountModel {
         public static void add(User c) {
-            String insertSql ="INSERT INTO user(username, password, name, email, address, permission) VALUES (:username,:password,:name,:email,:address,:permission)" ;
+            String insertSql ="INSERT INTO users(username, password, name, email, address, permission,mark) VALUES (:username,:password,:name,:email,:address,:permission,0)" ;
             try (Connection con = DbUtils.getConnection()) {
                 con.createQuery(insertSql)
                         .addParameter("username",c.getUsername())
@@ -21,7 +21,7 @@ public class AccountModel {
             }
         }
     public static User findByusername(String username) {
-         String query = "select * from user where username = :username";
+         String query = "select * from users where username = :username";
         try (Connection con = DbUtils.getConnection()) {
             List<User> list = con.createQuery(query)
                     .addParameter("username", username)
@@ -33,7 +33,7 @@ public class AccountModel {
         }
     }
     public static User findByidUser(int idUser) {
-        String query = "select * from user where idUser = :idUser";
+        String query = "select * from users where iduser = :idUser";
         try (Connection con = DbUtils.getConnection()) {
             List<User> list = con.createQuery(query)
                     .addParameter("idUser", idUser)
@@ -45,7 +45,7 @@ public class AccountModel {
         }
     }
     public static void updateProfile(User p){
-            String sql = "UPDATE user SET  username = :username, password = :password, name = :name, email = :email, address = :address, permission = :permission WHERE idUser = :idUser \n";
+            String sql = "UPDATE users SET  username = :username, password = :password, name = :name, email = :email, address = :address, permission = :permission WHERE idUser = :idUser \n";
             try(Connection con = DbUtils.getConnection()) {
                 con.createQuery(sql)
                         .addParameter("username",p.getUsername())
@@ -60,7 +60,7 @@ public class AccountModel {
     }
 
     public static User findByEmail(String email){
-        String query = "select * from user where email = :email";
+        String query = "select * from users where email = :email";
         try (Connection con = DbUtils.getConnection()) {
             List<User> list = con.createQuery(query)
                     .addParameter("email", email)
@@ -72,7 +72,7 @@ public class AccountModel {
         }
     }
     public static void updateUserFogotPassword(User c) {
-        String sql = "UPDATE user SET  username = :username, password = :password, name = :name, email = :email, address = :address, permission = :permission WHERE idUser = :id \n";
+        String sql = "UPDATE users SET  username = :username, password = :password, name = :name, email = :email, address = :address, permission = :permission, mark =: mark WHERE idUser = :id \n";
         try (Connection con = DbUtils.getConnection()) {
             con.createQuery(sql)
                     .addParameter("username", c.getUsername())
@@ -82,6 +82,7 @@ public class AccountModel {
                     .addParameter("address", c.getAddress())
                     .addParameter("permission", c.getPermission())
                     .addParameter("id", c.getIdUser())
+                    .addParameter("mark",c.getMark())
                     .executeUpdate();
         }
     }

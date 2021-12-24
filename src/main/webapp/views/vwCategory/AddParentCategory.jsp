@@ -2,7 +2,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<t:admin>
+<t:adminUser>
   <jsp:attribute name="js">
     <script>
         $('#frmAddMainCategory').on('submit', function (e) {
@@ -62,4 +62,4 @@
       </div>
     </form>
   </jsp:body>
-</t:admin>
+</t:adminUser>

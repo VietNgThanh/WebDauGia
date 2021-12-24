@@ -8,6 +8,17 @@ public class User {
     public User() {
     }
 
+    public User(int idUser, String username, String password, String name,  String email, String address, int permission, int mark) {
+        this.idUser = idUser;
+        Mark = mark;
+        this.username = username;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.address = address;
+        this.permission = permission;
+    }
+
     public User(int idUser, String username, String password, String name, String email, String address, int permission, String code) {
         this.idUser = idUser;
         this.username = username;
@@ -17,6 +28,14 @@ public class User {
         this.address = address;
         this.permission = permission;
         this.code = code;
+    }
+
+    public int getMark() {
+        return Mark;
+    }
+
+    public void setMark(int mark) {
+        Mark = mark;
     }
 
     public User(int idUser, String username, String password, String name, String email, String address, int permission) {

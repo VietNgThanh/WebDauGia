@@ -25,7 +25,8 @@ public class AdminUser extends HttpServlet {
                 List<User> list = AdminUserModel.findAllUser();
                 request.setAttribute("users", list);
                 ServletUtils.forward("/views/vwAdminUser/UptoSeller.jsp", request, response);
-            case "/DkiSeller/Access":
+                break;
+                case "/DkiSeller/Access":
                 int id =0;
                 id = Integer.parseInt(request.getParameter("id"));
                 AdminUserModel.uptoSeller(id);
