@@ -104,7 +104,22 @@ public class ProductModel {
                     .addParameter("id_product", id_product)
                     .executeUpdate();
         }
-
+    }
+    public static void Add_Seller_Product(Product a){
+        String sql ="insert into product(Name, id_Cat, User_id, Detail_tiny," +
+                " Detail_full, Start_price, Imme_Price, highest_price, buoc_nhay) " +
+                "values (:ProName ,:idCat,1,:TinyDes,:FullDes,:StartPrice,:ImmePrice,0,:buocnhay)";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("ProName", a.getName())
+                    .addParameter("TinyDes", a.getDetail_tiny())
+                    .addParameter("FullDes", a.getDetail_full())
+                    .addParameter("StartPrice", a.getStart_price())
+                    .addParameter("ImmePrice", a.getImme_Price())
+                    .addParameter("buocnhay", a.getBuoc_nhay())
+                    .addParameter("idCat", a.getIdCat())
+                    .executeUpdate();
+        }
     }
 
 }

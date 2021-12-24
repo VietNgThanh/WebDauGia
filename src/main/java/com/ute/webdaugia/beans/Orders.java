@@ -45,13 +45,5 @@ public class Orders {
     public LocalDateTime getTime_make_price() {
         return Time_make_price;
     }
-//    public Time geta(){return a;}
 
-
-//    public static Duration main() {
-//        LocalDateTime cal =Orders.class.getTime_to_close();
-//        LocalDateTime current=LocalDateTime.now();
-//        Duration a= Duration.ofDays(Duration.between(cal,current).toHours());
-//        return a;
-//    }
 }

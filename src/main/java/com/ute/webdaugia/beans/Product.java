@@ -25,6 +25,16 @@ public class Product {
         Detail_full = detail_full;
     }
 
+    public Product(int id_Cat, int start_price, int imme_Price, int buoc_nhay, String name, String detail_tiny, String detail_full) {
+        this.id_Cat = id_Cat;
+        Start_price = start_price;
+        Imme_Price = imme_Price;
+        this.buoc_nhay = buoc_nhay;
+        Name = name;
+        Detail_tiny = detail_tiny;
+        Detail_full = detail_full;
+    }
+
     public int getBuoc_nhay() {
         return buoc_nhay;
     }
