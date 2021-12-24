@@ -121,7 +121,7 @@ public class ProductModel {
     public static void Add_Seller_Product(Product a){
         String sql ="insert into product(Name, id_Cat, User_id, Detail_tiny," +
                 " Detail_full, Start_price, Imme_Price, highest_price, buoc_nhay) " +
-                "values (:ProName ,:idCat,1,:TinyDes,:FullDes,:StartPrice,:ImmePrice,0,:buocnhay)";
+                "values (:ProName ,:idCat,:idUser,:TinyDes,:FullDes,:StartPrice,:ImmePrice,0,:buocnhay)";
         try (Connection con = DbUtils.getConnection()) {
             con.createQuery(sql)
                     .addParameter("ProName", a.getName())
@@ -131,6 +131,7 @@ public class ProductModel {
                     .addParameter("ImmePrice", a.getImme_Price())
                     .addParameter("buocnhay", a.getBuoc_nhay())
                     .addParameter("idCat", a.getIdCat())
+                    .addParameter("idUser", a.getUserid())
                     .executeUpdate();
         }
     }
