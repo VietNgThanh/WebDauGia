@@ -9,10 +9,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="card">
     <h4 class="card-header">
-        Categories
+        Admin Features
     </h4>
-    <div class="card-body">
-        <a href="#" class="list-group-item list-group-item-action">Quản Lí Catagories</a>
+    <div class="card-body list-group-flush py-0 px-3">
+        <a href="${pageContext.request.contextPath}/Admin/Category/Index" class="list-group-item list-group-item-action">Quản Lí Catagories</a>
         <a href="${pageContext.request.contextPath}/Admin/QuanLiSanPham/Index" class="list-group-item list-group-item-action">Quản Lí Product</a>
         <a href="${pageContext.request.contextPath}/Admin/QuanLiSeller/Index" class="list-group-item list-group-item-action">Quản Lí Seller</a>
         <a href="${pageContext.request.contextPath}/Admin/DkiSeller/Index" class="list-group-item list-group-item-action">Danh Sách Đăng Kí Bán Hàng</a>

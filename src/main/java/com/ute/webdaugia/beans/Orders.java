@@ -1,22 +1,25 @@
 package com.ute.webdaugia.beans;
 
+import java.sql.Time;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.util.Calendar;
 
 public class Orders {
     private int idOrder,id_Product,id_User,rule,Price;
-    private LocalDateTime Time_make_price,Time_to_close;
-
+    private LocalDateTime Time_make_price;
+//    private Time a;
     public Orders() {
     }
 
-    public Orders(int idOrder, int id_Product, int id_User, int rule, int price, LocalDateTime time_make_price, LocalDateTime time_to_close) {
+    public Orders(int idOrder, int id_Product, int id_User, int rule, int price, LocalDateTime time_make_price) {
         this.idOrder = idOrder;
         this.id_Product = id_Product;
         this.id_User = id_User;
         this.rule = rule;
         Price = price;
         Time_make_price = time_make_price;
-        Time_to_close = time_to_close;
     }
 
     public int getIdOrder() {
@@ -42,8 +45,13 @@ public class Orders {
     public LocalDateTime getTime_make_price() {
         return Time_make_price;
     }
+//    public Time geta(){return a;}
 
-    public LocalDateTime getTime_to_close() {
-        return Time_to_close;
-    }
+
+//    public static Duration main() {
+//        LocalDateTime cal =Orders.class.getTime_to_close();
+//        LocalDateTime current=LocalDateTime.now();
+//        Duration a= Duration.ofDays(Duration.between(cal,current).toHours());
+//        return a;
+//    }
 }

@@ -2,12 +2,15 @@ package com.ute.webdaugia.controllers;
 
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.ute.webdaugia.beans.Product;
 import com.ute.webdaugia.models.AccountModel;
+import com.ute.webdaugia.models.ProductModel;
 import com.ute.webdaugia.models.SendMail;
 import com.ute.webdaugia.utils.*;
 import com.ute.webdaugia.beans.User;
 
 import javax.mail.MessagingException;
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "Account", value = "/Account/*")
 public class Acccount extends HttpServlet {
@@ -63,7 +67,14 @@ public class Acccount extends HttpServlet {
                 break;
             case "/ChangePassWord":
                 ServletUtils.forward("/views/vwAccount/ChangePassWord.jsp", request, response);
-
+                break;
+            case "/Profile":
+                HttpSession session3 = request.getSession();
+                User user3= (User) session3.getAttribute("authUser");
+                User profile = AccountModel.findByidUser(user3.getIdUser());
+                request.setAttribute("profile", profile);
+                ServletUtils.forward("/views/vwAccount/Profile.jsp", request, response);
+                break;
         }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
@@ -101,8 +112,23 @@ public class Acccount extends HttpServlet {
             case "/ChangePassWord":
                 changePassWord(request,response);
                 break;
+            case "/Profile":
+                updateProfile(request,response);
+                break;
         }
 
+    }
+    private void updateProfile(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        User user= (User) session.getAttribute("authUser");
+
+        String name = request.getParameter("name");
+        String email = request.getParameter("email1");
+        String address = request.getParameter("address");
+        User c = new User(user.getIdUser(),user.getUsername(),user.getPassword(),name,email,address,user.getPermission());
+        AccountModel.updateProfile(c);
+        String  urlproduct = "/Account/Profile";
+        ServletUtils.redirect(urlproduct, request, response);
     }
 
     private void changePassWord(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {

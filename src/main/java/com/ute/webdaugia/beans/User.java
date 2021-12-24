@@ -1,7 +1,7 @@
 package com.ute.webdaugia.beans;
 
 public class User {
-    private int idUser;
+    private int idUser,Mark;
     private String username,name, password, email,address;
     private int permission;
     private String code;

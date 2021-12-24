@@ -8,7 +8,7 @@
 </c:catch>
 
 
-<t:admin>
+<t:adminUser>
   <jsp:body>
     <form action="" method="post">
       <div class="card">
@@ -67,4 +67,4 @@
       </div>
     </form>
   </jsp:body>
-</t:admin>
+</t:adminUser>
