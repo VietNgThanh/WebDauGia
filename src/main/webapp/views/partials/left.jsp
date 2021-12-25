@@ -47,7 +47,7 @@
                             <tr class="text-right" id="collapse-main-${parentCat.id}">
                                     <td style="width: 15%">&nbsp;</td>
                                     <td style="width: 70%" colspan="2">
-                                        <a href="${pageContext.request.contextPath}/Product/ByCat?id=${childCat.id}" class="btn btn-sm btn-outline-secondary w-100" >${childCat.name}</a>
+                                        <a href="${pageContext.request.contextPath}/Product/ByCat?id=${childCat.id}&p=1" class="btn btn-sm btn-outline-secondary w-100" >${childCat.name}</a>
                                     </td>
                             </tr>
                         </c:if>

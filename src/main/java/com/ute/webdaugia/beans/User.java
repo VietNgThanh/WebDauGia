@@ -19,16 +19,16 @@ public class User {
         this.permission = permission;
     }
 
-    public User(int idUser, String username, String password, String name, String email, String address, int permission, String code) {
-        this.idUser = idUser;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        this.address = address;
-        this.permission = permission;
-        this.code = code;
-    }
+//    public User(int idUser, String username, String password, String name, String email, String address, int permission, String code) {
+//        this.idUser = idUser;
+//        this.username = username;
+//        this.password = password;
+//        this.name = name;
+//        this.email = email;
+//        this.address = address;
+//        this.permission = permission;
+//        this.code = code;
+//    }
 
     public int getMark() {
         return Mark;

@@ -23,7 +23,7 @@
                 <a href="#" class="link p-3">Home</a>
               </li>
               <li class="nav-item">
-                <a href="#" class="link p-3">Shop</a>
+                <a href="" class="link p-3">Shop</a>
                 <ul id="shop" class="sub-menu">
                   <c:set var="x" value="0"/>
                   <c:forEach items="${parentCategories}" var="parentCat">

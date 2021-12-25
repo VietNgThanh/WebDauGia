@@ -11,6 +11,8 @@
   <jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
   <jsp:useBean id="pageNo" scope="request" type="java.lang.Integer"/>
   <jsp:useBean id="pages" scope="request" type="java.lang.Integer"/>
+  <jsp:useBean id="searchShow" scope="request" type="java.lang.String"/>
+  <jsp:useBean id="searchSort" scope="request" type="java.lang.String"/>
 </c:catch>
 
 <t:main>
@@ -21,17 +23,44 @@
 
   <jsp:body>
     <div class="card">
-      <h4 class="card-header">
-        Products
-      </h4>
+      <h6 class="card-header">
+        Kết quả tìm kiếm cho '${txtSearch}'
+      </h6>
       <c:choose>
         <c:when test="${empty products}">
           <div class="card-body">
+            <div>
+              <div class="my-1">
+                <span>Hiển thị: </span>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}">Tất cả</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=name">Theo tên</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=cat">Theo danh mục</a>
+              </div>
+              <div class="my-1">
+                <span>Sắp xếp: </span>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=priceasc">Giá tăng dần</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=pricedes">Giá giảm dần</a>
+                <a href=""></a>
+              </div>
+            </div>
             <p class="card-text">Không có dữ liệu.</p>
           </div>
         </c:when>
         <c:otherwise>
           <div class="card-body">
+            <div>
+              <div class="my-1">
+                <span>Hiển thị: </span>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}">Tất cả</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=name">Theo tên</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=cat">Theo danh mục</a>
+              </div>
+              <div class="my-1">
+                <span>Sắp xếp: </span>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=priceasc">Giá tăng dần</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=pricedes">Giá giảm dần</a>
+              </div>
+            </div>
             <div class="row">
               <c:forEach items="${products}" var="c">
                 <div class="col-sm-4 mb-3">
@@ -41,7 +70,7 @@
                     <div class="card-body">
                       <h6 class="card-title">${c.name}</h6>
                       <h5 class="card-title text-danger">
-                        <fmt:formatNumber value="${c.start_price}" type="number"/>
+                        <fmt:formatNumber value="${c.current_Price}" type="number"/>
                       </h5>
                       <p class="card-text">${c.detail_tiny}</p>
                     </div>
@@ -69,30 +98,30 @@
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link"
-               <c:if test="${pageNo eq 1}">style="pointer-events: none;" </c:if>
-               href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo-1}">
+               <c:if test="${pageNo eq 1 || empty products}">style="pointer-events: none;" </c:if>
+               href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo-1}&show=${searchShow}&sort=${searchSort}">
               Previous
             </a>
           </li>
           <li class="page-item">
             <a class="page-link"
-               <c:if test="${pageNo eq 1}">style="pointer-events: none;" </c:if>
-               href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=1">
+               <c:if test="${pageNo eq 1 || empty products}">style="pointer-events: none;" </c:if>
+               href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=1&show=${searchShow}&sort=${searchSort}">
               1
             </a>
           </li>
           <c:forEach begin="2" end="${pages}" step="1" var="i">
             <li class="page-item">
               <a class="page-link"
-                 <c:if test="${pageNo eq i}">style="pointer-events: none;"</c:if>
-                 href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${i}">
+                 <c:if test="${pageNo eq i || empty products}">style="pointer-events: none;"</c:if>
+                 href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${i}&show=${searchShow}&sort=${searchSort}">
                   ${i}
               </a>
             </li>
           </c:forEach>
           <li class="page-item">
             <a class="page-link"
-               <c:if test="${pageNo eq pages}">style=" pointer-events: none;"</c:if>
+               <c:if test="${pageNo eq pages}">style="pointer-events: none;"</c:if>
                href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo+1}">
               Next
             </a>

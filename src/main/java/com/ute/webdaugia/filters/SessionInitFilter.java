@@ -20,6 +20,15 @@ public class SessionInitFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession();
+
+        if (session.getAttribute("searchShow") == null) {
+            session.setAttribute("searchShow", "ALL");
+        }
+
+        if (session.getAttribute("searchSort") == null) {
+            session.setAttribute("searchSort", "ALL");
+        }
+
         if (session.getAttribute("auth") == null) {
             session.setAttribute("auth", false);
             session.setAttribute("authUser", new User());
