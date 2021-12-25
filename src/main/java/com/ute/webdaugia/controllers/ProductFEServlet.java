@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import static com.ute.webdaugia.models.ProductModel.*;
 
@@ -44,7 +46,7 @@ public class ProductFEServlet extends HttpServlet {
                     return;
                 }
 
-                int pageNo = 0;
+                int pageNo = 1;
                 try {
                     pageNo = Integer.parseInt(request.getParameter("p"));
                 } catch (NumberFormatException e) {
@@ -115,7 +117,7 @@ public class ProductFEServlet extends HttpServlet {
                     return;
                 }
 
-                int proByParentIdPageNo = 0;
+                int proByParentIdPageNo = 1;
                 try {
                     proByParentIdPageNo = Integer.parseInt(request.getParameter("p"));
                 } catch (NumberFormatException e) {
@@ -194,12 +196,15 @@ public class ProductFEServlet extends HttpServlet {
 
             case "/Search":
                 String txtSearch = request.getParameter("txtSearch");
-                int searchPageNo = 0;
+                String show = request.getParameter("show");
+                String sort = request.getParameter("sort");
+
+                int searchPageNo = 1;
                 try {
                     searchPageNo = Integer.parseInt(request.getParameter("p"));
                 } catch (NumberFormatException e) {
                 }
-                pagingSearchResult(request, response, txtSearch, searchPageNo);
+                pagingSearchResult(request, response, txtSearch, searchPageNo, show, sort);
                 break;
 
             default:
@@ -214,12 +219,14 @@ public class ProductFEServlet extends HttpServlet {
         switch (path) {
             case "/Search":
                 String txtSearch = request.getParameter("search-box");
-                int pageNo = 0;
+                String show = request.getParameter("show");
+                String sort = request.getParameter("sort");
+                int pageNo = 1;
                 try {
                     pageNo = Integer.parseInt(request.getParameter("p"));
                 } catch (NumberFormatException e) {
                 }
-                pagingSearchResult(request, response, txtSearch, pageNo);
+                pagingSearchResult(request, response, txtSearch, pageNo, show, sort);
                 break;
 
             case "/addwatlist":
@@ -240,16 +247,27 @@ public class ProductFEServlet extends HttpServlet {
         }
     }
 
-    private void pagingSearchResult(HttpServletRequest request, HttpServletResponse response, String txtSearch, int pageNo) throws ServletException, IOException {
-        List<Product> products = ProductModel.findBySearch(txtSearch);
+    private void pagingSearchResult(HttpServletRequest request, HttpServletResponse response, String txtSearch, int pageNo, String show, String sort) throws ServletException, IOException {
+        List<Product> products = ProductModel.findBySearch(txtSearch, show);
+        if (Objects.equals(sort, "priceasc")) {
+            assert products != null;
+            products.sort(Comparator.comparing(Product::getCurrent_Price));
+        }
+
+        if (Objects.equals(sort, "pricedes")) {
+            assert products != null;
+            products.sort(Comparator.comparing(Product::getCurrent_Price).reversed());
+        }
+        request.setAttribute("searchSort", sort);
 
         if (products == null) {
             request.setAttribute("products", products);
+            request.setAttribute("txtSearch", txtSearch);
             ServletUtils.forward("/views/vwProduct/Search.jsp", request, response);
             return;
         }
         int pages = products.size() / itemsPerPage;
-        if (products.size() % itemsPerPage != 0) {
+        if (products.size() % itemsPerPage != 0 || pages == 0) {
             ++pages;
         }
 
@@ -259,9 +277,8 @@ public class ProductFEServlet extends HttpServlet {
         }
 
         if (pages == 1) {
-            request.setAttribute("pageNo", pageNo);
             request.setAttribute("products", products);
-            request.setAttribute("pages", pages);
+            request.setAttribute("txtSearch", txtSearch);
             ServletUtils.forward("/views/vwProduct/Search.jsp", request, response);
             return;
         }
