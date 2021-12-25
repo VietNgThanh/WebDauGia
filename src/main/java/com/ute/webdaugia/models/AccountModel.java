@@ -58,7 +58,6 @@ public class AccountModel {
                         .executeUpdate();
             }
     }
-
     public static User findByEmail(String email){
         String query = "select * from users where email = :email";
         try (Connection con = DbUtils.getConnection()) {

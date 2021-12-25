@@ -230,7 +230,7 @@ public class Acccount extends HttpServlet {
         String codecf = request.getParameter("code");
         HttpSession session = request.getSession();
         User user= (User) session.getAttribute("authcode");
-        String code = session.getAttribute("codex");
+        String code = (String) session.getAttribute("codex");
         String rawpwd = user.getPassword();
         String username = user.getUsername();
         String name = user.getName();
