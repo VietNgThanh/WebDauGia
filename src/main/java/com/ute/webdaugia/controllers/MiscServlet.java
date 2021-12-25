@@ -21,13 +21,18 @@ import java.util.List;
   maxFileSize = 50 * 1024 * 1024,
   maxRequestSize = 50 * 1024 * 1024
 )
+
 public class MiscServlet extends HttpServlet {
+  public  int counter=0;
+
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String path = request.getPathInfo();
     switch (path) {
       case "/Editor":
         List<ChildCategory> list1= ChildCategoryModel.findAll();
+        List<Product> list2=ProductModel.findAll();
+          counter=list2.size()+1;
         request.setAttribute("abc",list1);
         ServletUtils.forward("/views/vwMisc/Editor.jsp", request, response);
         break;
@@ -97,13 +102,35 @@ public class MiscServlet extends HttpServlet {
     for (Part part : request.getParts()) {
       if (part.getName().equals("fuMain")) {
         String contentDisposition = part.getHeader("content-disposition");
+        // System.out.println(contentDisposition);
         String[] items = contentDisposition.split(";");
         for (String s : items) {
           String tmp = s.trim();
           if (tmp.startsWith("filename")) {
             int idx = tmp.indexOf("=") + 2;
             String filename = tmp.substring(idx, tmp.length() - 1);
-            String targetDir = this.getServletContext().getRealPath("public/user-avatars");
+
+            String targetDir = this.getServletContext().getRealPath("public/new_imgs/"+counter);
+            File dir = new File(targetDir);
+            if (!dir.exists()) {
+              dir.mkdir();
+            }
+            String destination = targetDir + "/" + filename;
+            part.write(destination);
+          }
+        }
+      }
+      if (part.getName().equals("fuMain1")) {
+        String contentDisposition = part.getHeader("content-disposition");
+        // System.out.println(contentDisposition);
+        String[] items = contentDisposition.split(";");
+        for (String s : items) {
+          String tmp = s.trim();
+          if (tmp.startsWith("filename")) {
+            int idx = tmp.indexOf("=") + 2;
+            String filename = tmp.substring(idx, tmp.length() - 1);
+
+            String targetDir = this.getServletContext().getRealPath("public/new_imgs/"+counter);
             File dir = new File(targetDir);
             if (!dir.exists()) {
               dir.mkdir();

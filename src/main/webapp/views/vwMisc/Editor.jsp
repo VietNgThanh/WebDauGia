@@ -28,6 +28,21 @@
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/themes/fa/theme.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js"></script>
+        <script>
+            $('#fuMain').fileinput({
+                theme: 'fa',
+                language: 'vi',
+                dropZoneEnabled: true,
+                allowedFileExtensions: ['jpg', 'png', 'gif']
+            });
+
+            $('#fuMain1').fileinput({
+                theme: 'fa',
+                language: 'vi',
+                dropZoneEnabled: true,
+                allowedFileExtensions: ['jpg', 'png', 'gif']
+            });
+        </script>
   </jsp:attribute>
     <jsp:body>
         <form action="" method="post" enctype="multipart/form-data">
@@ -46,20 +61,13 @@
                         <label for="txtbuocnhay">Bước nhảy</label>
                         <input type="text" class="form-control" id="txtbuocnhay" name="buocnhay">
                     </div>
-
-
                     <select name="cata">
-                      <c:forEach items="${abc}" var="c">
-                        <option> ${c.id}.${c.name}</option>
-                      </c:forEach>
+                        <c:forEach items="${abc}" var="c">
+                            <option> ${c.id}.${c.name}</option>
+                        </c:forEach>
                     </select>
-
-
                 </div>
-
             </div>
-
-
             <div class="card">
                 <h4 class="card-header">
                     WYSIWYG HTML Editor
@@ -80,13 +88,20 @@
 
             <div class="card">
                 <h4 class="card-header">
-                    Upload
+                    Upload main picture
                 </h4>
                 <div class="card-body">
                     <div class="form-group">
-                        <input id="fuMain" name="input-b3[]" type="file" class="file" multiple
-                               data-show-upload="false" data-show-caption="true"
-                               data-msg-placeholder="Select {files} for upload..."/>
+                        <input id="fuMain" name="fuMain" type="file"  />
+                    </div>
+                </div>
+
+                <h4 class="card-header">
+                    Upload 3 lead pictures
+                </h4>
+                <div class="card-body">
+                    <div class="form-group">
+                        <input id="fuMain1" name="fuMain1" type="file" multiple />
                     </div>
                 </div>
                 <div class="card-footer">
