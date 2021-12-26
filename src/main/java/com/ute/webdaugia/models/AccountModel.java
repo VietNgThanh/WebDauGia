@@ -1,5 +1,8 @@
 package com.ute.webdaugia.models;
 
+import com.ute.webdaugia.beans.Danh_Gia_NguoiDung;
+import com.ute.webdaugia.beans.Orders;
+import com.ute.webdaugia.beans.Product;
 import com.ute.webdaugia.beans.User;
 import com.ute.webdaugia.utils.DbUtils;
 import org.sql2o.Connection;
@@ -58,7 +61,34 @@ public class AccountModel {
                         .executeUpdate();
             }
     }
+    public static List<Danh_Gia_NguoiDung> HienthiDanhGia(int id_nguoi_duoc_danhgia){
+            String sql ="select name,comment,trangthai\n" +
+                    "from danh_gia_nguoidung,users\n" +
+                    "where id_nguoidanhgia = iduser and id_nguoi_duoc_danhgia= :id_nguoi_duoc_danhgia\n" +
+                    "order by id desc LIMIT 0,10 ;";
+            try(Connection con = DbUtils.getConnection()){
+                List<Danh_Gia_NguoiDung> list= con.createQuery(sql)
+                        .addParameter("id_nguoi_duoc_danhgia",id_nguoi_duoc_danhgia)
+                        .executeAndFetch(Danh_Gia_NguoiDung.class);
+                if (list.size() == 0) {
+                    return null;
+                }
+                return list;
+            }
+    }
 
+    public static List<Product> HienThiSanPhamDangDauGia(int id_User){
+            String sql="select distinct product.* from product,orders_product where orders_product.id_Product=product.idProduct and orders_product.id_User = :id_User ";
+            try(Connection con =DbUtils.getConnection()){
+                List<Product> list = con.createQuery(sql)
+                        .addParameter("id_User",id_User)
+                        .executeAndFetch(Product.class);
+                if (list.size() == 0) {
+                    return null;
+                }
+                return list;
+            }
+    }
     public static User findByEmail(String email){
         String query = "select * from users where email = :email";
         try (Connection con = DbUtils.getConnection()) {

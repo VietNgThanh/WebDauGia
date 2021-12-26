@@ -1,7 +1,5 @@
 package com.ute.webdaugia.models;
-import com.ute.webdaugia.beans.ChildCategory;
-import com.ute.webdaugia.beans.Product;
-import com.ute.webdaugia.beans.Wishlist;
+import com.ute.webdaugia.beans.*;
 import com.ute.webdaugia.utils.DbUtils;
 import org.sql2o.Connection;
 
@@ -109,8 +107,8 @@ public class ProductModel {
             return list.get(0).getIdCat();
         }
     }
-    public static void delWatchList(int id_user, int id_product){
-        String sql ="DELETE FROM wish_list WHERE id_user = :id_user and id_product = :id_product;";
+    public static void delWatchList(int id_user, int id_product) {
+        String sql = "DELETE FROM wish_list WHERE id_user = :id_user and id_product = :id_product;";
         try (Connection con = DbUtils.getConnection()) {
             con.createQuery(sql)
                     .addParameter("id_user", id_user)
@@ -118,6 +116,28 @@ public class ProductModel {
                     .executeUpdate();
         }
 
+    }
+    public static User diemdanhgia(int id_user){
+        String sql = "select * from users where iduser= :id_user;";
+        try (Connection con = DbUtils.getConnection()) {
+           List<User> mark = con.createQuery(sql)
+                    .addParameter("id_user", id_user)
+                    .executeAndFetch(User.class);
+            if (mark.size() == 0) {
+                return null;
+            }
+            return mark.get(0);
+        }
+    }
+    public static void BiderRaGia(Orders p){
+        String sql ="INSERT INTO orders_product(id_Product,id_User,Price,rule) VALUES(:id_Product,:id_User, :Price,0)";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id_Product", p.getId_Product())
+                    .addParameter("id_User", p.getId_User())
+                    .addParameter("Price", p.getPrice())
+                    .executeUpdate();
+        }
     }
 
     public static List<Product> findBySearch(String txtSearch) {

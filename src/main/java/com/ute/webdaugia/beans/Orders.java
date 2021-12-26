@@ -7,10 +7,17 @@ import java.time.Period;
 import java.util.Calendar;
 
 public class Orders {
-    private int idOrder,id_Product,id_User,rule,Price;
+    private int idOrder,id_Product,id_User,Price,rule;
     private LocalDateTime Time_make_price;
 //    private Time a;
     public Orders() {
+    }
+
+    public Orders(int id_Product, int id_User, int price, int rule) {
+        this.id_Product = id_Product;
+        this.id_User = id_User;
+        this.Price = price;
+        this.rule = rule;
     }
 
     public Orders(int idOrder, int id_Product, int id_User, int rule, int price, LocalDateTime time_make_price) {
