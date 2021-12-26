@@ -24,7 +24,7 @@ public class OrderModel {
         }
     }
     public static List<Orders> find_top_gonna_expire(){
-        final String query = "select * from orders_product where rule=1\n" +
+        final String query = "select * from orders_product \n" +
                 "  limit 6";
         try (Connection con = DbUtils.getConnection()) {
             return con.createQuery(query)
@@ -32,7 +32,7 @@ public class OrderModel {
         }
     }
     public static List<Orders> find_all_product_per1(){
-        final String query = "select * from orders_product where rule=1\n" ;
+        final String query = "select * from orders_product\n" ;
 
         try (Connection con = DbUtils.getConnection()) {
             return con.createQuery(query)

@@ -147,7 +147,7 @@ public class ProductModel {
         }
     }
     public static void BiderRaGia(Orders p){
-        String sql ="INSERT INTO orders_product(id_Product,id_User,Price,rule) VALUES(:id_Product,:id_User, :Price,0)";
+        String sql ="INSERT INTO orders_product(id_Product,id_User,Price) VALUES(:id_Product,:id_User, :Price)";
         try (Connection con = DbUtils.getConnection()) {
             con.createQuery(sql)
                     .addParameter("id_Product", p.getId_Product())

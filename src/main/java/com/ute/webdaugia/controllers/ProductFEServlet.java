@@ -260,7 +260,7 @@ public class ProductFEServlet extends HttpServlet {
         int id_User=2;
         int Price=Integer.parseInt(request.getParameter("Price"));
         int rule =0;
-        Orders c = new Orders(id_Product,user.getIdUser(),Price,rule);
+        Orders c = new Orders(id_Product,user.getIdUser(),Price);
         ProductModel.BiderRaGia(c);
         System.out.println("abc");
         String  urlproduct = "/Product/Detail?id="+ Integer.toString(id_Product);

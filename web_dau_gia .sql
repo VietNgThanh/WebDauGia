@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2021 at 05:46 AM
+-- Generation Time: Dec 26, 2021 at 09:40 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -197,7 +197,7 @@ DELIMITER $$
 CREATE TRIGGER `orders_product_BEFORE_INSERT` BEFORE INSERT ON `orders_product` FOR EACH ROW BEGIN
 	
     set @counter_time=0;
-   
+   set new.Time_make_price=now();
     set @buocnhay=0;
     select buoc_nhay into @buocnhay from product where idProduct=new.id_Product;
  
@@ -346,14 +346,10 @@ CREATE TABLE `wish_list` (
 --
 -- Indexes for table `childcategory`
 --
-
-
-
-
-
 ALTER TABLE `childcategory`
   ADD PRIMARY KEY (`id`) USING BTREE,
   ADD KEY `FK_parent_id` (`parent_id`) USING BTREE;
+ALTER TABLE `childcategory` ADD FULLTEXT KEY `name` (`name`);
 
 --
 -- Indexes for table `danh_gia_nguoidung`
@@ -380,9 +376,11 @@ ALTER TABLE `parentcategory`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`idProduct`) USING BTREE,
-
   ADD KEY `fk_Cata_Pro` (`id_Cat`) USING BTREE,
   ADD KEY `fk_User_Product` (`User_id`) USING BTREE;
+ALTER TABLE `product` ADD FULLTEXT KEY `Name` (`Name`);
+
+
 
 ALTER TABLE `product`
   MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
@@ -457,8 +455,6 @@ ALTER TABLE `orders_product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `fk_User_Product` FOREIGN KEY (`User_id`) REFERENCES `users` (`iduser`);
-
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
