@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2021 at 09:40 AM
+-- Generation Time: Dec 26, 2021 at 04:31 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `web_dau_gia`
+-- Database: `final_ltw`
 --
 
 -- --------------------------------------------------------
@@ -262,24 +262,25 @@ CREATE TABLE `product` (
   `highest_price` int(11) NOT NULL,
   `buoc_nhay` int(11) DEFAULT NULL,
   `dathongbao` int(11) DEFAULT NULL,
-  `time_to_close` datetime DEFAULT NULL
+  `time_to_close` datetime DEFAULT NULL,
+  `check_delay` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`idProduct`, `Name`, `id_Cat`, `User_id`, `Detail_tiny`, `Detail_full`, `Start_price`, `Imme_Price`, `Availability`, `Current_Price`, `id_ParentCat`, `id_Bidder_current`, `highest_price`, `buoc_nhay`, `dathongbao`, `time_to_close`) VALUES
-(0, 'Túi Dior 2', 5, 3, 'abc', 'fbuwbfibisbisbisbvisb', 12000000, 100000000, 1, 12000000, 2, NULL, 0, 100000, NULL, '2021-12-31 17:37:50'),
-(1, 'iphone7', 2, 3, 'abc', 'abcvf', 10000000, 100000000, 1, 24000000, 1, 6, 24000000, 100000, NULL, NULL),
-(2, 'iphone X', 2, 3, 'abc', 'abcvferr', 12000000, 100000000, 1, 100126, 1, 5, 0, 100000, NULL, NULL),
-(3, 'iphone 13', 2, 3, 'abc', 'abcvferr', 18000000, 100000000, 1, 25000000, 1, 5, 25000000, 100000, NULL, NULL),
-(4, 'iPad', 3, 8, 'abc', 'abcvferr', 12000000, 100000000, 1, 13000000, 1, 5, 13000000, 100000, NULL, NULL),
-(5, 'iPad Pro', 3, 8, 'abc', 'abcvferr', 15000000, 100000000, 1, 15000000, 1, NULL, 0, 100000, NULL, NULL),
-(6, 'Túi Gucci', 5, 3, 'abc', 'abcvferr', 15000000, 100000000, 1, 15000000, 2, NULL, 0, 100000, NULL, NULL),
-(7, 'Túi Dior', 5, 3, 'abc', 'abcvferr', 15000000, 100000000, 1, 19000000, 2, 6, 19000000, 100000, NULL, NULL),
-(8, 'iphone8', 2, 3, 'abc', 'abcvjhwbjhwbviweb', 12000000, 100000000, 1, 12000000, 1, NULL, 0, 100000, NULL, NULL),
-(9, 'Play Station', 13, 3, 'abc', 'ebubebhbchjbjwbieb', 10000000, 100000000, 1, 13000000, 4, 2, 13000000, 100000, NULL, NULL);
+INSERT INTO `product` (`idProduct`, `Name`, `id_Cat`, `User_id`, `Detail_tiny`, `Detail_full`, `Start_price`, `Imme_Price`, `Availability`, `Current_Price`, `id_ParentCat`, `id_Bidder_current`, `highest_price`, `buoc_nhay`, `dathongbao`, `time_to_close`, `check_delay`) VALUES
+(0, 'Túi Dior 2', 5, 3, 'abc', 'fbuwbfibisbisbisbvisb', 12000000, 100000000, 1, 12000000, 2, NULL, 0, 100000, NULL, '2021-12-31 17:37:50', 1),
+(1, 'iphone7', 2, 3, 'abc', 'abcvf', 10000000, 100000000, 1, 24000000, 1, 6, 24000000, 100000, NULL, NULL, 1),
+(2, 'iphone X', 2, 3, 'abc', 'abcvferr', 12000000, 100000000, 1, 100126, 1, 5, 0, 100000, NULL, NULL, 1),
+(3, 'iphone 13', 2, 3, 'abc', 'abcvferr', 18000000, 100000000, 1, 25000000, 1, 5, 25000000, 100000, NULL, NULL, 1),
+(4, 'iPad', 3, 8, 'abc', 'abcvferr', 12000000, 100000000, 1, 13000000, 1, 5, 13000000, 100000, NULL, NULL, 1),
+(5, 'iPad Pro', 3, 8, 'abc', 'abcvferr', 15000000, 100000000, 1, 15000000, 1, NULL, 0, 100000, NULL, NULL, 1),
+(6, 'Túi Gucci', 5, 3, 'abc', 'abcvferr', 15000000, 100000000, 1, 15000000, 2, NULL, 0, 100000, NULL, NULL, 1),
+(7, 'Túi Dior', 5, 3, 'abc', 'abcvferr', 15000000, 100000000, 1, 19000000, 2, 6, 19000000, 100000, NULL, NULL, 1),
+(8, 'iphone8', 2, 3, 'abc', 'abcvjhwbjhwbviweb', 12000000, 100000000, 1, 12000000, 1, NULL, 0, 100000, NULL, NULL, 1),
+(9, 'Play Station', 13, 3, 'abc', 'ebubebhbchjbjwbieb', 10000000, 100000000, 1, 13000000, 4, 2, 13000000, 100000, NULL, NULL, 1);
 
 --
 -- Triggers `product`
@@ -380,18 +381,11 @@ ALTER TABLE `product`
   ADD KEY `fk_User_Product` (`User_id`) USING BTREE;
 ALTER TABLE `product` ADD FULLTEXT KEY `Name` (`Name`);
 
-
-
-ALTER TABLE `product`
-  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`iduser`) USING BTREE;
-ALTER TABLE `users`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Indexes for table `wish_list`
@@ -426,6 +420,18 @@ ALTER TABLE `orders_product`
 --
 ALTER TABLE `parentcategory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `wish_list`
