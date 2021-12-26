@@ -99,6 +99,8 @@ public class ProductFEServlet extends HttpServlet {
             User user2= (User) session2.getAttribute("authUser");
                     List<Wishlist> wlist2=ProductModel.findAllWList(user2.getIdUser());
                     request.setAttribute("wlists",wlist2);
+                    User mark = ProductModel.diemdanhgia(user2.getIdUser());
+                    request.setAttribute("mark",mark);
                     ServletUtils.forward("/views/vwProduct/Detail.jsp", request, response);
                 }
                 break;
@@ -241,10 +243,28 @@ public class ProductFEServlet extends HttpServlet {
                 addWatchList(userId1, watId1);
                 ServletUtils.forward("/views/vwProduct/Detail.jsp", request, response);
                 break;
+            case "/Detail":
+                BiderRaGia(request,response);
+               // ServletUtils.forward("/views/vwProduct/ByCat.jsp", request, response);
+                break;
             default:
                 ServletUtils.forward("/views/404.jsp", request, response);
                 break;
         }
+    }
+    private void BiderRaGia(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        User user= (User) session.getAttribute("authUser");
+
+        int id_Product = Integer.parseInt(request.getParameter("id"));
+        int id_User=2;
+        int Price=Integer.parseInt(request.getParameter("Price"));
+        int rule =0;
+        Orders c = new Orders(id_Product,user.getIdUser(),Price);
+        ProductModel.BiderRaGia(c);
+        System.out.println("abc");
+        String  urlproduct = "/Product/Detail?id="+ Integer.toString(id_Product);
+        ServletUtils.redirect(urlproduct, request, response);
     }
 
     private void pagingSearchResult(HttpServletRequest request, HttpServletResponse response, String txtSearch, int pageNo, String show, String sort) throws ServletException, IOException {

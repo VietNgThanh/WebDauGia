@@ -2,6 +2,7 @@ package com.ute.webdaugia.controllers;
 
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.ute.webdaugia.beans.Danh_Gia_NguoiDung;
 import com.ute.webdaugia.beans.Product;
 import com.ute.webdaugia.models.AccountModel;
 import com.ute.webdaugia.models.ProductModel;
@@ -73,6 +74,10 @@ public class Acccount extends HttpServlet {
                 User user3= (User) session3.getAttribute("authUser");
                 User profile = AccountModel.findByidUser(user3.getIdUser());
                 request.setAttribute("profile", profile);
+                List<Danh_Gia_NguoiDung> bangdanhgia = AccountModel.HienthiDanhGia(user3.getIdUser());
+                request.setAttribute("bangdanhgia",bangdanhgia);
+                List<Product> dsachsanpham = AccountModel.HienThiSanPhamDangDauGia(user3.getIdUser());
+                request.setAttribute("dsachsanpham",dsachsanpham);
                 ServletUtils.forward("/views/vwAccount/Profile.jsp", request, response);
                 break;
         }

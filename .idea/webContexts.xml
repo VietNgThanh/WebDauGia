@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/Account.tag" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/vwAccount/Profile.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/vwAccount" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/vwAccount/Register.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/vwAccount" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/vwMisc/Editor.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/vwMisc" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/vwProduct/ByCat.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/vwProduct" />

@@ -74,8 +74,6 @@
                         </a>
                         <c:set scope="request" var="check" value=""/>
                       </c:if>
-
-
                     </div>
                   </div>
                 </div>
