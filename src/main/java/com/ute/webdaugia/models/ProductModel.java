@@ -5,6 +5,7 @@ import org.sql2o.Connection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ProductModel {
@@ -115,7 +116,23 @@ public class ProductModel {
                     .addParameter("id_product", id_product)
                     .executeUpdate();
         }
-
+    }
+    public static void Add_Seller_Product(Product a){
+        String sql ="insert into product(Name, id_Cat, User_id, Detail_tiny," +
+                " Detail_full, Start_price, Imme_Price, highest_price, buoc_nhay) " +
+                "values (:ProName ,:idCat,:idUser,:TinyDes,:FullDes,:StartPrice,:ImmePrice,0,:buocnhay)";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("ProName", a.getName())
+                    .addParameter("TinyDes", a.getDetail_tiny())
+                    .addParameter("FullDes", a.getDetail_full())
+                    .addParameter("StartPrice", a.getStart_price())
+                    .addParameter("ImmePrice", a.getImme_Price())
+                    .addParameter("buocnhay", a.getBuoc_nhay())
+                    .addParameter("idCat", a.getIdCat())
+                    .addParameter("idUser", a.getUserid())
+                    .executeUpdate();
+        }
     }
     public static User diemdanhgia(int id_user){
         String sql = "select * from users where iduser= :id_user;";
@@ -140,29 +157,36 @@ public class ProductModel {
         }
     }
 
-    public static List<Product> findBySearch(String txtSearch) {
+    public static List<Product> findBySearch(String txtSearch, String show) {
         final String queryProducts = "SELECT * FROM product WHERE MATCH(Name) AGAINST('" + txtSearch + "')";
         final String queryCat = "SELECT * FROM childcategory WHERE MATCH(name) AGAINST('" + txtSearch + "')";
         try (Connection con = DbUtils.getConnection()) {
-            List<Product> products = con.createQuery(queryProducts)
-                .executeAndFetch(Product.class);
-            List<Integer> proIds = products
-                .stream().map(Product::getIdProduct)
-                .collect(Collectors.toList());
-            List<Integer> catIdsSearchByCatName = con.createQuery(queryCat)
-                .executeAndFetch(ChildCategory.class)
-                .stream().map(ChildCategory::getId)
-                .collect(Collectors.toList());
-            List<Product> proByCatID = new ArrayList<>();
-            for (int catId : catIdsSearchByCatName) {
-                try {
-                    proByCatID.addAll(ProductModel.findByCatId(catId));
-                }
-                catch (NullPointerException e){}
+            List<Product> products = new ArrayList<>();
+            if (!Objects.equals(show, "cat")) {
+                products = con.createQuery(queryProducts)
+                    .executeAndFetch(Product.class);
             }
-            for (Product pro : proByCatID) {
-                if (!proIds.contains(pro.getIdProduct())) {
-                    products.add(pro);
+
+            if (!Objects.equals(show, "name")) {
+                List<Integer> proIds = products
+                    .stream().map(Product::getIdProduct)
+                    .collect(Collectors.toList());
+                List<Integer> catIdsSearchByCatName = con.createQuery(queryCat)
+                    .executeAndFetch(ChildCategory.class)
+                    .stream().map(ChildCategory::getId)
+                    .collect(Collectors.toList());
+
+                List<Product> proByCatID = new ArrayList<>();
+                for (int catId : catIdsSearchByCatName) {
+                    try {
+                        proByCatID.addAll(ProductModel.findByCatId(catId));
+                    } catch (NullPointerException e) {
+                    }
+                }
+                for (Product pro : proByCatID) {
+                    if (!proIds.contains(pro.getIdProduct())) {
+                        products.add(pro);
+                    }
                 }
             }
             if (products.isEmpty()) {

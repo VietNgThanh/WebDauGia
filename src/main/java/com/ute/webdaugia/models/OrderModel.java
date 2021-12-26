@@ -25,7 +25,7 @@ public class OrderModel {
     }
     public static List<Orders> find_top_gonna_expire(){
         final String query = "select * from orders_product where rule=1\n" +
-                "order by Time_to_close asc limit 6";
+                "  limit 6";
         try (Connection con = DbUtils.getConnection()) {
             return con.createQuery(query)
                     .executeAndFetch(Orders.class);
@@ -39,14 +39,7 @@ public class OrderModel {
                     .executeAndFetch(Orders.class);
         }
     }
-    public static List<Orders> time_diff_forcount(){
-        final String query = "select id_Product,timediff(Time_to_close,now()) as a from orders_product where rule=1\n" ;
 
-        try (Connection con = DbUtils.getConnection()) {
-            return con.createQuery(query)
-                    .executeAndFetch(Orders.class);
-        }
-    }
 
 
 }

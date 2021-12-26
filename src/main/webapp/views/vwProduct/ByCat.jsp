@@ -97,7 +97,7 @@
           <li class="page-item">
             <a class="page-link"
                <c:if test="${pageNo eq 1}">style="pointer-events: none;" </c:if>
-               href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${products.get(0).idCat}&p=1">
+               href="${pageContext.request.contextPath}/Product/ByCat?id=${products.get(0).idCat}&p=1">
               1
             </a>
           </li>
