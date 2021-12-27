@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2021 at 04:31 PM
+-- Generation Time: Dec 27, 2021 at 11:26 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -128,71 +128,75 @@ CREATE TABLE `orders_product` (
   `id_Product` int(11) DEFAULT NULL,
   `id_User` int(11) DEFAULT NULL,
   `Price` int(11) DEFAULT NULL,
-  `Time_make_price` datetime DEFAULT NULL
+  `Time_make_price` datetime DEFAULT NULL,
+  `current_price` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `orders_product`
 --
 
-INSERT INTO `orders_product` (`idOrder`, `id_Product`, `id_User`, `Price`, `Time_make_price`) VALUES
-(1, 1, 2, 12000000, '2021-12-12 00:00:00'),
-(2, 1, 5, 12222222, '2021-12-18 22:21:26'),
-(3, 1, 6, 12200000, '2021-12-18 23:22:52'),
-(4, 1, 7, 12055000, '2021-12-18 23:23:29'),
-(5, 2, 8, 120, '2021-12-18 22:25:03'),
-(6, 2, 6, 125, '2021-12-18 22:25:33'),
-(7, 2, 7, 126, '2021-12-18 22:25:54'),
-(8, 3, 2, 111, '2021-12-18 22:26:10'),
-(9, 4, 2, 1581919, '2021-12-21 17:05:10'),
-(10, 5, 2, 6119929, '2021-12-21 17:05:35'),
-(11, 4, 5, 1681919, '2021-12-21 17:06:12'),
-(12, 5, 5, 6219929, '2021-12-21 17:06:40'),
-(13, 5, 5, 6319929, '2021-12-22 12:21:58'),
-(14, 1, 6, 14000000, '2021-12-22 12:59:59'),
-(15, 1, 5, 15000000, '2021-12-22 13:02:52'),
-(16, 1, 6, 16000000, '2021-12-22 13:04:31'),
-(17, 1, 5, 17000000, '2021-12-22 14:06:00'),
-(18, 1, 6, 20000000, '2021-12-22 14:07:14'),
-(20, 1, 5, 22000000, '2021-12-22 16:40:40'),
-(22, 1, 6, 21000000, '2021-12-22 16:44:01'),
-(23, 1, 5, 23000000, '2021-12-22 16:52:03'),
-(24, 1, 5, 23000000, '2021-12-22 16:53:10'),
-(25, 1, 6, 24000000, '2021-12-22 16:58:09'),
-(26, 1, 5, 24000000, '2021-12-22 17:01:42'),
-(27, 1, 6, 24000000, '2021-12-22 17:03:29'),
-(28, 2, 5, 13000000, '2021-12-22 17:05:16'),
-(30, 3, 5, 19000000, '2021-12-22 17:13:23'),
-(31, 3, 6, 20000000, '2021-12-22 17:17:56'),
-(32, 3, 5, 19500000, '2021-12-22 17:18:41'),
-(33, 3, 6, 19500000, '2021-12-22 17:19:14'),
-(34, 3, 5, 19500000, '2021-12-22 17:22:04'),
-(35, 3, 5, 22000000, '2021-12-22 17:23:57'),
-(36, 3, 6, 23000000, '2021-12-22 17:24:54'),
-(37, 3, 5, 22000000, '2021-12-22 17:25:22'),
-(38, 3, 5, 23000000, '2021-12-22 17:26:04'),
-(39, 3, 6, 24000000, NULL),
-(40, 4, 5, 13000000, '2021-12-22 13:14:48'),
-(41, 4, 5, 13000000, '2021-12-22 13:14:48'),
-(42, 3, 5, 25000000, NULL),
-(43, 3, 6, 24500000, NULL),
-(44, 3, 6, 25000000, NULL),
-(46, 7, 2, 13000000, '2021-12-23 06:22:57'),
-(47, 7, 2, 13000000, '2021-12-23 06:22:57'),
-(48, 9, 2, 13000000, '2021-12-23 06:55:56'),
-(49, 9, 2, 13000000, '2021-12-23 06:55:56'),
-(50, 9, 2, 13000000, '2021-12-22 17:26:04'),
-(51, 7, 5, 16000000, NULL),
-(52, 7, 6, 15000000, NULL),
-(53, 7, 6, 15800000, NULL),
-(54, 7, 7, 16500000, NULL),
-(55, 7, 5, 16500000, NULL),
-(56, 7, 6, 19000000, NULL),
-(57, 7, 7, 19000000, NULL);
+INSERT INTO `orders_product` (`idOrder`, `id_Product`, `id_User`, `Price`, `Time_make_price`, `current_price`) VALUES
+(1, 1, 2, 12000000, '2021-12-12 00:00:00', NULL),
+(2, 1, 5, 12222222, '2021-12-18 22:21:26', NULL),
+(4, 1, 7, 12055000, '2021-12-18 23:23:29', NULL),
+(5, 2, 8, 120, '2021-12-18 22:25:03', NULL),
+(6, 2, 6, 125, '2021-12-18 22:25:33', NULL),
+(7, 2, 7, 126, '2021-12-18 22:25:54', NULL),
+(8, 3, 2, 111, '2021-12-18 22:26:10', NULL),
+(9, 4, 2, 1581919, '2021-12-21 17:05:10', NULL),
+(10, 5, 2, 6119929, '2021-12-21 17:05:35', NULL),
+(11, 4, 5, 1681919, '2021-12-21 17:06:12', NULL),
+(12, 5, 5, 6219929, '2021-12-21 17:06:40', NULL),
+(13, 5, 5, 6319929, '2021-12-22 12:21:58', NULL),
+(15, 1, 5, 15000000, '2021-12-22 13:02:52', NULL),
+(17, 1, 5, 17000000, '2021-12-22 14:06:00', NULL),
+(20, 1, 5, 22000000, '2021-12-22 16:40:40', NULL),
+(23, 1, 5, 23000000, '2021-12-22 16:52:03', 19000000),
+(24, 1, 5, 23000000, '2021-12-22 16:53:10', 20000000),
+(26, 1, 5, 24000000, '2021-12-22 17:01:42', 21000000),
+(28, 2, 5, 13000000, '2021-12-22 17:05:16', NULL),
+(31, 3, 6, 20000000, '2021-12-22 17:17:56', NULL),
+(33, 3, 6, 19500000, '2021-12-22 17:19:14', NULL),
+(36, 3, 6, 23000000, '2021-12-22 17:24:54', NULL),
+(39, 3, 6, 24000000, NULL, NULL),
+(40, 4, 5, 13000000, '2021-12-22 13:14:48', NULL),
+(41, 4, 5, 13000000, '2021-12-22 13:14:48', NULL),
+(43, 3, 6, 24500000, NULL, NULL),
+(44, 3, 6, 25000000, NULL, NULL),
+(46, 7, 2, 13000000, '2021-12-23 06:22:57', NULL),
+(47, 7, 2, 13000000, '2021-12-23 06:22:57', NULL),
+(48, 9, 2, 13000000, '2021-12-23 06:55:56', NULL),
+(49, 9, 2, 13000000, '2021-12-23 06:55:56', NULL),
+(50, 9, 2, 13000000, '2021-12-22 17:26:04', NULL),
+(51, 7, 5, 16000000, NULL, NULL),
+(52, 7, 6, 15000000, NULL, NULL),
+(53, 7, 6, 15800000, NULL, NULL),
+(54, 7, 7, 16500000, NULL, NULL),
+(55, 7, 5, 16500000, NULL, NULL),
+(56, 7, 6, 19000000, NULL, NULL),
+(57, 7, 7, 19000000, NULL, NULL),
+(58, 7, 6, 21000000, '2021-12-27 13:18:29', 19100000),
+(60, 1, 5, 25000000, '2021-12-27 13:38:12', 25000000),
+(82, 10, 3, 1100000, '2021-12-27 17:08:26', NULL),
+(84, 10, 3, 1100000, '2021-12-27 17:09:04', NULL),
+(85, 10, 3, 1500000, '2021-12-27 17:10:29', 1500000),
+(87, NULL, 5, 1600000, '2021-12-27 17:10:57', NULL);
 
 --
 -- Triggers `orders_product`
 --
+DELIMITER $$
+CREATE TRIGGER `orders_product_AFTER_DELETE` AFTER DELETE ON `orders_product` FOR EACH ROW BEGIN
+	select id_Bidder_current into @idbidder from product where idProduct =old.id_Product;
+	if(old.id_User=@idbidder)
+    then select max(current_price) into @cur_pri from orders_product where id_Product =old.id_Product ;
+     select id_User,Price into @user_id,@hi_pri from orders_product where id_Product=old.id_Product and current_price=@cur_pri;
+    update product set Current_Price=@cur_pri,id_Bidder_current=@user_id,highest_price=@hi_pri where idProduct=old.id_Product;
+    end if;
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `orders_product_BEFORE_INSERT` BEFORE INSERT ON `orders_product` FOR EACH ROW BEGIN
 	
@@ -206,14 +210,22 @@ CREATE TRIGGER `orders_product_BEFORE_INSERT` BEFORE INSERT ON `orders_product` 
     select highest_price into @highest_price  from product where idProduct=new.id_Product;
     select Current_Price into @curent_price  from product where idProduct=new.id_Product;
     
-    if(new.Price>@curent_price and new.Price<@highest_price)
-    then update product set Current_Price=new.Price where idProduct=new.id_Product;
+    if(new.Price>=@curent_price and new.Price<@highest_price)
+    then set new.current_price=new.Price; update product set Current_Price=new.Price where idProduct=new.id_Product;
     elseif(new.Price>@highest_price)
-    then update product set Current_Price=@highest_price+@buocnhay,id_Bidder_current=new.id_User,
+    then update product set Current_Price=@highest_price+@buocnhay,new.current_price=@highest_price+@buocnhay,id_Bidder_current=new.id_User,
     highest_price=new.Price where idProduct=new.id_Product;
     elseif(new.Price=@highest_price)
-    then update product set Current_Price=@highest_price where idProduct=new.id_Product;
+    then update product set Current_Price=@highest_price,new.current_price=@highest_price where idProduct=new.id_Product;
     end if;
+    
+    select time_to_close into @time_close from product where idProduct=new.id_Product;
+    set @now=now();
+    select timediff(@time_close,@now) into @conlai;
+    select check_delay into @checkdelay from product where idProduct=new.id_product;
+    if( @conlai<'00:05:00' and @checkdelay=1)
+    then update product set time_to_close=date_add(time_to_close,interval 10 minute);
+    end if ;
 END
 $$
 DELIMITER ;
@@ -263,24 +275,26 @@ CREATE TABLE `product` (
   `buoc_nhay` int(11) DEFAULT NULL,
   `dathongbao` int(11) DEFAULT NULL,
   `time_to_close` datetime DEFAULT NULL,
-  `check_delay` int(11) DEFAULT NULL
+  `check_delay` int(11) DEFAULT NULL,
+  `ngay_bat_dau` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`idProduct`, `Name`, `id_Cat`, `User_id`, `Detail_tiny`, `Detail_full`, `Start_price`, `Imme_Price`, `Availability`, `Current_Price`, `id_ParentCat`, `id_Bidder_current`, `highest_price`, `buoc_nhay`, `dathongbao`, `time_to_close`, `check_delay`) VALUES
-(0, 'Túi Dior 2', 5, 3, 'abc', 'fbuwbfibisbisbisbvisb', 12000000, 100000000, 1, 12000000, 2, NULL, 0, 100000, NULL, '2021-12-31 17:37:50', 1),
-(1, 'iphone7', 2, 3, 'abc', 'abcvf', 10000000, 100000000, 1, 24000000, 1, 6, 24000000, 100000, NULL, NULL, 1),
-(2, 'iphone X', 2, 3, 'abc', 'abcvferr', 12000000, 100000000, 1, 100126, 1, 5, 0, 100000, NULL, NULL, 1),
-(3, 'iphone 13', 2, 3, 'abc', 'abcvferr', 18000000, 100000000, 1, 25000000, 1, 5, 25000000, 100000, NULL, NULL, 1),
-(4, 'iPad', 3, 8, 'abc', 'abcvferr', 12000000, 100000000, 1, 13000000, 1, 5, 13000000, 100000, NULL, NULL, 1),
-(5, 'iPad Pro', 3, 8, 'abc', 'abcvferr', 15000000, 100000000, 1, 15000000, 1, NULL, 0, 100000, NULL, NULL, 1),
-(6, 'Túi Gucci', 5, 3, 'abc', 'abcvferr', 15000000, 100000000, 1, 15000000, 2, NULL, 0, 100000, NULL, NULL, 1),
-(7, 'Túi Dior', 5, 3, 'abc', 'abcvferr', 15000000, 100000000, 1, 19000000, 2, 6, 19000000, 100000, NULL, NULL, 1),
-(8, 'iphone8', 2, 3, 'abc', 'abcvjhwbjhwbviweb', 12000000, 100000000, 1, 12000000, 1, NULL, 0, 100000, NULL, NULL, 1),
-(9, 'Play Station', 13, 3, 'abc', 'ebubebhbchjbjwbieb', 10000000, 100000000, 1, 13000000, 4, 2, 13000000, 100000, NULL, NULL, 1);
+INSERT INTO `product` (`idProduct`, `Name`, `id_Cat`, `User_id`, `Detail_tiny`, `Detail_full`, `Start_price`, `Imme_Price`, `Availability`, `Current_Price`, `id_ParentCat`, `id_Bidder_current`, `highest_price`, `buoc_nhay`, `dathongbao`, `time_to_close`, `check_delay`, `ngay_bat_dau`) VALUES
+(0, 'Túi Dior 2', 5, 3, 'abc', 'fbuwbfibisbisbisbvisb', 12000000, 100000000, 1, 12000000, 2, 0, 0, 100000, 0, '2021-12-31 18:07:50', 1, '2021-12-27 13:21:25'),
+(1, 'iphone7', 2, 3, 'abc', 'abcvf', 10000000, 100000000, 1, 25100000, 1, 2, 12000000, 100000, 0, '2021-12-27 18:52:00', 1, '2021-12-27 13:21:25'),
+(2, 'iphone X', 2, 3, 'abc', 'abcvferr', 12000000, 100000000, 1, 100126, 1, 5, 0, 100000, 0, '2022-12-28 13:51:25', 1, '2021-12-27 13:21:25'),
+(3, 'iphone 13', 2, 3, 'abc', 'abcvferr', 18000000, 100000000, 1, 18000000, 1, 0, 0, 100000, 0, '2022-12-28 13:51:25', 1, '2021-12-27 13:21:25'),
+(4, 'iPad', 3, 8, 'abc', 'abcvferr', 12000000, 100000000, 1, 13000000, 1, 5, 13000000, 100000, 0, '2022-12-27 13:51:25', 1, '2021-12-27 13:21:25'),
+(5, 'iPad Pro', 3, 8, 'abc', 'abcvferr', 15000000, 100000000, 1, 15000000, 1, 0, 0, 100000, 0, '2022-01-03 13:51:25', 1, '2021-12-27 13:21:25'),
+(6, 'Túi Gucci', 5, 3, 'abc', 'abcvferr', 15000000, 100000000, 1, 15000000, 2, 0, 0, 100000, 0, '2022-01-03 13:51:25', 1, '2021-12-27 13:21:25'),
+(7, 'Túi Dior', 5, 3, 'abc', 'abcvferr', 15000000, 100000000, 1, 19100000, 2, 6, 21000000, 100000, 0, '2022-01-03 13:51:25', 1, '2021-12-27 13:21:25'),
+(8, 'iphone8', 2, 3, 'abc', 'abcvjhwbjhwbviweb', 12000000, 100000000, 1, 12000000, 1, 0, 0, 100000, 0, '2022-01-03 13:51:25', 1, '2021-12-27 13:21:25'),
+(9, 'Play Station', 13, 3, 'abc', 'ebubebhbchjbjwbieb', 10000000, 100000000, 1, 13000000, 4, 2, 13000000, 100000, 0, '2022-01-01 13:51:25', 1, '2021-12-27 13:21:25'),
+(10, 'GIÀY BITIS', 5, 8, 'ABC', 'FWSFIWBFWB', 1000000, 1500000, 1, 1500000, 2, 3, 1500000, 50000, 0, '2022-01-03 13:51:25', 1, '2021-12-27 13:21:25');
 
 --
 -- Triggers `product`
@@ -288,11 +302,55 @@ INSERT INTO `product` (`idProduct`, `Name`, `id_Cat`, `User_id`, `Detail_tiny`, 
 DELIMITER $$
 CREATE TRIGGER `product_BEFORE_INSERT` BEFORE INSERT ON `product` FOR EACH ROW BEGIN
 	set @pacat=0;
+    set new.ngay_bat_dau=now();
 	select parent_id into @pacat from childcategory where id=new.id_Cat;
     set new.id_ParentCat=@pacat;
     set @time_to_close=0;
     select addtime(now(),'7 00:00:00') into @time_to_close;
     set new.time_to_close=@time_to_close;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tu_choi_bidder`
+--
+
+CREATE TABLE `tu_choi_bidder` (
+  `id_tu_choi` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_bidder` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tu_choi_bidder`
+--
+
+INSERT INTO `tu_choi_bidder` (`id_tu_choi`, `id_product`, `id_bidder`) VALUES
+(1, 1, 6),
+(2, 3, 5),
+(4, 10, 3),
+(5, 10, 5),
+(6, 10, 4),
+(7, 10, 3),
+(8, 10, 3),
+(9, 10, 6),
+(10, 10, 6),
+(11, 10, 7),
+(13, 10, 7),
+(14, 10, 6),
+(15, 10, 4),
+(16, 10, 5),
+(17, 10, 5);
+
+--
+-- Triggers `tu_choi_bidder`
+--
+DELIMITER $$
+CREATE TRIGGER `tu_choi_bidder_BEFORE_INSERT` BEFORE INSERT ON `tu_choi_bidder` FOR EACH ROW BEGIN
+delete from orders_product where id_Product =new.id_product and id_User=new.id_bidder;
 END
 $$
 DELIMITER ;
@@ -382,6 +440,12 @@ ALTER TABLE `product`
 ALTER TABLE `product` ADD FULLTEXT KEY `Name` (`Name`);
 
 --
+-- Indexes for table `tu_choi_bidder`
+--
+ALTER TABLE `tu_choi_bidder`
+  ADD PRIMARY KEY (`id_tu_choi`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -413,7 +477,7 @@ ALTER TABLE `danh_gia_nguoidung`
 -- AUTO_INCREMENT for table `orders_product`
 --
 ALTER TABLE `orders_product`
-  MODIFY `idOrder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `idOrder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `parentcategory`
@@ -425,7 +489,13 @@ ALTER TABLE `parentcategory`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `tu_choi_bidder`
+--
+ALTER TABLE `tu_choi_bidder`
+  MODIFY `id_tu_choi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`

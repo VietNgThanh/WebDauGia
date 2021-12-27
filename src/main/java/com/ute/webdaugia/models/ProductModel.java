@@ -120,8 +120,8 @@ public class ProductModel {
     }
     public static void Add_Seller_Product(Product a){
         String sql ="insert into product(Name, id_Cat, User_id, Detail_tiny," +
-                " Detail_full, Start_price, Imme_Price, highest_price, buoc_nhay,check_delay) " +
-                "values (:ProName ,:idCat,:idUser,:TinyDes,:FullDes,:StartPrice,:ImmePrice,:StartPrice,:buocnhay,:check_delay)";
+                " Detail_full, Start_price, Imme_Price, highest_price, buoc_nhay,check_delay,Availability,dathongbao) " +
+                "values (:ProName ,:idCat,:idUser,:TinyDes,:FullDes,:StartPrice,:ImmePrice,:StartPrice,:buocnhay,:check_delay,1,0)";
         try (Connection con = DbUtils.getConnection()) {
             con.createQuery(sql)
                     .addParameter("ProName", a.getName())
@@ -221,18 +221,46 @@ public class ProductModel {
         }
     }
     public static List<Product> find_top_highest_price() {
-        final String query = "SELECT idProduct FROM product order by Current_Price desc limit 6\n";
+        final String query = "SELECT * FROM product where availability=1 order by Current_Price desc limit 6\n";
         try (Connection con = DbUtils.getConnection()) {
             return con.createQuery(query)
                     .executeAndFetch(Product.class);
         }
     }
     public static List<Product> find_top_gonna_expire(){
-        final String query = "select * from product order by datediff(time_to_close,now())\n" +
+        final String query = "select * from product where availability=1 order by datediff(time_to_close,now())\n" +
                 "                  limit 6";
         try (Connection con = DbUtils.getConnection()) {
             return con.createQuery(query)
                     .executeAndFetch(Product.class);
+        }
+    }
+    public static List<Product> find_all_product_per1(){
+        final String query = "select idProduct,date_sub(time_to_close,interval 7 day ) as a from product" ;
+
+        try (Connection con = DbUtils.getConnection()) {
+            return con.createQuery(query)
+                    .executeAndFetch(Product.class);
+        }
+    }
+
+    public static ArrayList<Product> findProductAvai() {
+        final String query = "SELECT idProduct, Name, id_Cat, User_id, Detail_tiny, Detail_full, Start_price, Imme_Price, Availability, Current_Price, id_ParentCat, id_Bidder_current, highest_price, buoc_nhay, dathongbao, time_to_close FROM product WHERE Availability = 1 and dathongbao = 0  \n";
+        try (Connection con = DbUtils.getConnection()) {
+            ArrayList<Product> products = (ArrayList<Product>) con.createQuery(query)
+                    .executeAndFetch(Product.class);
+            if (products.isEmpty()) {
+                return null;
+            }
+            return products;
+        }
+    }
+    public static void updateTrangThai(int id) {
+        String sql ="UPDATE product SET Availability = 0, dathongbao =1 where idProduct = :idProduct ";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("idProduct", id)
+                    .executeUpdate();
         }
     }
 }

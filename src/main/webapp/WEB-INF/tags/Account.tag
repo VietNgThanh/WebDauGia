@@ -13,7 +13,7 @@
   <jsp:invoke fragment="css" />
 </head>
 <body>
-  <jsp:include page="../../views/partials/navbar.jsp"/>
+  <jsp:include page="../../views/partials/navbar1.jsp"/>
   <div id="container">
     <jsp:doBody />
   </div>

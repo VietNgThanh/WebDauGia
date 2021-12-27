@@ -13,6 +13,25 @@ public class Product {
 
 
 
+    public Product(int idProduct,String name, int id_Cat, int user_id,String detail_tiny, String detail_full, int start_price,int imme_Price,int availability,  int current_Price,int id_ParentCat,   int id_Bidder_current, int highest_price, int buoc_nhay, int dathongbao,   LocalDateTime time_to_close) {
+        this.idProduct = idProduct;
+        this.id_Cat = id_Cat;
+        User_id = user_id;
+        Availability = availability;
+        Start_price = start_price;
+        this.id_ParentCat = id_ParentCat;
+        Imme_Price = imme_Price;
+        Current_Price = current_Price;
+        this.id_Bidder_current = id_Bidder_current;
+        this.highest_price = highest_price;
+        this.buoc_nhay = buoc_nhay;
+        this.dathongbao = dathongbao;
+        Name = name;
+        Detail_tiny = detail_tiny;
+        Detail_full = detail_full;
+        Time_to_close = time_to_close;
+    }
+
     public Product(int idProduct, int id_Cat, int user_id, int availability, int start_price, int id_ParentCat, int imme_Price, int current_Price, int id_Bidder_current, int highest_price, int buoc_nhay, int dathongbao, String name, String detail_tiny, String detail_full) {
         this.idProduct = idProduct;
         this.id_Cat = id_Cat;
@@ -31,7 +50,7 @@ public class Product {
         Detail_full = detail_full;
     }
 
-    public Product(int id_Cat, int start_price, int imme_Price, int buoc_nhay, String name, String detail_tiny, String detail_full,int user_id,int Check_delay) {
+    public Product(int id_Cat, int start_price, int imme_Price, int buoc_nhay, String name, String detail_tiny, String detail_full,int user_id,int Check_delay,int availability,int dathongbao) {
         this.id_Cat = id_Cat;
         Start_price = start_price;
         Imme_Price = imme_Price;
@@ -41,6 +60,8 @@ public class Product {
         Detail_full = detail_full;
         User_id=user_id;
         this.check_delay=Check_delay;
+        this.Availability=availability;
+        this.dathongbao=dathongbao;
     }
     public int getCheck_delay() {
         return check_delay;
