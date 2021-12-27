@@ -219,4 +219,24 @@ public class ProductModel {
                     .executeAndFetch(Product.class);
         }
     }
+
+    public static ArrayList<Product> findProductAvai() {
+        final String query = "SELECT idProduct, Name, id_Cat, User_id, Detail_tiny, Detail_full, Start_price, Imme_Price, Availability, Current_Price, id_ParentCat, id_Bidder_current, highest_price, buoc_nhay, dathongbao, time_to_close FROM product WHERE Availability = 1 and dathongbao = 0  \n";
+        try (Connection con = DbUtils.getConnection()) {
+            ArrayList<Product> products = (ArrayList<Product>) con.createQuery(query)
+                    .executeAndFetch(Product.class);
+            if (products.isEmpty()) {
+                return null;
+            }
+            return products;
+        }
+    }
+    public static void updateTrangThai(int id) {
+        String sql ="UPDATE product SET Availability = 0, dathongbao =1 where idProduct = :idProduct ";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("idProduct", id)
+                    .executeUpdate();
+        }
+    }
 }
