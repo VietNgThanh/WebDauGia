@@ -88,11 +88,12 @@ public class ProductModel {
                     .executeUpdate();
         }
     }
-    public static List<Product> findByIdWatList() {
-        final String query = "select idProduct,Name,id_Cat,User_id,Detail_tiny,Detail_full,Start_price,Imme_Price,Availability,Current_Price,id_ParentCat from product inner join wish_list\n" +
-                "on product.idProduct = wish_list.id_product";
+    public static List<Product> findByIdWatList(int id_user) {
+        final String query = "select product.* from product inner join wish_list\n" +
+                "on product.idProduct = wish_list.id_product and id_user= :id_user";
         try (Connection con = DbUtils.getConnection()) {
             return con.createQuery(query)
+                    .addParameter("id_user",id_user)
                     .executeAndFetch(Product.class);
         }
     }
@@ -155,6 +156,29 @@ public class ProductModel {
                     .addParameter("id_User", p.getId_User())
                     .addParameter("Price", p.getPrice())
                     .executeUpdate();
+        }
+    }
+    public static List<Orders> LichSuDauGia(int id_Product){
+        String sql = "select id_User,current_price,Time_make_price from orders_product where id_Product= :id_Product order by idOrder desc LIMIT 0,6 ;";
+        try (Connection con = DbUtils.getConnection()){
+          List<Orders> lichsu =  con.createQuery(sql)
+                    .addParameter("id_Product",id_Product)
+                    .executeAndFetch(Orders.class);
+            if (lichsu.size() == 0) {
+                return null;
+            }
+            return lichsu;
+        }
+    }
+    public static List<User> danhsachtenUser(){
+        String sql = "select * from users";
+        try (Connection con = DbUtils.getConnection()) {
+            List<User> listuser= con.createQuery(sql)
+                    .executeAndFetch(User.class);
+            if (listuser.size() == 0) {
+                return null;
+            }
+            return listuser;
         }
     }
 

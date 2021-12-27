@@ -7,6 +7,8 @@
     <jsp:useBean id="product" scope="request" type="com.ute.webdaugia.beans.Product" />
     <jsp:useBean id="mark" scope="request" type="com.ute.webdaugia.beans.User"/>
     <jsp:useBean id="wlists" scope="request" type="java.util.List<com.ute.webdaugia.beans.Wishlist>"/>
+    <jsp:useBean id="lichsu" scope="request" type="java.util.List<com.ute.webdaugia.beans.Orders>"/>
+    <jsp:useBean id="listuser" scope="request" type="java.util.List<com.ute.webdaugia.beans.User>"/>
 </c:catch>
 
 <t:main>
@@ -127,6 +129,7 @@
 
             var p = document.querySelector('p');
             <%--let ngay = ${product.name};--%>
+
             var ngayconlai = document.getElementById("dongho1").innerHTML;
             console.warn(ngayconlai);
             let str = document.getElementById("dongho1").innerHTML;
@@ -211,7 +214,7 @@
                 </a>
             </c:if>
             <c:if test="${check_diem.length() != 0}">
-                <a  class="btn  btn-outline-warning" href="${pageContext.request.contextPath}/Product/delwatlist?id_product=${c.idProduct}" role="button">
+                <a  class="btn  btn-outline-warning" href="#" role="button">
                     <i class="fa fa-check-circle"></i>
                     Được Đấu Giá
                 </a>
@@ -224,12 +227,12 @@
                 </c:if>
             </c:forEach>
             <c:if test="${check.length() == 0}">
-                <a  class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}" role="button">
+                <a  class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Product/addwatlistDetail?id_product=${product.idProduct}" role="button">
                     <i class="fa fa-heart" aria-hidden="true"></i>
                 </a>
             </c:if>
             <c:if test="${check.length() != 0}">
-                <a  class="btn  btn-outline-primary" href="${pageContext.request.contextPath}/Product/delwatlist?id_product=${c.idProduct}" role="button">
+                <a  class="btn  btn-outline-primary" href="${pageContext.request.contextPath}/Product/delwatlistDetail?id_product=${product.idProduct}" role="button">
                     Unlike
                 </a>
                 <c:set scope="request" var="check" value="" />
@@ -250,6 +253,43 @@
                 <button type="submit" class="btn btn-primary">
                     Ra Giá
                 </button>
+
+        <div class="card mt-4">
+            <h4 class="card-header">
+               Lịch sử Đấu giá
+            </h4>
+            <c:choose>
+                <c:when test="${empty lichsu}">
+                    <div class="card-body">
+                        <p class="card-text">Không có lịch sử đấu giá.</p>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Thời điểm</th>
+                            <th>Người mua</th>
+                            <th>Giá</th>
+                        </tr>
+                        </thead>
+                        <c:forEach items="${lichsu}" var="c">
+                            <tbody>
+                            <tr>
+                                <td scope="row">${c.time_make_price.toLocalDate()} ${c.time_make_price.toLocalTime()}</td>
+                                <c:forEach items="${listuser}" var="d">
+                                    <c:if test="${d.idUser == c.id_User}">
+                                        <td id="maskten">*****${d.name.substring(d.name.lastIndexOf(' '),d.name.length())}</td>
+                                    </c:if>
+                                </c:forEach>
+                                <td>${c.current_price}</td>
+                            </tr>
+                            </tbody>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+        </div>
             </form>
         </div>
 

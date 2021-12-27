@@ -101,6 +101,10 @@ public class ProductFEServlet extends HttpServlet {
                     request.setAttribute("wlists",wlist2);
                     User mark = ProductModel.diemdanhgia(user2.getIdUser());
                     request.setAttribute("mark",mark);
+                    List<Orders> lichsu = ProductModel.LichSuDauGia(proId);
+                    request.setAttribute("lichsu",lichsu);
+                    List<User> listuser = ProductModel.danhsachtenUser();
+                    request.setAttribute("listuser",listuser);
                     ServletUtils.forward("/views/vwProduct/Detail.jsp", request, response);
                 }
                 break;
@@ -170,16 +174,34 @@ public class ProductFEServlet extends HttpServlet {
                 String  urlproduct = "/Product/ByCat?id=" +Integer.toString(catId1);
                 ServletUtils.redirect(urlproduct, request, response);
                 break;
-            case "/delwatlist":
-                int catId2 = 0;
+            case "/addwatlistDetail":
                 HttpSession session4 = request.getSession();
                 User user4= (User) session4.getAttribute("authUser");
+                int watId4 =0;
+                watId4 = Integer.parseInt(request.getParameter("id_product"));
+                addWatchList(user4.getIdUser(),watId4);
+                String  urlproduct4 = "/Product/Detail?id=" +Integer.toString(watId4);
+                ServletUtils.redirect(urlproduct4, request, response);
+                break;
+            case "/delwatlist":
+                int catId2 = 0;
+                HttpSession session6 = request.getSession();
+                User user6= (User) session6.getAttribute("authUser");
                 int watId2 =0;
                 watId2 = Integer.parseInt(request.getParameter("id_product"));
-                delWatchList(user4.getIdUser(),watId2);
+                delWatchList(user6.getIdUser(),watId2);
                 catId2=findidCatByidproduct(watId2);
                 String  urlproduct2 = "/Product/ByCat?id=" +Integer.toString(catId2);
                 ServletUtils.redirect(urlproduct2, request, response);
+                break;
+            case "/delwatlistDetail":
+                HttpSession session10 = request.getSession();
+                User user10= (User) session10.getAttribute("authUser");
+                int watId10 =0;
+                watId10 = Integer.parseInt(request.getParameter("id_product"));
+                delWatchList(user10.getIdUser(),watId10);
+                String  urlproduct10 = "/Product/Detail?id=" +Integer.toString(watId10);
+                ServletUtils.redirect(urlproduct10, request, response);
                 break;
             case "/delwatlistinWatList":
                 HttpSession session5 = request.getSession();
@@ -187,15 +209,17 @@ public class ProductFEServlet extends HttpServlet {
                 int watId3 =0;
                 watId3 = Integer.parseInt(request.getParameter("id_product"));
                 delWatchList(user5.getIdUser(),watId3);
-                List<Product> wlist2 = ProductModel.findByIdWatList();
+                List<Product> wlist2 = ProductModel.findByIdWatList(user5.getIdUser());
                 request.setAttribute("products", wlist2);
                 ServletUtils.forward("/views/vwProduct/WatList.jsp", request, response);
                 break;
             case "/WatList":
-                List<Product> wlist = ProductModel.findByIdWatList();
+                HttpSession session7 = request.getSession();
+                User user7= (User) session7.getAttribute("authUser");
+                List<Product> wlist = ProductModel.findByIdWatList(user7.getIdUser());
                 request.setAttribute("products", wlist);
                 ServletUtils.forward("/views/vwProduct/WatList.jsp", request, response);
-
+                break;
             case "/Search":
                 String txtSearch = request.getParameter("txtSearch");
                 String show = request.getParameter("show");

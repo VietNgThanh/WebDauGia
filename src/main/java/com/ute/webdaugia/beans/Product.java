@@ -6,6 +6,7 @@ public class Product {
     private  int idProduct,id_Cat,User_id,Availability,Start_price,id_ParentCat,Imme_Price,Current_Price,id_Bidder_current,highest_price,buoc_nhay,dathongbao,check_delay;
     private String Name,Detail_tiny,Detail_full;
     private LocalDateTime Time_to_close;
+    private LocalDateTime ngay_bat_dau;
     public Product() {
     }
 
