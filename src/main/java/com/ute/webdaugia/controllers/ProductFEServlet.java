@@ -249,14 +249,22 @@ public class ProductFEServlet extends HttpServlet {
 
     private void pagingSearchResult(HttpServletRequest request, HttpServletResponse response, String txtSearch, int pageNo, String show, String sort) throws ServletException, IOException {
         List<Product> products = ProductModel.findBySearch(txtSearch, show);
-        if (Objects.equals(sort, "priceasc")) {
-            assert products != null;
-            products.sort(Comparator.comparing(Product::getCurrent_Price));
+
+        if (Objects.equals(show, "name")) {
+            request.setAttribute("searchShow", "name");
+        }
+        else if (Objects.equals(show, "cat")) {
+            request.setAttribute("searchShow", "cat");
         }
 
-        if (Objects.equals(sort, "pricedes")) {
-            assert products != null;
-            products.sort(Comparator.comparing(Product::getCurrent_Price).reversed());
+        if (products != null) {
+            if (Objects.equals(sort, "priceasc")) {
+                products.sort(Comparator.comparing(Product::getCurrent_Price));
+            }
+
+            if (Objects.equals(sort, "pricedes")) {
+                products.sort(Comparator.comparing(Product::getCurrent_Price).reversed());
+            }
         }
         request.setAttribute("searchSort", sort);
 

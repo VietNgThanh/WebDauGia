@@ -23,42 +23,73 @@
 
   <jsp:body>
     <div class="card">
-      <h6 class="card-header">
+      <h4 class="card-header">
         Kết quả tìm kiếm cho '${txtSearch}'
-      </h6>
+      </h4>
       <c:choose>
         <c:when test="${empty products}">
           <div class="card-body">
-            <div>
-              <div class="my-1">
+            <div id="show-sort" class="pb-2">
+              <div class="mb-2">
                 <span>Hiển thị: </span>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}">Tất cả</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=name">Theo tên</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=cat">Theo danh mục</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=${searchSort}"
+                        <c:if test="${empty searchShow}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Tất Cả</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=name&sort=${searchSort}"
+                        <c:if test="${searchShow == 'name'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Theo Tên</a>
+                <a id="cat"
+                   href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=cat&sort=${searchSort}"
+                        <c:if test="${searchShow == 'cat'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Theo Danh Mục</a>
               </div>
-              <div class="my-1">
+              <div>
                 <span>Sắp xếp: </span>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=priceasc">Giá tăng dần</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=pricedes">Giá giảm dần</a>
-                <a href=""></a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=${searchShow}&sort=priceasc"
+                        <c:if test="${searchSort == 'priceasc'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Giá Thấp</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=${searchShow}&sort=pricedes"
+                        <c:if test="${searchSort == 'pricedes'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Giá Cao</a>
               </div>
             </div>
-            <p class="card-text">Không có dữ liệu.</p>
+            <h5 class="card-text">Không có dữ liệu.</h5>
           </div>
         </c:when>
         <c:otherwise>
           <div class="card-body">
-            <div>
-              <div class="my-1">
+            <div id="show-sort-2" class="pb-2">
+              <div class="mb-2">
                 <span>Hiển thị: </span>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}">Tất cả</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=name">Theo tên</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=cat">Theo danh mục</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=${searchSort}"
+                        <c:if test="${empty searchShow}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Tất Cả</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=name&sort=${searchSort}"
+                        <c:if test="${searchShow == 'name'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Theo Tên</a>
+                <a id="cat-2"
+                   href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=cat&sort=${searchSort}"
+                        <c:if test="${searchShow == 'cat'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Theo Danh Mục</a>
               </div>
-              <div class="my-1">
+              <div>
                 <span>Sắp xếp: </span>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=priceasc">Giá tăng dần</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=pricedes">Giá giảm dần</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=${searchShow}&sort=priceasc"
+                        <c:if test="${searchSort == 'priceasc'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Giá Thấp</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=${searchShow}&sort=pricedes"
+                        <c:if test="${searchSort == 'pricedes'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Giá Cao</a>
               </div>
             </div>
             <div class="row">
