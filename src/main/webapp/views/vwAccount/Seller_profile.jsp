@@ -2,9 +2,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<jsp:useBean id="profile" scope="request" type="com.ute.webdaugia.beans.User"/>
-<jsp:useBean id="bangdanhgia" scope="request" type="java.util.List<com.ute.webdaugia.beans.Danh_Gia_NguoiDung>"/>
-<jsp:useBean id="dsachsanpham" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
+
 <t:main>
     <jsp:body>
         <form action="" method="post" >

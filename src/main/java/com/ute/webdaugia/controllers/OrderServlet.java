@@ -23,9 +23,9 @@ public class OrderServlet extends HttpServlet {
         String path = request.getPathInfo();
         switch (path) {
             case "/Index":
-                List<Orders> list = OrderModel.find_top_highest_price();
+                List<Product> list = ProductModel.find_top_highest_price();
                 List<Orders> list2=OrderModel.find_top_count_order();
-                List<Orders> list3=OrderModel.find_top_gonna_expire();
+                List<Product> list3=ProductModel.find_top_gonna_expire();
                 List<Product> list1 = ProductModel.findAll();
                 request.setAttribute("top_product", list);
                 request.setAttribute("top_product2",list2);

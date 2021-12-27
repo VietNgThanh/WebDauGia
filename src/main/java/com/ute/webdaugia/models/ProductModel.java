@@ -1,7 +1,5 @@
 package com.ute.webdaugia.models;
-import com.ute.webdaugia.beans.ChildCategory;
-import com.ute.webdaugia.beans.Product;
-import com.ute.webdaugia.beans.Wishlist;
+import com.ute.webdaugia.beans.*;
 import com.ute.webdaugia.utils.DbUtils;
 import org.sql2o.Connection;
 
@@ -90,11 +88,12 @@ public class ProductModel {
                     .executeUpdate();
         }
     }
-    public static List<Product> findByIdWatList() {
-        final String query = "select idProduct,Name,id_Cat,User_id,Detail_tiny,Detail_full,Start_price,Imme_Price,Availability,Current_Price,id_ParentCat from product inner join wish_list\n" +
-                "on product.idProduct = wish_list.id_product";
+    public static List<Product> findByIdWatList(int id_user) {
+        final String query = "select product.* from product inner join wish_list\n" +
+                "on product.idProduct = wish_list.id_product and id_user= :id_user";
         try (Connection con = DbUtils.getConnection()) {
             return con.createQuery(query)
+                    .addParameter("id_user",id_user)
                     .executeAndFetch(Product.class);
         }
     }
@@ -110,8 +109,8 @@ public class ProductModel {
             return list.get(0).getIdCat();
         }
     }
-    public static void delWatchList(int id_user, int id_product){
-        String sql ="DELETE FROM wish_list WHERE id_user = :id_user and id_product = :id_product;";
+    public static void delWatchList(int id_user, int id_product) {
+        String sql = "DELETE FROM wish_list WHERE id_user = :id_user and id_product = :id_product;";
         try (Connection con = DbUtils.getConnection()) {
             con.createQuery(sql)
                     .addParameter("id_user", id_user)
@@ -121,8 +120,8 @@ public class ProductModel {
     }
     public static void Add_Seller_Product(Product a){
         String sql ="insert into product(Name, id_Cat, User_id, Detail_tiny," +
-                " Detail_full, Start_price, Imme_Price, highest_price, buoc_nhay) " +
-                "values (:ProName ,:idCat,:idUser,:TinyDes,:FullDes,:StartPrice,:ImmePrice,0,:buocnhay)";
+                " Detail_full, Start_price, Imme_Price, highest_price, buoc_nhay,check_delay,Availability,dathongbao) " +
+                "values (:ProName ,:idCat,:idUser,:TinyDes,:FullDes,:StartPrice,:ImmePrice,:StartPrice,:buocnhay,:check_delay,1,0)";
         try (Connection con = DbUtils.getConnection()) {
             con.createQuery(sql)
                     .addParameter("ProName", a.getName())
@@ -133,7 +132,53 @@ public class ProductModel {
                     .addParameter("buocnhay", a.getBuoc_nhay())
                     .addParameter("idCat", a.getIdCat())
                     .addParameter("idUser", a.getUserid())
+                    .addParameter("check_delay",a.getCheck_delay())
                     .executeUpdate();
+        }
+    }
+    public static User diemdanhgia(int id_user){
+        String sql = "select * from users where iduser= :id_user;";
+        try (Connection con = DbUtils.getConnection()) {
+           List<User> mark = con.createQuery(sql)
+                    .addParameter("id_user", id_user)
+                    .executeAndFetch(User.class);
+            if (mark.size() == 0) {
+                return null;
+            }
+            return mark.get(0);
+        }
+    }
+    public static void BiderRaGia(Orders p){
+        String sql ="INSERT INTO orders_product(id_Product,id_User,Price) VALUES(:id_Product,:id_User, :Price)";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id_Product", p.getId_Product())
+                    .addParameter("id_User", p.getId_User())
+                    .addParameter("Price", p.getPrice())
+                    .executeUpdate();
+        }
+    }
+    public static List<Orders> LichSuDauGia(int id_Product){
+        String sql = "select id_User,current_price,Time_make_price from orders_product where id_Product= :id_Product order by idOrder desc LIMIT 0,6 ;";
+        try (Connection con = DbUtils.getConnection()){
+          List<Orders> lichsu =  con.createQuery(sql)
+                    .addParameter("id_Product",id_Product)
+                    .executeAndFetch(Orders.class);
+            if (lichsu.size() == 0) {
+                return null;
+            }
+            return lichsu;
+        }
+    }
+    public static List<User> danhsachtenUser(){
+        String sql = "select * from users";
+        try (Connection con = DbUtils.getConnection()) {
+            List<User> listuser= con.createQuery(sql)
+                    .executeAndFetch(User.class);
+            if (listuser.size() == 0) {
+                return null;
+            }
+            return listuser;
         }
     }
 
@@ -173,6 +218,49 @@ public class ProductModel {
                 return null;
             }
             return products;
+        }
+    }
+    public static List<Product> find_top_highest_price() {
+        final String query = "SELECT * FROM product where availability=1 order by Current_Price desc limit 6\n";
+        try (Connection con = DbUtils.getConnection()) {
+            return con.createQuery(query)
+                    .executeAndFetch(Product.class);
+        }
+    }
+    public static List<Product> find_top_gonna_expire(){
+        final String query = "select * from product where availability=1 order by datediff(time_to_close,now())\n" +
+                "                  limit 6";
+        try (Connection con = DbUtils.getConnection()) {
+            return con.createQuery(query)
+                    .executeAndFetch(Product.class);
+        }
+    }
+    public static List<Product> find_all_product_per1(){
+        final String query = "select idProduct,date_sub(time_to_close,interval 7 day ) as a from product" ;
+
+        try (Connection con = DbUtils.getConnection()) {
+            return con.createQuery(query)
+                    .executeAndFetch(Product.class);
+        }
+    }
+
+    public static ArrayList<Product> findProductAvai() {
+        final String query = "SELECT idProduct, Name, id_Cat, User_id, Detail_tiny, Detail_full, Start_price, Imme_Price, Availability, Current_Price, id_ParentCat, id_Bidder_current, highest_price, buoc_nhay, dathongbao, time_to_close FROM product WHERE Availability = 1 and dathongbao = 0  \n";
+        try (Connection con = DbUtils.getConnection()) {
+            ArrayList<Product> products = (ArrayList<Product>) con.createQuery(query)
+                    .executeAndFetch(Product.class);
+            if (products.isEmpty()) {
+                return null;
+            }
+            return products;
+        }
+    }
+    public static void updateTrangThai(int id) {
+        String sql ="UPDATE product SET Availability = 0, dathongbao =1 where idProduct = :idProduct ";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("idProduct", id)
+                    .executeUpdate();
         }
     }
 }

@@ -54,7 +54,6 @@
                       </a>
                       <c:set scope="request" var="check" value=""/>
                       <c:forEach items="${wlists}" var="wl">
-
                         <c:if test="${c.idProduct == wl.id_product}">
                           <c:set scope="request" var="check" value="true"/>
                         </c:if>
@@ -74,8 +73,6 @@
                         </a>
                         <c:set scope="request" var="check" value=""/>
                       </c:if>
-
-
                     </div>
                   </div>
                 </div>
