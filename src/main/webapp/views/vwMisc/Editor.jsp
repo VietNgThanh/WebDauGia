@@ -103,6 +103,10 @@
                     <div class="form-group">
                         <input id="fuMain1" name="fuMain1" type="file" multiple />
                     </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="check" name="check_delay" value="1" >
+                        <label for="check">Bạn có muốn tự động gia hạn không</label><br>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">
@@ -111,6 +115,7 @@
                     </button>
                 </div>
             </div>
+
         </form>
     </jsp:body>
 </t:main>

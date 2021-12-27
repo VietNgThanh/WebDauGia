@@ -8,9 +8,11 @@ import com.ute.webdaugia.models.ProductModel;
 import com.ute.webdaugia.utils.ServletUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -152,7 +154,17 @@ public class MiscServlet extends HttpServlet {
     String txtIdProType = txtProType.split("\\.")[0];
     int idCat = Integer.parseInt(txtIdProType);
     System.out.println(txtIdProType);
-//      int idCat=1;
+
+
+    int checkdelay=Integer.parseInt((request.getParameter("check_delay")));
+    System.out.println("Check Delay");
+    System.out.println(checkdelay);
+    if(checkdelay!=1) {
+      checkdelay = 0;
+      System.out.println("Check Delay 2");
+      System.out.println(checkdelay);
+    }
+
 
     int immeP=  Integer.parseInt(request.getParameter("ImmePrice"));
     System.out.println(immeP);
@@ -168,7 +180,9 @@ public class MiscServlet extends HttpServlet {
     HttpSession session = request.getSession();
     User user= (User) session.getAttribute("authUser");
 
-    Product a=new Product(idCat,startP,immeP,buocnhay,namePro,tinyDesc,desc,user.getIdUser());
+    System.out.println("Check delay 3");
+    System.out.println(checkdelay);
+    Product a=new Product(idCat,startP,immeP,buocnhay,namePro,tinyDesc,desc,user.getIdUser(),checkdelay);
     ProductModel.Add_Seller_Product(a);
 //    ServletUtils.forward("/views/.jsp", request, response);
     String  urlz = "/Product/Main";
