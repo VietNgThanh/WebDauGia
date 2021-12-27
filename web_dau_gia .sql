@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2021 at 11:26 AM
+-- Generation Time: Dec 27, 2021 at 01:42 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -181,7 +181,11 @@ INSERT INTO `orders_product` (`idOrder`, `id_Product`, `id_User`, `Price`, `Time
 (82, 10, 3, 1100000, '2021-12-27 17:08:26', NULL),
 (84, 10, 3, 1100000, '2021-12-27 17:09:04', NULL),
 (85, 10, 3, 1500000, '2021-12-27 17:10:29', 1500000),
-(87, NULL, 5, 1600000, '2021-12-27 17:10:57', NULL);
+(87, NULL, 5, 1600000, '2021-12-27 17:10:57', NULL),
+(89, NULL, 4, 1550000, '2021-12-27 19:26:56', NULL),
+(91, 10, 5, 1550000, '2021-12-27 19:27:53', 1550000),
+(93, 10, 7, 1600000, '2021-12-27 19:40:55', 1600000),
+(94, 10, 5, 1600000, '2021-12-27 19:41:12', 1600000);
 
 --
 -- Triggers `orders_product`
@@ -191,7 +195,7 @@ CREATE TRIGGER `orders_product_AFTER_DELETE` AFTER DELETE ON `orders_product` FO
 	select id_Bidder_current into @idbidder from product where idProduct =old.id_Product;
 	if(old.id_User=@idbidder)
     then select max(current_price) into @cur_pri from orders_product where id_Product =old.id_Product ;
-     select id_User,Price into @user_id,@hi_pri from orders_product where id_Product=old.id_Product and current_price=@cur_pri;
+     select id_User,Price into @user_id,@hi_pri from orders_product where id_Product=old.id_Product and current_price=@cur_pri limit 1 ;
     update product set Current_Price=@cur_pri,id_Bidder_current=@user_id,highest_price=@hi_pri where idProduct=old.id_Product;
     end if;
 END
@@ -294,7 +298,7 @@ INSERT INTO `product` (`idProduct`, `Name`, `id_Cat`, `User_id`, `Detail_tiny`, 
 (7, 'Túi Dior', 5, 3, 'abc', 'abcvferr', 15000000, 100000000, 1, 19100000, 2, 6, 21000000, 100000, 0, '2022-01-03 13:51:25', 1, '2021-12-27 13:21:25'),
 (8, 'iphone8', 2, 3, 'abc', 'abcvjhwbjhwbviweb', 12000000, 100000000, 1, 12000000, 1, 0, 0, 100000, 0, '2022-01-03 13:51:25', 1, '2021-12-27 13:21:25'),
 (9, 'Play Station', 13, 3, 'abc', 'ebubebhbchjbjwbieb', 10000000, 100000000, 1, 13000000, 4, 2, 13000000, 100000, 0, '2022-01-01 13:51:25', 1, '2021-12-27 13:21:25'),
-(10, 'GIÀY BITIS', 5, 8, 'ABC', 'FWSFIWBFWB', 1000000, 1500000, 1, 1500000, 2, 3, 1500000, 50000, 0, '2022-01-03 13:51:25', 1, '2021-12-27 13:21:25');
+(10, 'GIÀY BITIS', 5, 8, 'ABC', 'FWSFIWBFWB', 1000000, 1500000, 1, 1600000, 2, 7, 1600000, 50000, 0, '2022-01-03 13:51:25', 1, '2021-12-27 13:21:25');
 
 --
 -- Triggers `product`
@@ -343,7 +347,9 @@ INSERT INTO `tu_choi_bidder` (`id_tu_choi`, `id_product`, `id_bidder`) VALUES
 (14, 10, 6),
 (15, 10, 4),
 (16, 10, 5),
-(17, 10, 5);
+(17, 10, 5),
+(18, 10, 4),
+(19, 10, 6);
 
 --
 -- Triggers `tu_choi_bidder`
@@ -477,7 +483,7 @@ ALTER TABLE `danh_gia_nguoidung`
 -- AUTO_INCREMENT for table `orders_product`
 --
 ALTER TABLE `orders_product`
-  MODIFY `idOrder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `idOrder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `parentcategory`
@@ -495,7 +501,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `tu_choi_bidder`
 --
 ALTER TABLE `tu_choi_bidder`
-  MODIFY `id_tu_choi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_tu_choi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
