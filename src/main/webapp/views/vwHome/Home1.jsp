@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<jsp:useBean id="top_product" scope="request" type="java.util.List<com.ute.webdaugia.beans.Orders>"/>
+<jsp:useBean id="top_product" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 <jsp:useBean id="top_product2" scope="request" type="java.util.List<com.ute.webdaugia.beans.Orders>"/>
-<jsp:useBean id="top_product3" scope="request" type="java.util.List<com.ute.webdaugia.beans.Orders>"/>
+<jsp:useBean id="top_product3" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 <jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 
 <t:main>
@@ -25,17 +25,17 @@
                         <div class="row">
                             <c:forEach items="${top_product}" var="top_id">
                                 <c:forEach items="${products}" var="c">
-                                    <c:if test="${top_id.id_Product eq c.idProduct}">
+                                    <c:if test="${top_id.idProduct eq c.idProduct}">
                                         <div class="col-sm-4 mb-3">
                                             <div class="card h-100">
                                                 <img src="${pageContext.request.contextPath}/public/imgs/sp/${c.idProduct}/main_thumbs.jpg"
                                                      alt="${c.name}" title="${c.name}" class="card-img-top">
                                                 <div class="card-body">
-                                                    <h6 class="card-title">${c.name}</h6>
+                                                    <h6 class="card$-title">${c.name}</h6>
                                                     <h5 class="card-title text-danger">
-                                                        <fmt:formatNumber value="${c.start_price}" type="number"/>
+                                                        <fmt:formatNumber value="${c.current_Price}" type="number"/>
                                                     </h5>
-                                                    <p class="card-text">${c.detail_tiny}</p>
+                                                    <p class="card-text">{c.detail_tiny}</p>
                                                 </div>
                                                 <div class="card-footer text-muted">
                                                     <a class="btn btn-sm btn-outline-primary"
@@ -82,7 +82,7 @@
                                                 <div class="card-body">
                                                     <h6 class="card-title">${c.name}</h6>
                                                     <h5 class="card-title text-danger">
-                                                        <fmt:formatNumber value="${c.start_price}" type="number"/>
+                                                        <fmt:formatNumber value="${c.current_Price}" type="number"/>
                                                     </h5>
                                                     <p class="card-text">${c.detail_tiny}</p>
                                                 </div>
@@ -123,7 +123,7 @@
                         <div class="row">
                             <c:forEach items="${top_product3}" var="top_id">
                                 <c:forEach items="${products}" var="c">
-                                    <c:if test="${top_id.id_Product eq c.idProduct}">
+                                    <c:if test="${top_id.idProduct eq c.idProduct}">
                                         <div class="col-sm-4 mb-3">
                                             <div class="card h-100">
                                                 <img src="${pageContext.request.contextPath}/public/imgs/sp/${c.idProduct}/main_thumbs.jpg"
@@ -131,7 +131,7 @@
                                                 <div class="card-body">
                                                     <h6 class="card-title">${c.name}</h6>
                                                     <h5 class="card-title text-danger">
-                                                        <fmt:formatNumber value="${c.start_price}" type="number"/>
+                                                        <fmt:formatNumber value="${c.current_Price}" type="number"/>
                                                     </h5>
                                                     <p class="card-text">${c.detail_tiny}</p>
                                                 </div>

@@ -3,15 +3,14 @@ package com.ute.webdaugia.beans;
 import java.time.LocalDateTime;
 
 public class Product {
-    private  int idProduct,id_Cat,User_id,Availability,Start_price,id_ParentCat,Imme_Price,Current_Price,id_Bidder_current,highest_price,buoc_nhay,dathongbao;
+    private  int idProduct,id_Cat,User_id,Availability,Start_price,id_ParentCat,Imme_Price,Current_Price,id_Bidder_current,highest_price,buoc_nhay,dathongbao,check_delay;
     private String Name,Detail_tiny,Detail_full;
     private LocalDateTime Time_to_close;
     public Product() {
     }
 
-    public LocalDateTime getTime_to_close() {
-        return Time_to_close;
-    }
+
+
 
     public Product(int idProduct,String name, int id_Cat, int user_id,String detail_tiny, String detail_full, int start_price,int imme_Price,int availability,  int current_Price,int id_ParentCat,   int id_Bidder_current, int highest_price, int buoc_nhay, int dathongbao,   LocalDateTime time_to_close) {
         this.idProduct = idProduct;
@@ -50,7 +49,7 @@ public class Product {
         Detail_full = detail_full;
     }
 
-    public Product(int id_Cat, int start_price, int imme_Price, int buoc_nhay, String name, String detail_tiny, String detail_full,int user_id) {
+    public Product(int id_Cat, int start_price, int imme_Price, int buoc_nhay, String name, String detail_tiny, String detail_full,int user_id,int Check_delay) {
         this.id_Cat = id_Cat;
         Start_price = start_price;
         Imme_Price = imme_Price;
@@ -59,14 +58,20 @@ public class Product {
         Detail_tiny = detail_tiny;
         Detail_full = detail_full;
         User_id=user_id;
+        this.check_delay=Check_delay;
     }
-
+    public int getCheck_delay() {
+        return check_delay;
+    }
     public int getBuoc_nhay() {
         return buoc_nhay;
     }
 
     public int getDathongbao() {
         return dathongbao;
+    }
+    public LocalDateTime getTime_to_close() {
+        return Time_to_close;
     }
 
     public int getIdProduct() {
