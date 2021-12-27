@@ -30,7 +30,7 @@ public class Product {
         Detail_full = detail_full;
     }
 
-    public Product(int id_Cat, int start_price, int imme_Price, int buoc_nhay, String name, String detail_tiny, String detail_full,int user_id,int Check_delay) {
+    public Product(int id_Cat, int start_price, int imme_Price, int buoc_nhay, String name, String detail_tiny, String detail_full,int user_id,int Check_delay,int availability,int dathongbao) {
         this.id_Cat = id_Cat;
         Start_price = start_price;
         Imme_Price = imme_Price;
@@ -40,6 +40,8 @@ public class Product {
         Detail_full = detail_full;
         User_id=user_id;
         this.check_delay=Check_delay;
+        this.Availability=availability;
+        this.dathongbao=dathongbao;
     }
     public int getCheck_delay() {
         return check_delay;

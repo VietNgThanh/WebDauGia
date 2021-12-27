@@ -14,10 +14,10 @@ public class OrderModel {
 //        }
 //    }
     public static List<Orders> find_top_count_order(){
-        final String query = "select id_Product from(SELECT id_Product,count(idOrder) FROM orders_product\n" +
-                "                       group by id_Product\n" +
-                "                       order by count(idOrder) desc) as a\n" +
-                "limit 6\n";
+        final String query = "select id_Product from(SELECT id_Product,count(idOrder) FROM orders_product,product where idProduct=orders_product.id_Product and Availability=1\n" +
+                "                                      group by id_Product\n" +
+                "                                       order by count(idOrder) desc) as a\n" +
+                "                limit 6";
         try (Connection con = DbUtils.getConnection()) {
             return con.createQuery(query)
                     .executeAndFetch(Orders.class);
@@ -31,14 +31,7 @@ public class OrderModel {
 //                    .executeAndFetch(Orders.class);
 //        }
 //    }
-    public static List<Orders> find_all_product_per1(){
-        final String query = "select * from orders_product\n" ;
 
-        try (Connection con = DbUtils.getConnection()) {
-            return con.createQuery(query)
-                    .executeAndFetch(Orders.class);
-        }
-    }
 
 
 

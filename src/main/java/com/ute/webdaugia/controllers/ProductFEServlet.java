@@ -109,7 +109,7 @@ public class ProductFEServlet extends HttpServlet {
                 int PaCaID = Integer.parseInt(request.getParameter("id"));
                 List<Product> productsByParentID = ProductModel.findbyparentID(PaCaID);
                 List<User> list2 = AdminUserModel.findAllUser_verpa();
-                List<Orders> list3 = OrderModel.find_all_product_per1();
+                List<Product> list3 = ProductModel.find_all_product_per1();
 
                 if (productsByParentID == null) {
                     request.setAttribute("products", productsByParentID);
