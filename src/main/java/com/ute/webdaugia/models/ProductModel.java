@@ -195,4 +195,20 @@ public class ProductModel {
             return products;
         }
     }
+
+    public static ArrayList<Product> findProductAvai() {
+        final String query = "select idProduct, Name, id_Cat, User_id, Detail_tiny, Detail_full, Start_price, Imme_Price, Availability, Current_Price, id_ParentCat, id_Bidder_current, highest_price, buoc_nhay, dathongbao, time_to_close from product where availability = 1 and dathongbao =0";
+        try (Connection con = DbUtils.getConnection()) {
+            return (ArrayList<Product>) con.createQuery(query)
+                    .executeAndFetch(Product.class);
+        }
+    }
+    public static void updateTrangThai(int id){
+        String sql = "UPDATE product SET Availability = 0 , dathongbao = 1  WHERE idProduct =:id \n";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
 }
