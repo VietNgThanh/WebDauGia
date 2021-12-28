@@ -9,6 +9,7 @@ import com.ute.webdaugia.models.ProductModel;
 import com.ute.webdaugia.models.OrderModel;
 import com.ute.webdaugia.utils.ServletUtils;
 import org.sql2o.converters.Convert;
+
 import java.time.Duration;
 
 import javax.servlet.ServletException;
@@ -35,8 +36,12 @@ public class ProductFEServlet extends HttpServlet {
         String path = request.getPathInfo();
         switch (path) {
             case "/ByCat":
-            int catId = Integer.parseInt(request.getParameter("id"));
-            List<Product> products = ProductModel.findByCatId(catId);
+                HttpSession session = request.getSession();
+                User user = (User) session.getAttribute("authUser");
+                List<Wishlist> wlist1 = ProductModel.findAllWList(user.getIdUser());
+
+                int catId = Integer.parseInt(request.getParameter("id"));
+                List<Product> products = ProductModel.findByCatId(catId);
 
                 if (products == null) {
                     request.setAttribute("products", products);
@@ -66,6 +71,7 @@ public class ProductFEServlet extends HttpServlet {
                     request.setAttribute("pageNo", pageNo);
                     request.setAttribute("products", products);
                     request.setAttribute("pages", pages);
+                    request.setAttribute("wlists", wlist1);
                     ServletUtils.forward("/views/vwProduct/ByCat.jsp", request, response);
                     return;
                 }
@@ -79,13 +85,9 @@ public class ProductFEServlet extends HttpServlet {
                 request.setAttribute("pageNo", pageNo);
                 request.setAttribute("pages", pages);
                 request.setAttribute("products", subList);
-
-            HttpSession session = request.getSession();
-            User user= (User) session.getAttribute("authUser");
-            List<Wishlist> wlist1=ProductModel.findAllWList(user.getIdUser());
-            request.setAttribute("wlists",wlist1);
-            ServletUtils.forward("/views/vwProduct/ByCat.jsp", request, response);
-            break;
+                request.setAttribute("wlists", wlist1);
+                ServletUtils.forward("/views/vwProduct/ByCat.jsp", request, response);
+                break;
 
             case "/Detail":
                 int proId = Integer.parseInt(request.getParameter("id"));
@@ -94,17 +96,17 @@ public class ProductFEServlet extends HttpServlet {
                     ServletUtils.redirect("/Home", request, response);
                 } else {
                     request.setAttribute("product", product);
-                    int userId2 =0;
-            HttpSession session2 = request.getSession();
-            User user2= (User) session2.getAttribute("authUser");
-                    List<Wishlist> wlist2=ProductModel.findAllWList(user2.getIdUser());
-                    request.setAttribute("wlists",wlist2);
+                    int userId2 = 0;
+                    HttpSession session2 = request.getSession();
+                    User user2 = (User) session2.getAttribute("authUser");
+                    List<Wishlist> wlist2 = ProductModel.findAllWList(user2.getIdUser());
+                    request.setAttribute("wlists", wlist2);
                     User mark = ProductModel.diemdanhgia(user2.getIdUser());
-                    request.setAttribute("mark",mark);
+                    request.setAttribute("mark", mark);
                     List<Orders> lichsu = ProductModel.LichSuDauGia(proId);
-                    request.setAttribute("lichsu",lichsu);
+                    request.setAttribute("lichsu", lichsu);
                     List<User> listuser = ProductModel.danhsachtenUser();
-                    request.setAttribute("listuser",listuser);
+                    request.setAttribute("listuser", listuser);
                     ServletUtils.forward("/views/vwProduct/Detail.jsp", request, response);
                 }
                 break;
@@ -166,56 +168,56 @@ public class ProductFEServlet extends HttpServlet {
             case "/addwatlist":
                 int catId1 = 0;
                 HttpSession session3 = request.getSession();
-                User user3= (User) session3.getAttribute("authUser");
-                int watId =0;
+                User user3 = (User) session3.getAttribute("authUser");
+                int watId = 0;
                 watId = Integer.parseInt(request.getParameter("id_product"));
-                addWatchList(user3.getIdUser(),watId);
-                catId1=findidCatByidproduct(watId);
-                String  urlproduct = "/Product/ByCat?id=" +Integer.toString(catId1);
+                addWatchList(user3.getIdUser(), watId);
+                catId1 = findidCatByidproduct(watId);
+                String urlproduct = "/Product/ByCat?id=" + Integer.toString(catId1);
                 ServletUtils.redirect(urlproduct, request, response);
                 break;
             case "/addwatlistDetail":
                 HttpSession session4 = request.getSession();
-                User user4= (User) session4.getAttribute("authUser");
-                int watId4 =0;
+                User user4 = (User) session4.getAttribute("authUser");
+                int watId4 = 0;
                 watId4 = Integer.parseInt(request.getParameter("id_product"));
-                addWatchList(user4.getIdUser(),watId4);
-                String  urlproduct4 = "/Product/Detail?id=" +Integer.toString(watId4);
+                addWatchList(user4.getIdUser(), watId4);
+                String urlproduct4 = "/Product/Detail?id=" + Integer.toString(watId4);
                 ServletUtils.redirect(urlproduct4, request, response);
                 break;
             case "/delwatlist":
                 int catId2 = 0;
                 HttpSession session6 = request.getSession();
-                User user6= (User) session6.getAttribute("authUser");
-                int watId2 =0;
+                User user6 = (User) session6.getAttribute("authUser");
+                int watId2 = 0;
                 watId2 = Integer.parseInt(request.getParameter("id_product"));
-                delWatchList(user6.getIdUser(),watId2);
-                catId2=findidCatByidproduct(watId2);
-                String  urlproduct2 = "/Product/ByCat?id=" +Integer.toString(catId2);
+                delWatchList(user6.getIdUser(), watId2);
+                catId2 = findidCatByidproduct(watId2);
+                String urlproduct2 = "/Product/ByCat?id=" + Integer.toString(catId2);
                 ServletUtils.redirect(urlproduct2, request, response);
                 break;
             case "/delwatlistDetail":
                 HttpSession session10 = request.getSession();
-                User user10= (User) session10.getAttribute("authUser");
-                int watId10 =0;
+                User user10 = (User) session10.getAttribute("authUser");
+                int watId10 = 0;
                 watId10 = Integer.parseInt(request.getParameter("id_product"));
-                delWatchList(user10.getIdUser(),watId10);
-                String  urlproduct10 = "/Product/Detail?id=" +Integer.toString(watId10);
+                delWatchList(user10.getIdUser(), watId10);
+                String urlproduct10 = "/Product/Detail?id=" + Integer.toString(watId10);
                 ServletUtils.redirect(urlproduct10, request, response);
                 break;
             case "/delwatlistinWatList":
                 HttpSession session5 = request.getSession();
-                User user5= (User) session5.getAttribute("authUser");
-                int watId3 =0;
+                User user5 = (User) session5.getAttribute("authUser");
+                int watId3 = 0;
                 watId3 = Integer.parseInt(request.getParameter("id_product"));
-                delWatchList(user5.getIdUser(),watId3);
+                delWatchList(user5.getIdUser(), watId3);
                 List<Product> wlist2 = ProductModel.findByIdWatList(user5.getIdUser());
                 request.setAttribute("products", wlist2);
                 ServletUtils.forward("/views/vwProduct/WatList.jsp", request, response);
                 break;
             case "/WatList":
                 HttpSession session7 = request.getSession();
-                User user7= (User) session7.getAttribute("authUser");
+                User user7 = (User) session7.getAttribute("authUser");
                 List<Product> wlist = ProductModel.findByIdWatList(user7.getIdUser());
                 request.setAttribute("products", wlist);
                 ServletUtils.forward("/views/vwProduct/WatList.jsp", request, response);
@@ -268,38 +270,33 @@ public class ProductFEServlet extends HttpServlet {
                 ServletUtils.forward("/views/vwProduct/Detail.jsp", request, response);
                 break;
             case "/Detail":
-                BiderRaGia(request,response);
-               // ServletUtils.forward("/views/vwProduct/ByCat.jsp", request, response);
+                BiderRaGia(request, response);
+                // ServletUtils.forward("/views/vwProduct/ByCat.jsp", request, response);
                 break;
             default:
                 ServletUtils.forward("/views/404.jsp", request, response);
                 break;
         }
     }
-    private void BiderRaGia(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+
+    private void BiderRaGia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User user= (User) session.getAttribute("authUser");
+        User user = (User) session.getAttribute("authUser");
 
         int id_Product = Integer.parseInt(request.getParameter("id"));
-        int id_User=2;
-        int Price=Integer.parseInt(request.getParameter("Price"));
-        int rule =0;
-        Orders c = new Orders(id_Product,user.getIdUser(),Price);
+        int id_User = 2;
+        int Price = Integer.parseInt(request.getParameter("Price"));
+        int rule = 0;
+        Orders c = new Orders(id_Product, user.getIdUser(), Price);
         ProductModel.BiderRaGia(c);
         System.out.println("abc");
-        String  urlproduct = "/Product/Detail?id="+ Integer.toString(id_Product);
+        String urlproduct = "/Product/Detail?id=" + Integer.toString(id_Product);
         ServletUtils.redirect(urlproduct, request, response);
     }
 
     private void pagingSearchResult(HttpServletRequest request, HttpServletResponse response, String txtSearch, int pageNo, String show, String sort) throws ServletException, IOException {
         List<Product> products = ProductModel.findBySearch(txtSearch, show);
-
-        if (Objects.equals(show, "name")) {
-            request.setAttribute("searchShow", "name");
-        }
-        else if (Objects.equals(show, "cat")) {
-            request.setAttribute("searchShow", "cat");
-        }
+        request.setAttribute("searchShow", show);
 
         if (products != null) {
             if (Objects.equals(sort, "priceasc")) {
@@ -309,12 +306,18 @@ public class ProductFEServlet extends HttpServlet {
             if (Objects.equals(sort, "pricedes")) {
                 products.sort(Comparator.comparing(Product::getCurrent_Price).reversed());
             }
+
+            if (Objects.equals(sort, "time")) {
+                products.sort(Comparator.comparing(Product::getTime_to_close));
+            }
         }
         request.setAttribute("searchSort", sort);
 
         if (products == null) {
             request.setAttribute("products", products);
             request.setAttribute("txtSearch", txtSearch);
+            request.setAttribute("pageNo", 1);
+            request.setAttribute("pages", 1);
             ServletUtils.forward("/views/vwProduct/Search.jsp", request, response);
             return;
         }
@@ -331,6 +334,8 @@ public class ProductFEServlet extends HttpServlet {
         if (pages == 1) {
             request.setAttribute("products", products);
             request.setAttribute("txtSearch", txtSearch);
+            request.setAttribute("pageNo", 1);
+            request.setAttribute("pages", 1);
             ServletUtils.forward("/views/vwProduct/Search.jsp", request, response);
             return;
         }

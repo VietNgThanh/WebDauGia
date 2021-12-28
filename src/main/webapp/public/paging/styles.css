@@ -17,7 +17,7 @@ footer {
     border-bottom: 4px solid #fff;
 }
 
-#show-sort #cat, #show-sort-2 #cat-2 {
+#show-sort #cat, #show-sort #time, #show-sort-2 #cat-2, #show-sort-2 #time-2 {
     width: 130px;
 }
 

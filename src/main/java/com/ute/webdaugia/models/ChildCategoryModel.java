@@ -1,6 +1,7 @@
 package com.ute.webdaugia.models;
 
 import com.ute.webdaugia.beans.ChildCategory;
+import com.ute.webdaugia.beans.Product;
 import com.ute.webdaugia.utils.DbUtils;
 import org.sql2o.Connection;
 
@@ -69,5 +70,10 @@ public class ChildCategoryModel {
 
             return list;
         }
+    }
+
+    public static boolean hasProduct(int childIdDelete) {
+        List<Product> p = ProductModel.findByCatId(childIdDelete);
+        return p != null;
     }
 }

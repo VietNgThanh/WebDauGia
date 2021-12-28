@@ -1,6 +1,7 @@
 package com.ute.webdaugia.models;
 
 import com.ute.webdaugia.beans.ParentCategory;
+import com.ute.webdaugia.beans.Product;
 import com.ute.webdaugia.utils.DbUtils;
 import org.sql2o.Connection;
 
@@ -72,5 +73,10 @@ public class ParentCategoryModel {
                 .addParameter("id", id)
                 .executeUpdate();
         }
+    }
+
+    public static boolean hasProduct(int parentId) {
+        List<Product> p = ProductModel.findbyparentID(parentId);
+        return p != null;
     }
 }

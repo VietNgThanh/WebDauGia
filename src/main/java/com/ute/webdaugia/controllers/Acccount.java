@@ -70,15 +70,15 @@ public class Acccount extends HttpServlet {
                 ServletUtils.forward("/views/vwAccount/ChangePassWord.jsp", request, response);
                 break;
             case "/Profile":
-                HttpSession session3 = request.getSession();
-                User user3= (User) session3.getAttribute("authUser");
-                User profile = AccountModel.findByidUser(user3.getIdUser());
-                request.setAttribute("profile", profile);
-                List<Danh_Gia_NguoiDung> bangdanhgia = AccountModel.HienthiDanhGia(user3.getIdUser());
-                request.setAttribute("bangdanhgia",bangdanhgia);
-                List<Product> dsachsanpham = AccountModel.HienThiSanPhamDangDauGia(user3.getIdUser());
-                request.setAttribute("dsachsanpham",dsachsanpham);
-                ServletUtils.forward("/views/vwAccount/Profile.jsp", request, response);
+//                HttpSession session3 = request.getSession();
+//                User user3= (User) session3.getAttribute("authUser");
+//                User profile = AccountModel.findByidUser(user3.getIdUser());
+//                request.setAttribute("profile", profile);
+//                List<Danh_Gia_NguoiDung> bangdanhgia = AccountModel.HienthiDanhGia(user3.getIdUser());
+//                request.setAttribute("bangdanhgia",bangdanhgia);
+//                List<Product> dsachsanpham = AccountModel.HienThiSanPhamDangDauGia(user3.getIdUser());
+//                request.setAttribute("dsachsanpham",dsachsanpham);
+//                ServletUtils.forward("/views/vwAccount/Profile.jsp", request, response);
                 break;
         }
     }

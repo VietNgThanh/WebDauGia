@@ -83,42 +83,45 @@
       </c:choose>
     </div>
 
-    <footer class="d-flex justify-content-center align-items-center my-5">
-      <nav>
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link"
-               <c:if test="${pageNo eq 1}">style="pointer-events: none;" </c:if>
-               href="${pageContext.request.contextPath}/Product/ByCat?id=${products.get(0).idCat}&p=${pageNo-1}">
-              Previous
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link"
-               <c:if test="${pageNo eq 1}">style="pointer-events: none;" </c:if>
-               href="${pageContext.request.contextPath}/Product/ByCat?id=${products.get(0).idCat}&p=1">
-              1
-            </a>
-          </li>
-          <c:forEach begin="2" end="${pages}" step="1" var="i">
+    <%--    Paging--%>
+    <c:if test="${not (empty products && pages eq 1)}">
+      <footer class="d-flex justify-content-center align-items-center my-5">
+        <nav>
+          <ul class="pagination">
             <li class="page-item">
               <a class="page-link"
-                 <c:if test="${pageNo eq i}">style="pointer-events: none;"</c:if>
-                 href="${pageContext.request.contextPath}/Product/ByCat?id=${products.get(0).idCat}&p=${i}">
-                  ${i}
+                 <c:if test="${pageNo eq 1}">style="display: none;" </c:if>
+                 href="${pageContext.request.contextPath}/Product/ByCat?id=${products.get(0).idCat}&p=${pageNo - 1}">
+                Previous
               </a>
             </li>
-          </c:forEach>
-          <li class="page-item">
-            <a class="page-link"
-               <c:if test="${pageNo eq pages}">style=" pointer-events: none;"</c:if>
-               href="${pageContext.request.contextPath}/Product/ByCat?id=${products.get(0).idCat}&p=${pageNo+1}">
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </footer>
+            <li class="page-item">
+              <a class="page-link"
+                 <c:if test="${pageNo eq 1 || pages eq 1}">style="pointer-events: none;" </c:if>
+                 href="${pageContext.request.contextPath}/Product/ByCat?id=${products.get(0).idCat}&p=1">
+                1
+              </a>
+            </li>
+            <c:forEach begin="2" end="${pages}" step="1" var="i">
+              <li class="page-item">
+                <a class="page-link"
+                   <c:if test="${pageNo eq i}">style="pointer-events: none;"</c:if>
+                   href="${pageContext.request.contextPath}/Product/ByCat?id=${products.get(0).idCat}&p=${i}">
+                    ${i}
+                </a>
+              </li>
+            </c:forEach>
+            <li class="page-item">
+              <a class="page-link"
+                 <c:if test="${pageNo eq pages}">style="display: none;"</c:if>
+                 href="${pageContext.request.contextPath}/Product/ByCat?id=${products.get(0).idCat}&p=${pageNo + 1}">
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </footer>
+    </c:if>
 
   </jsp:body>
 </t:main>
