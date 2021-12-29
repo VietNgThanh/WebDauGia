@@ -80,10 +80,18 @@
               Hi, <b>${authUser.name}!</b>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Profile">
+              <c:if test="${authUser.permission==1}">
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Profile">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 Profile
               </a>
+              </c:if>
+              <c:if test="${authUser.permission==2}">
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Seller_Profile">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Profile
+              </a>
+              </c:if>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="javascript: $('#frmLogout').submit()">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>

@@ -182,7 +182,7 @@ public class MiscServlet extends HttpServlet {
 
     System.out.println("Check delay 3");
     System.out.println(checkdelay);
-    Product a=new Product(idCat,startP,immeP,buocnhay,namePro,tinyDesc,desc,user.getIdUser(),checkdelay,1,0);
+    Product a=new Product(idCat,startP,immeP,buocnhay,namePro,tinyDesc,desc,2,checkdelay,1,0);
     ProductModel.Add_Seller_Product(a);
 //    ServletUtils.forward("/views/.jsp", request, response);
     String  urlz = "/Product/Main";

@@ -1,9 +1,6 @@
 package com.ute.webdaugia.controllers;
 
-import com.ute.webdaugia.beans.Product;
-import com.ute.webdaugia.beans.User;
-import com.ute.webdaugia.beans.Wishlist;
-import com.ute.webdaugia.beans.Orders;
+import com.ute.webdaugia.beans.*;
 import com.ute.webdaugia.models.AdminUserModel;
 import com.ute.webdaugia.models.ProductModel;
 import com.ute.webdaugia.models.OrderModel;
@@ -20,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.ute.webdaugia.models.ProductModel.*;
@@ -80,11 +78,15 @@ public class ProductFEServlet extends HttpServlet {
                 request.setAttribute("pages", pages);
                 request.setAttribute("products", subList);
 
-            HttpSession session = request.getSession();
-            User user= (User) session.getAttribute("authUser");
-            List<Wishlist> wlist1=ProductModel.findAllWList(user.getIdUser());
-            request.setAttribute("wlists",wlist1);
-            ServletUtils.forward("/views/vwProduct/ByCat.jsp", request, response);
+                HttpSession session = request.getSession();
+                User user = (User) session.getAttribute("authUser");
+                List<Wishlist> wlist1 = ProductModel.findAllWList(user.getIdUser());
+                request.setAttribute("wlists", wlist1);
+                List<User> listuser1 = ProductModel.danhsachtenUser();
+                request.setAttribute("listuser1", listuser1);
+                List<SoLuotDauGia> listragia = ProductModel.SoluotraGiaByCat(catId);
+                request.setAttribute("listragia", listragia);
+                ServletUtils.forward("/views/vwProduct/ByCat.jsp", request, response);
             break;
 
             case "/Detail":
@@ -97,6 +99,7 @@ public class ProductFEServlet extends HttpServlet {
                     int userId2 =0;
             HttpSession session2 = request.getSession();
             User user2= (User) session2.getAttribute("authUser");
+                    request.setAttribute("user",user2.getIdUser());
                     List<Wishlist> wlist2=ProductModel.findAllWList(user2.getIdUser());
                     request.setAttribute("wlists",wlist2);
                     User mark = ProductModel.diemdanhgia(user2.getIdUser());
@@ -105,6 +108,8 @@ public class ProductFEServlet extends HttpServlet {
                     request.setAttribute("lichsu",lichsu);
                     List<User> listuser = ProductModel.danhsachtenUser();
                     request.setAttribute("listuser",listuser);
+                    Integer soluotragia = ProductModel.SoluotraGia(proId);
+                    request.setAttribute("soluotragia",soluotragia);
                     ServletUtils.forward("/views/vwProduct/Detail.jsp", request, response);
                 }
                 break;

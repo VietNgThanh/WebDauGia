@@ -6,25 +6,23 @@ public class Danh_Gia_NguoiDung {
     private int id_nguoi_duoc_danhgia;
     private String comment;
     private int trangthai;
-    private String name;
 
     public Danh_Gia_NguoiDung() {
     }
 
-    public Danh_Gia_NguoiDung(int id_nguoidanhgia, int id_nguoi_duoc_danhgia, String comment, int trangthai, String name) {
+//    public Danh_Gia_NguoiDung(int id_nguoidanhgia, int id_nguoi_duoc_danhgia, String comment, int trangthai, String name) {
+//        this.id_nguoidanhgia = id_nguoidanhgia;
+//        this.id_nguoi_duoc_danhgia = id_nguoi_duoc_danhgia;
+//        this.comment = comment;
+//        this.trangthai = trangthai;
+//        this.name = name;
+//    }
+
+    public Danh_Gia_NguoiDung(int id_nguoidanhgia, int id_nguoi_duoc_danhgia, String comment, int trangthai) {
         this.id_nguoidanhgia = id_nguoidanhgia;
         this.id_nguoi_duoc_danhgia = id_nguoi_duoc_danhgia;
         this.comment = comment;
         this.trangthai = trangthai;
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getId() {
