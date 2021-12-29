@@ -32,6 +32,10 @@ public class HomeServlet extends HttpServlet {
                 request.setAttribute("products", list1);
                 ServletUtils.forward("/views/vwHome/Home1.jsp", request, response);
                 break;
+
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
+                break;
         }
     }
 

@@ -114,6 +114,10 @@ public class Acccount extends HttpServlet {
                 request.setAttribute("listuser",listuser2);
                 ServletUtils.forward("/views/vwAccount/URLDanhGia.jsp",request,response);
                 break;
+
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
+                break;
         }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
@@ -156,6 +160,10 @@ public class Acccount extends HttpServlet {
                 break;
             case "/DanhGia":
                 addDanhGia(request,response);
+                break;
+
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
                 break;
         }
 
