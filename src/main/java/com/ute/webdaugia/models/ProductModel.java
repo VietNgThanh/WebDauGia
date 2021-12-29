@@ -289,4 +289,13 @@ public class ProductModel {
                     .executeUpdate();
         }
     }
+    public static int Max_idpro() {
+        String sql = "SELECT * FROM product ORDER BY idProduct DESC LIMIT 1";
+
+        try (Connection con = DbUtils.getConnection()) {
+            List<Product> list = con.createQuery(sql)
+                    .executeAndFetch(Product.class);
+            return list.get(0).getIdProduct();
+        }
+    }
 }

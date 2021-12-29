@@ -85,24 +85,17 @@
                 <div class="card-footer">
                 </div>
             </div>
-
             <div class="card">
                 <h4 class="card-header">
-                    Upload main picture
+                    Upload your pictures
                 </h4>
                 <div class="card-body">
                     <div class="form-group">
-                        <input id="fuMain" name="fuMain" type="file"  />
+                        <input id="fuMain" name="fuMain" type="file" multiple />
                     </div>
                 </div>
 
-                <h4 class="card-header">
-                    Upload 3 lead pictures
-                </h4>
                 <div class="card-body">
-                    <div class="form-group">
-                        <input id="fuMain1" name="fuMain1" type="file" multiple />
-                    </div>
                     <div class="form-group">
                         <input type="checkbox" id="check" name="check_delay" value="1" >
                         <label for="check">Bạn có muốn tự động gia hạn không</label><br>
@@ -115,7 +108,6 @@
                     </button>
                 </div>
             </div>
-
         </form>
     </jsp:body>
 </t:main>
