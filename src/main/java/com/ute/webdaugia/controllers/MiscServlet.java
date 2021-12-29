@@ -19,9 +19,9 @@ import java.util.List;
 
 @WebServlet(name = "MiscServlet", value = "/Misc/*")
 @MultipartConfig(
-  fileSizeThreshold = 2 * 1024 * 1024,
-  maxFileSize = 50 * 1024 * 1024,
-  maxRequestSize = 50 * 1024 * 1024
+        fileSizeThreshold = 2 * 1024 * 1024,
+        maxFileSize = 50 * 1024 * 1024,
+        maxRequestSize = 50 * 1024 * 1024
 )
 
 public class MiscServlet extends HttpServlet {
@@ -34,7 +34,6 @@ public class MiscServlet extends HttpServlet {
       case "/Editor":
         List<ChildCategory> list1= ChildCategoryModel.findAll();
         List<Product> list2=ProductModel.findAll();
-          counter=list2.size()+1;
         request.setAttribute("abc",list1);
         ServletUtils.forward("/views/vwMisc/Editor.jsp", request, response);
         break;
@@ -98,49 +97,24 @@ public class MiscServlet extends HttpServlet {
   }
 
   private void postEditor(HttpServletRequest request, HttpServletResponse response) throws
-    ServletException, IOException
+          ServletException, IOException
   {
-
-    for (Part part : request.getParts()) {
+    counter=ProductModel.Max_idpro()+1;
+    String b=String.valueOf(counter);
+    int  countImage= 1;
+    for ( Part part : request.getParts()){
       if (part.getName().equals("fuMain")) {
-        String contentDisposition = part.getHeader("content-disposition");
-        // System.out.println(contentDisposition);
-        String[] items = contentDisposition.split(";");
-        for (String s : items) {
-          String tmp = s.trim();
-          if (tmp.startsWith("filename")) {
-            int idx = tmp.indexOf("=") + 2;
-            String filename = tmp.substring(idx, tmp.length() - 1);
 
-            String targetDir = this.getServletContext().getRealPath("public/new_imgs/"+counter);
-            File dir = new File(targetDir);
-            if (!dir.exists()) {
-              dir.mkdir();
-            }
-            String destination = targetDir + "/" + filename;
-            part.write(destination);
-          }
-        }
-      }
-      if (part.getName().equals("fuMain1")) {
-        String contentDisposition = part.getHeader("content-disposition");
-        // System.out.println(contentDisposition);
-        String[] items = contentDisposition.split(";");
-        for (String s : items) {
-          String tmp = s.trim();
-          if (tmp.startsWith("filename")) {
-            int idx = tmp.indexOf("=") + 2;
-            String filename = tmp.substring(idx, tmp.length() - 1);
+        String targetDir = this.getServletContext().getRealPath("public/imgs/" + b);
 
-            String targetDir = this.getServletContext().getRealPath("public/new_imgs/"+counter);
-            File dir = new File(targetDir);
-            if (!dir.exists()) {
-              dir.mkdir();
-            }
-            String destination = targetDir + "/" + filename;
-            part.write(destination);
-          }
+        File dir = new File(targetDir);
+        if (!dir.exists()) {
+          dir.mkdir();
         }
+        String filename = String.valueOf(countImage) + ".jpg";
+        String destination = targetDir + "/" + filename;
+        part.write(destination);
+        countImage = countImage + 1;
       }
     }
     String namePro=request.getParameter("ProName");
@@ -164,8 +138,6 @@ public class MiscServlet extends HttpServlet {
       System.out.println("Check Delay 2");
       System.out.println(checkdelay);
     }
-
-
     int immeP=  Integer.parseInt(request.getParameter("ImmePrice"));
     System.out.println(immeP);
 
@@ -177,15 +149,18 @@ public class MiscServlet extends HttpServlet {
 
     String desc = request.getParameter("FullDes");
     System.out.println(desc);
+
     HttpSession session = request.getSession();
     User user= (User) session.getAttribute("authUser");
 
     System.out.println("Check delay 3");
     System.out.println(checkdelay);
-    Product a=new Product(idCat,startP,immeP,buocnhay,namePro,tinyDesc,desc,user.getIdUser(),checkdelay,1,0);
+
+    System.out.println("Check delay 3");
+    System.out.println(checkdelay);
+    Product a=new Product(idCat,startP,immeP,buocnhay,namePro,tinyDesc,desc, user.getIdUser(), checkdelay,1,0);
     ProductModel.Add_Seller_Product(a);
-//    ServletUtils.forward("/views/.jsp", request, response);
-    String  urlz = "/Product/Main";
+    String  urlz = "/Product/Index";
     ServletUtils.redirect(urlz, request, response);
   }
 }

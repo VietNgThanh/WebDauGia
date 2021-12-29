@@ -5,6 +5,7 @@ import org.sql2o.Connection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -109,6 +110,31 @@ public class ProductModel {
             return list.get(0).getIdCat();
         }
     }
+    public static Integer SoluotraGia(int id_Product){
+        final String sql =" select COUNT(idOrder) from orders_product where id_Product= :id_Product;";
+        try (Connection con = DbUtils.getConnection()) {
+            List<Integer>  list =  con.createQuery(sql)
+                    .addParameter("id_Product", id_Product)
+                    .executeAndFetch(Integer.class);
+            if (list.size() == 0) {
+                return null;
+            }
+            return list.get(0);
+        }
+    }
+    public static List<SoLuotDauGia> SoluotraGiaByCat(int id_Cat){
+        final String sql =" select idProduct,count(idOrder) as soluotragia from orders_product,product where\n" +
+                "idProduct=orders_product.id_Product and id_Cat= :id_Cat group by idProduct;";
+        try (Connection con = DbUtils.getConnection()) {
+            List<SoLuotDauGia>  list =  con.createQuery(sql)
+                    .addParameter("id_Cat", id_Cat)
+                    .executeAndFetch(SoLuotDauGia.class);
+            if (list.size() == 0) {
+                return null;
+            }
+            return list;
+        }
+    }
     public static void delWatchList(int id_user, int id_product) {
         String sql = "DELETE FROM wish_list WHERE id_user = :id_user and id_product = :id_product;";
         try (Connection con = DbUtils.getConnection()) {
@@ -121,7 +147,7 @@ public class ProductModel {
     public static void Add_Seller_Product(Product a){
         String sql ="insert into product(Name, id_Cat, User_id, Detail_tiny," +
                 " Detail_full, Start_price, Imme_Price, highest_price, buoc_nhay,check_delay,Availability,dathongbao) " +
-                "values (:ProName ,:idCat,:idUser,:TinyDes,:FullDes,:StartPrice,:ImmePrice,:StartPrice,:buocnhay,:check_delay,1,0)";
+                "values (:ProName ,:idCat,2,:TinyDes,:FullDes,:StartPrice,:ImmePrice,:StartPrice,:buocnhay,:check_delay,1,0)";
         try (Connection con = DbUtils.getConnection()) {
             con.createQuery(sql)
                     .addParameter("ProName", a.getName())
@@ -131,7 +157,7 @@ public class ProductModel {
                     .addParameter("ImmePrice", a.getImme_Price())
                     .addParameter("buocnhay", a.getBuoc_nhay())
                     .addParameter("idCat", a.getIdCat())
-                    .addParameter("idUser", a.getUserid())
+//                    .addParameter("idUser", a.getUserid())
                     .addParameter("check_delay",a.getCheck_delay())
                     .executeUpdate();
         }
@@ -261,6 +287,15 @@ public class ProductModel {
             con.createQuery(sql)
                     .addParameter("idProduct", id)
                     .executeUpdate();
+        }
+    }
+    public static int Max_idpro() {
+        String sql = "SELECT * FROM product ORDER BY idProduct DESC LIMIT 1";
+
+        try (Connection con = DbUtils.getConnection()) {
+            List<Product> list = con.createQuery(sql)
+                    .executeAndFetch(Product.class);
+            return list.get(0).getIdProduct();
         }
     }
 }

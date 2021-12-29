@@ -9,6 +9,9 @@
     <jsp:useBean id="wlists" scope="request" type="java.util.List<com.ute.webdaugia.beans.Wishlist>"/>
     <jsp:useBean id="lichsu" scope="request" type="java.util.List<com.ute.webdaugia.beans.Orders>"/>
     <jsp:useBean id="listuser" scope="request" type="java.util.List<com.ute.webdaugia.beans.User>"/>
+    <jsp:useBean id="auth" scope="session" type="java.lang.Boolean"/>
+    <jsp:useBean id="user" scope="request" type="java.lang.Integer"/>
+    <jsp:useBean id="soluotragia" scope="request" type="java.lang.Integer"/>
 </c:catch>
 
 <t:main>
@@ -76,6 +79,44 @@
     </jsp:attribute>
     <jsp:attribute name="js">
         <script>
+            var p = document.querySelector('p');
+            <%--let ngay = ${product.name};--%>
+
+            var ngayconlai = document.getElementById("dongho1").innerHTML;
+            console.warn(ngayconlai);
+            let str = document.getElementById("dongho1").innerHTML;
+            let res = str.replace(/T/g," ");
+            let res1 = res.replace(/-/g,"/");
+            document.getElementById("dongho1").innerHTML = res1;
+            var tet = new Date(res1).getTime();
+            // var tet = new Date("Feb 5,2019 24:00:00").getTime();
+            //Tổng số giây
+            var countDown = setInterval(run,1000);
+            function run(){
+                var now = new Date().getTime();
+                //Số s đến thời gian hiện tại
+                var timeRest = tet - now;
+                //Số s còn lại để đến tết;
+                var day = Math.floor(timeRest/(1000*60*60*24));
+                //Số ngày còn lại
+                var hours = Math.floor(timeRest%(1000*60*60*24)/(1000*60*60));
+                // Số giờ còn lại
+                var minute = Math.floor(timeRest%(1000*60*60)/(1000*60));
+                // Số phút còn lại
+                var sec = Math.floor(timeRest%(1000*60)/(1000));
+                // Số giây còn lại
+                if(day<0){
+                    dongho.innerHTML = "Đã hết thời gian đấu giá";
+                }
+                else {
+                    dongho.innerHTML ='Thời gian còn lại: '+ day+' DAY '+hours+' : ' + minute + ' : ' + sec +"  ";
+                }
+                if(timeRest <= 0){
+                    clearInterval(counDown);
+                    dongho.innerHTML = "HPNY";
+                }
+
+            }
             function changeImage(id){
                 let imagePath = document.getElementById(id).getAttribute('src');
                 document.getElementById('main-image').setAttribute('src',imagePath);
@@ -127,38 +168,7 @@
                 }
             }
 
-            var p = document.querySelector('p');
-            <%--let ngay = ${product.name};--%>
 
-            var ngayconlai = document.getElementById("dongho1").innerHTML;
-            console.warn(ngayconlai);
-            let str = document.getElementById("dongho1").innerHTML;
-            let res = str.replace(/T/g," ");
-            let res1 = res.replace(/-/g,"/");
-            document.getElementById("dongho1").innerHTML = res1;
-            var tet = new Date(res1).getTime();
-           // var tet = new Date("Feb 5,2019 24:00:00").getTime();
-            //Tổng số giây
-            var countDown = setInterval(run,1000);
-            function run(){
-                var now = new Date().getTime();
-                //Số s đến thời gian hiện tại
-                var timeRest = tet - now;
-                //Số s còn lại để đến tết;
-                var day = Math.floor(timeRest/(1000*60*60*24));
-                //Số ngày còn lại
-                var hours = Math.floor(timeRest%(1000*60*60*24)/(1000*60*60));
-                // Số giờ còn lại
-                var minute = Math.floor(timeRest%(1000*60*60)/(1000*60));
-                // Số phút còn lại
-                var sec = Math.floor(timeRest%(1000*60)/(1000));
-                // Số giây còn lại
-                dongho.innerHTML ='Thời gian còn lại: '+ day+' DAY '+hours+' : ' + minute + ' : ' + sec +"  ";
-                if(timeRest <= 0){
-                    clearInterval(counDown);
-                    dongho.innerHTML = "HPNY";
-                }
-            }
         </script>
     </jsp:attribute>
     <jsp:body>
@@ -170,7 +180,7 @@
             <div class="banner">
                 <hr>
                 <p id="dongho"></p>
-                <div>Thời gian trong DB: <span id="dongho1">${product.time_to_close}</span></div>
+                <div style="visibility: hidden">Thời gian trong DB: <span id="dongho1">${product.time_to_close}</span></div>
             </div>
             </div>
             <form action="" method="post"onSubmit="if(!confirm('Bạn có chắn chắn muốn Ra Giá cho sản phẩm này?')){return false;}">
@@ -188,13 +198,90 @@
                     </div>
                     <div class="col-sm-5">
                         <h3>Tên Sản Phẩm: ${product.name}</h3>
-                        <p class="card-text">Giá mua ngay: <span class="text-danger font-weight-bold">
+                        <c:if test="${product.availability == 1}">
+                            <p class="card-text">Giá mua ngay: <span class="text-danger font-weight-bold">
                             <fmt:formatNumber value="${product.imme_Price}" /> </span></p>
-                        <p class="card-text">${product.detail_full}</p>
-                        <p class="card-text">Giá Hiện Tại: <span class="text-danger font-weight-bold">
+                            <p class="card-text">${product.detail_full}</p>
+                            <p class="card-text">Giá Hiện Tại: <span class="text-danger font-weight-bold">
                             <fmt:formatNumber value="${product.current_Price + product.buoc_nhay}" /> </span></p>
-                        <p class="card-text">Điểm Đánh Giá: <span class="text-danger font-weight-bold">
-                            <fmt:formatNumber value="${mark.mark}" /> </span></p>
+                            <c:forEach items="${listuser}" var="d">
+                                <c:if test="${d.idUser == product.userid}">
+                                    <p id="maskten">Người Bán: *****${d.name.substring(d.name.lastIndexOf(' '),d.name.length())}</p>
+                                </c:if>
+                            </c:forEach>
+                            <c:if test="${auth==true}">
+                                <a href="${pageContext.request.contextPath}/Account/URLDanhGia?id=${product.userid}" role="button">
+                                    <p class="card-text">Điểm Đánh Giá của Người Bán:
+                                        <span class="text-danger font-weight-bold">
+                                <c:forEach items="${listuser}" var="d">
+                                    <c:if test="${product.userid == d.idUser}">
+                                        <fmt:formatNumber value="${d.mark}" />
+                                    </c:if>
+                                </c:forEach>
+                             </span>
+                                    </p>
+                                </a>
+                            </c:if>
+                            <c:if test="${auth==false}">
+                                <a href="${pageContext.request.contextPath}/Account/Login" role="button">
+                                    <p class="card-text">Điểm Đánh Giá của Người Bán:
+                                        <span class="text-danger font-weight-bold">
+                                <c:forEach items="${listuser}" var="d">
+                                    <c:if test="${product.userid == d.idUser}">
+                                        <fmt:formatNumber value="${d.mark}" />
+                                    </c:if>
+                                </c:forEach>
+                             </span>
+                                    </p>
+                                </a>
+                            </c:if>
+                            <c:if test="${soluotragia != 0}">
+                                <p class="card-text">Bidder ra giá cao nhất:
+                                <c:forEach items="${listuser}" var="d">
+                                    <c:if test="${d.idUser == product.id_Bidder_current}">
+                                        <td id="maskten">*****${d.name.substring(d.name.lastIndexOf(' '),d.name.length())}</td>
+                                    </c:if>
+                                </c:forEach>
+                                <c:if test="${auth==true}">
+                                    <a href="${pageContext.request.contextPath}/Account/URLDanhGia?id=${product.id_Bidder_current}" role="button">
+                                        <p class="card-text">Điểm Đánh Giá của Bidder Giữ Giá Cao Nhất: <span class="text-danger font-weight-bold">
+                                <c:forEach items="${listuser}" var="d">
+                                    <c:if test="${product.id_Bidder_current == d.idUser}">
+                                        <fmt:formatNumber value="${d.mark}" />
+                                    </c:if>
+                                </c:forEach>
+                             </span>
+                                        </p>
+                                    </a>
+                            </c:if>
+                            <c:if test="${auth==false}">
+                                <a href="${pageContext.request.contextPath}/Account/Login" role="button">
+                                    <p class="card-text">Điểm Đánh Giá của Bidder Giữ Giá Cao Nhất: <span class="text-danger font-weight-bold">
+                                <c:forEach items="${listuser}" var="d">
+                                    <c:if test="${product.id_Bidder_current == d.idUser}">
+                                        <fmt:formatNumber value="${d.mark}" />
+                                    </c:if>
+                                </c:forEach>
+                             </span></p>
+                                </a>
+                            </c:if>
+                            </c:if>
+
+<%--                            <p class="card-text">Điểm Đánh Giá của Bản Thân: <span class="text-danger font-weight-bold">--%>
+<%--                            <fmt:formatNumber value="${mark.mark}" /> </span></p>--%>
+                            <p class="card-text">Ngày Đăng: <span class="text-danger font-weight-bold">
+                                ${product.ngay_bat_dau.toLocalDate()} ${product.ngay_bat_dau.toLocalTime()}
+                            </span></p>
+                            <p class="card-text">Số lượt ra giá: <span class="text-danger font-weight-bold">
+                                ${soluotragia}
+                            </span></p>
+                        </c:if>
+                        <c:if test="${product.availability == 0}">
+                            <p class="card-text"><span class="text-danger font-weight-bold">
+                            Sản phẩm đã được bán </span></p>
+                        </c:if>
+
+
                     </div>
                 </div>
             </div>
@@ -203,10 +290,14 @@
                 <i class="fa fa-backward" aria-hidden="true"></i>
                 List
             </a>
+            <c:if test="${auth == true}">
             <c:set scope="request" var="check_diem" value="" />
-            <c:if test="${mark.mark> 30}">
+
+            <c:if test="${mark.mark>= 80}">
                 <c:set scope="request" var="check_diem" value="true" />
             </c:if>
+            <c:if test="${product.availability == 1}">
+
             <c:if test="${check_diem.length() == 0}">
                 <a  class="btn btn-outline-danger" href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}" role="button">
                     <i class="fa fa-times-circle"></i>
@@ -220,6 +311,7 @@
                 </a>
 
             </c:if>
+
             <c:set scope="request" var="check" value="" />
             <c:forEach items="${wlists}" var="wl">
                 <c:if test="${product.idProduct == wl.id_product}">
@@ -237,7 +329,9 @@
                 </a>
                 <c:set scope="request" var="check" value="" />
             </c:if>
+            </c:if>
         </div>
+                    <c:if test="${product.availability == 1}">
         <div class="card-body">
             <c:if test="${check_diem.length() != 0}">
             <div>Bước nhảy: <span id="buocnhay">${product.buoc_nhay}</span></div>
@@ -253,7 +347,9 @@
                 <button type="submit" class="btn btn-primary">
                     Ra Giá
                 </button>
-
+        </c:if>
+        </c:if>
+        <c:if test="${product.availability == 1}">
         <div class="card mt-4">
             <h4 class="card-header">
                Lịch sử Đấu giá
@@ -271,6 +367,9 @@
                             <th>Thời điểm</th>
                             <th>Người mua</th>
                             <th>Giá</th>
+                            <c:if test="${user==product.userid}">
+                                <th>Đánh Giá Người Mua</th>
+                            </c:if>
                         </tr>
                         </thead>
                         <c:forEach items="${lichsu}" var="c">
@@ -283,6 +382,20 @@
                                     </c:if>
                                 </c:forEach>
                                 <td>${c.current_price}</td>
+                                <c:if test="${user==product.userid}">
+                                <td>
+                                    <c:if test="${auth==true}">
+                                        <a href="${pageContext.request.contextPath}/Account/DanhGia?id=${c.id_User}" role="button">
+                                            <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                                        </a>
+                                    </c:if>
+                                    <c:if test="${auth==false}">
+                                        <a href="${pageContext.request.contextPath}/Account/Login" role="button">
+                                            <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                                        </a>
+                                    </c:if>
+                                </td>
+                                </c:if>
                             </tr>
                             </tbody>
                         </c:forEach>
@@ -290,6 +403,7 @@
                 </c:otherwise>
             </c:choose>
         </div>
+                    </c:if>
             </form>
         </div>
 

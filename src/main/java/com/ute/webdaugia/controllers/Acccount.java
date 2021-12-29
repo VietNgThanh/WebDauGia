@@ -28,6 +28,10 @@ public class Acccount extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         String path = request.getPathInfo();
         switch (path) {
+            case "/DanhGia":
+                int proId = Integer.parseInt(request.getParameter("id"));
+                ServletUtils.forward("/views/vwAccount/Comment.jsp", request, response);
+                break;
                 case "/Register":
                 ServletUtils.forward("/views/vwAccount/Register.jsp", request, response);
                 break;
@@ -70,15 +74,45 @@ public class Acccount extends HttpServlet {
                 ServletUtils.forward("/views/vwAccount/ChangePassWord.jsp", request, response);
                 break;
             case "/Profile":
+                HttpSession session3 = request.getSession();
+                User user3= (User) session3.getAttribute("authUser");
+                User profile = AccountModel.findByidUser(user3.getIdUser());
+                request.setAttribute("profile", profile);
+                List<Danh_Gia_NguoiDung> bangdanhgia = AccountModel.HienthiDanhGia(user3.getIdUser());
+                request.setAttribute("bangdanhgia",bangdanhgia);
+                List<Product> dsachsanpham = AccountModel.HienThiSanPhamDangDauGia(user3.getIdUser());
+                request.setAttribute("dsachsanpham",dsachsanpham);
+                List<Product> dsachdathang = AccountModel.HienThiSanPhamDaThang(user3.getIdUser());
+                request.setAttribute("dsachdathang",dsachdathang);
+                List<User> listuser=AccountModel.danhsachtenUser();
+                request.setAttribute("listuser",listuser);
+                ServletUtils.forward("/views/vwAccount/Profile.jsp", request, response);
+                break;
+
+            case "/Seller_Profile":
+                HttpSession session4 = request.getSession();
+                User user4= (User) session4.getAttribute("authUser");
+                User profile1 = AccountModel.findByidUser(user4.getIdUser());
+                request.setAttribute("profile", profile1);
+                List<Product> dsachban = AccountModel.HienThiSanPhamDangBan(user4.getIdUser());
+                request.setAttribute("dsachban",dsachban);
+                List<Danh_Gia_NguoiDung> bangdanhgia1 = AccountModel.HienthiDanhGia(user4.getIdUser());
+                request.setAttribute("bangdanhgia1",bangdanhgia1);
+                List<User> listuser1=AccountModel.danhsachtenUser();
+                request.setAttribute("listuser1",listuser1);
+                ServletUtils.forward("/views/vwAccount/Seller_profile.jsp",request,response);
+                break;
+            case "/URLDanhGia":
+                int id = Integer.parseInt(request.getParameter("id"));
 //                HttpSession session3 = request.getSession();
 //                User user3= (User) session3.getAttribute("authUser");
-//                User profile = AccountModel.findByidUser(user3.getIdUser());
-//                request.setAttribute("profile", profile);
-//                List<Danh_Gia_NguoiDung> bangdanhgia = AccountModel.HienthiDanhGia(user3.getIdUser());
-//                request.setAttribute("bangdanhgia",bangdanhgia);
-//                List<Product> dsachsanpham = AccountModel.HienThiSanPhamDangDauGia(user3.getIdUser());
-//                request.setAttribute("dsachsanpham",dsachsanpham);
-//                ServletUtils.forward("/views/vwAccount/Profile.jsp", request, response);
+                User profile2 = AccountModel.findByidUser(id);
+                request.setAttribute("profile", profile2);
+                List<Danh_Gia_NguoiDung> bangdanhgia2 = AccountModel.HienthiDanhGia(id);
+                request.setAttribute("bangdanhgia",bangdanhgia2);
+                List<User> listuser2=AccountModel.danhsachtenUser();
+                request.setAttribute("listuser",listuser2);
+                ServletUtils.forward("/views/vwAccount/URLDanhGia.jsp",request,response);
                 break;
 
             default:
@@ -124,12 +158,28 @@ public class Acccount extends HttpServlet {
             case "/Profile":
                 updateProfile(request,response);
                 break;
+            case "/DanhGia":
+                addDanhGia(request,response);
+                break;
 
             default:
                 ServletUtils.forward("/views/404.jsp", request, response);
                 break;
         }
 
+    }
+    private void addDanhGia(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        User user= (User) session.getAttribute("authUser");
+
+        String comment = request.getParameter("comment");
+        int trangthai = Integer.parseInt(request.getParameter("trangthai"));
+        int  id_nguoi_duoc_danhgia = Integer.parseInt(request.getParameter("id"));
+
+        Danh_Gia_NguoiDung c = new Danh_Gia_NguoiDung(user.getIdUser(),id_nguoi_duoc_danhgia,comment,trangthai);
+        AccountModel.addDanhGia(c);
+        String  urlproduct = "/Account/DanhGia?id=" + Integer.toString(id_nguoi_duoc_danhgia);
+        ServletUtils.redirect(urlproduct, request, response);
     }
     private void updateProfile(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         HttpSession session = request.getSession();

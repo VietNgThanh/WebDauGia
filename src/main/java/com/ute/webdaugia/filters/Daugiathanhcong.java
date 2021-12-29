@@ -50,14 +50,14 @@ public class Daugiathanhcong implements Filter {
                     User seller = AccountModel.findByidUser(product.getUserid());
                     SendmailtoNguoiThang(user.getEmail(),mess);
                     SendmailtoNguoiban(seller.getEmail(), messtoseller);
-                    ProductModel.updateTrangThai(0);
+                    ProductModel.updateTrangThai(product.getIdProduct());
                 }
                 else {
                     User seller = AccountModel.findByidUser(product.getUserid());
                     String mess = "San pham " + product.getName() +
                             " da ket thuc nhung khong co dau gia " + " xin chia buon";
                     SendmailtoNguoiThang(seller.getEmail(),mess);
-                    ProductModel.updateTrangThai(0);
+                    ProductModel.updateTrangThai(product.getIdProduct());
                 }
             }
         }

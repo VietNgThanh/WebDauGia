@@ -1,15 +1,11 @@
 package com.ute.webdaugia.controllers;
 
-import com.ute.webdaugia.beans.Product;
-import com.ute.webdaugia.beans.User;
-import com.ute.webdaugia.beans.Wishlist;
-import com.ute.webdaugia.beans.Orders;
+import com.ute.webdaugia.beans.*;
 import com.ute.webdaugia.models.AdminUserModel;
 import com.ute.webdaugia.models.ProductModel;
 import com.ute.webdaugia.models.OrderModel;
 import com.ute.webdaugia.utils.ServletUtils;
 import org.sql2o.converters.Convert;
-
 import java.time.Duration;
 
 import javax.servlet.ServletException;
@@ -21,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.ute.webdaugia.models.ProductModel.*;
@@ -42,6 +39,11 @@ public class ProductFEServlet extends HttpServlet {
 
                 int catId = Integer.parseInt(request.getParameter("id"));
                 List<Product> products = ProductModel.findByCatId(catId);
+
+                List<User> listuser1 = ProductModel.danhsachtenUser();
+                request.setAttribute("listuser1", listuser1);
+                List<SoLuotDauGia> listragia = ProductModel.SoluotraGiaByCat(catId);
+                request.setAttribute("listragia", listragia);
 
                 if (products == null) {
                     request.setAttribute("products", products);
@@ -96,17 +98,20 @@ public class ProductFEServlet extends HttpServlet {
                     ServletUtils.redirect("/Home", request, response);
                 } else {
                     request.setAttribute("product", product);
-                    int userId2 = 0;
-                    HttpSession session2 = request.getSession();
-                    User user2 = (User) session2.getAttribute("authUser");
-                    List<Wishlist> wlist2 = ProductModel.findAllWList(user2.getIdUser());
-                    request.setAttribute("wlists", wlist2);
+                    int userId2 =0;
+            HttpSession session2 = request.getSession();
+            User user2= (User) session2.getAttribute("authUser");
+                    request.setAttribute("user",user2.getIdUser());
+                    List<Wishlist> wlist2=ProductModel.findAllWList(user2.getIdUser());
+                    request.setAttribute("wlists",wlist2);
                     User mark = ProductModel.diemdanhgia(user2.getIdUser());
-                    request.setAttribute("mark", mark);
+                    request.setAttribute("mark",mark);
                     List<Orders> lichsu = ProductModel.LichSuDauGia(proId);
-                    request.setAttribute("lichsu", lichsu);
+                    request.setAttribute("lichsu",lichsu);
                     List<User> listuser = ProductModel.danhsachtenUser();
-                    request.setAttribute("listuser", listuser);
+                    request.setAttribute("listuser",listuser);
+                    Integer soluotragia = ProductModel.SoluotraGia(proId);
+                    request.setAttribute("soluotragia",soluotragia);
                     ServletUtils.forward("/views/vwProduct/Detail.jsp", request, response);
                 }
                 break;
