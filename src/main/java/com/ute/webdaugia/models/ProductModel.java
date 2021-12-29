@@ -165,7 +165,7 @@ public class ProductModel {
     public static User diemdanhgia(int id_user){
         String sql = "select * from users where iduser= :id_user;";
         try (Connection con = DbUtils.getConnection()) {
-           List<User> mark = con.createQuery(sql)
+            List<User> mark = con.createQuery(sql)
                     .addParameter("id_user", id_user)
                     .executeAndFetch(User.class);
             if (mark.size() == 0) {
@@ -187,7 +187,7 @@ public class ProductModel {
     public static List<Orders> LichSuDauGia(int id_Product){
         String sql = "select id_User,current_price,Time_make_price from orders_product where id_Product= :id_Product order by idOrder desc LIMIT 0,6 ;";
         try (Connection con = DbUtils.getConnection()){
-          List<Orders> lichsu =  con.createQuery(sql)
+            List<Orders> lichsu =  con.createQuery(sql)
                     .addParameter("id_Product",id_Product)
                     .executeAndFetch(Orders.class);
             if (lichsu.size() == 0) {
@@ -215,17 +215,17 @@ public class ProductModel {
             List<Product> products = new ArrayList<>();
             if (!Objects.equals(show, "cat")) {
                 products = con.createQuery(queryProducts)
-                    .executeAndFetch(Product.class);
+                        .executeAndFetch(Product.class);
             }
 
             if (!Objects.equals(show, "name")) {
                 List<Integer> proIds = products
-                    .stream().map(Product::getIdProduct)
-                    .collect(Collectors.toList());
+                        .stream().map(Product::getIdProduct)
+                        .collect(Collectors.toList());
                 List<Integer> catIdsSearchByCatName = con.createQuery(queryCat)
-                    .executeAndFetch(ChildCategory.class)
-                    .stream().map(ChildCategory::getId)
-                    .collect(Collectors.toList());
+                        .executeAndFetch(ChildCategory.class)
+                        .stream().map(ChildCategory::getId)
+                        .collect(Collectors.toList());
 
                 List<Product> proByCatID = new ArrayList<>();
                 for (int catId : catIdsSearchByCatName) {

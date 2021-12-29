@@ -12,7 +12,7 @@
     <jsp:body>
         <div class="card">
             <h4 class="card-header">
-                Top 5 Highest Products
+                Top 6 Highest Products
             </h4>
             <c:choose>
                 <c:when test="${top_product.size() == 0}">
@@ -42,10 +42,10 @@
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                                 Details
                                             </a>
-                                            <a class="btn btn-sm btn-outline-success" href="#" role="button">
-                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                Add to cart
-                                            </a>
+<%--                                            <a class="btn btn-sm btn-outline-success" href="#" role="button">--%>
+<%--                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>--%>
+<%--                                                Add to cart--%>
+<%--                                            </a>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
         </div>
         <div class="card">
             <h4 class="card-header">
-                Top 5 Highest Order Turns
+                Top 6 Highest Order Turns
             </h4>
             <c:choose>
                 <c:when test="${top_product2.size() == 0}">
@@ -89,10 +89,10 @@
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                         Details
                                                     </a>
-                                                    <a class="btn btn-sm btn-outline-success" href="#" role="button">
-                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                        Add to cart
-                                                    </a>
+<%--                                                    <a class="btn btn-sm btn-outline-success" href="#" role="button">--%>
+<%--                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>--%>
+<%--                                                        Add to cart--%>
+<%--                                                    </a>--%>
                                                 </div>
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@
         </div>
         <div class="card">
             <h4 class="card-header">
-                Top 5 Expired Products
+                Top 6 Expired Products
             </h4>
             <c:choose>
                 <c:when test="${top_product3.size() == 0}">
@@ -138,10 +138,10 @@
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                         Details
                                                     </a>
-                                                    <a class="btn btn-sm btn-outline-success" href="#" role="button">
-                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                        Add to cart
-                                                    </a>
+<%--                                                    <a class="btn btn-sm btn-outline-success" href="#" role="button">--%>
+<%--                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>--%>
+<%--                                                        Add to cart--%>
+<%--                                                    </a>--%>
                                                 </div>
                                             </div>
                                         </div>

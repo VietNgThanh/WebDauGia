@@ -3,13 +3,13 @@ package com.ute.webdaugia.beans;
 import java.time.LocalDateTime;
 
 public class Product {
-    private  int idProduct,id_Cat,User_id,Availability,Start_price,id_ParentCat,Imme_Price,Current_Price,id_Bidder_current,highest_price,buoc_nhay,dathongbao,check_delay;
+    private  int idProduct,id_Cat,User_id,Availability,Start_price,id_ParentCat,Imme_Price,Current_Price,id_Bidder_current,highest_price,buoc_nhay,dathongbao,check_delay,sohinhanh;
     private String Name,Detail_tiny,Detail_full;
     private LocalDateTime Time_to_close;
     private LocalDateTime ngay_bat_dau;
     public Product() {
     }
-    public Product(int id_Cat, int start_price, int imme_Price, int buoc_nhay, String name, String detail_tiny, String detail_full,int user_id,int Check_delay,int availability,int dathongbao) {
+    public Product(int id_Cat, int start_price, int imme_Price, int buoc_nhay, String name, String detail_tiny, String detail_full,int user_id,int Check_delay,int availability,int dathongbao,int sohinhanh) {
         this.id_Cat = id_Cat;
         Start_price = start_price;
         Imme_Price = imme_Price;
@@ -21,6 +21,7 @@ public class Product {
         this.check_delay=Check_delay;
         this.Availability=availability;
         this.dathongbao=dathongbao;
+        this.sohinhanh=sohinhanh;
     }
 
 
@@ -82,6 +83,9 @@ public class Product {
         Detail_full = detail_full;
     }
 
+    public int getSohinhanh() {
+        return sohinhanh;
+    }
 
     public int getCheck_delay() {
         return check_delay;

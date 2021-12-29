@@ -134,7 +134,5 @@
                 </nav>
             </footer>
         </c:if>
-
-
     </jsp:body>
 </t:main>

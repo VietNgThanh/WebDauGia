@@ -128,15 +128,13 @@ public class MiscServlet extends HttpServlet {
     String txtIdProType = txtProType.split("\\.")[0];
     int idCat = Integer.parseInt(txtIdProType);
     System.out.println(txtIdProType);
-
-
-    int checkdelay=Integer.parseInt((request.getParameter("check_delay")));
-    System.out.println("Check Delay");
-    System.out.println(checkdelay);
-    if(checkdelay!=1) {
-      checkdelay = 0;
-      System.out.println("Check Delay 2");
-      System.out.println(checkdelay);
+    int checkdelay;
+    if(request.getParameter("check_delay")=="")
+    {
+         checkdelay=0;
+    }
+    else {
+      checkdelay = 1;
     }
     int immeP=  Integer.parseInt(request.getParameter("ImmePrice"));
     System.out.println(immeP);
@@ -158,7 +156,7 @@ public class MiscServlet extends HttpServlet {
 
     System.out.println("Check delay 3");
     System.out.println(checkdelay);
-    Product a=new Product(idCat,startP,immeP,buocnhay,namePro,tinyDesc,desc, user.getIdUser(), checkdelay,1,0);
+    Product a=new Product(idCat,startP,immeP,buocnhay,namePro,tinyDesc,desc, user.getIdUser(), checkdelay,1,0,countImage-1);
     ProductModel.Add_Seller_Product(a);
     String  urlz = "/Product/Index";
     ServletUtils.redirect(urlz, request, response);
