@@ -13,12 +13,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 @WebServlet(name = "AdminDkiSeller", value = "/Admin/*")
 public class AdminUser extends HttpServlet {
     private String message;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User loggedUser = (User) session.getAttribute("authUser");
+        if (!loggedUser.isAdmin()) {
+            ServletUtils.forward("/views/403.jsp", request, response);
+            return;
+        }
+
         String path = request.getPathInfo();
         switch (path) {
             case "/DkiSeller/Index":
@@ -77,12 +85,18 @@ public class AdminUser extends HttpServlet {
                 String  urlproduct = "/Admin/QuanLiSanPham/Index";
                 ServletUtils.redirect(urlproduct, request, response);
                 break;
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
+                break;
         }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getPathInfo();
         switch (path) {
             case "/Register":
+                break;
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package com.ute.webdaugia.controllers;
 
 import com.ute.webdaugia.beans.ChildCategory;
+import com.ute.webdaugia.beans.User;
 import com.ute.webdaugia.models.ChildCategoryModel;
 import com.ute.webdaugia.beans.ParentCategory;
 import com.ute.webdaugia.models.ParentCategoryModel;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -20,6 +22,13 @@ import java.util.List;
 public class AdminCategoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User loggedUser = (User) session.getAttribute("authUser");
+        if (!loggedUser.isAdmin()) {
+            ServletUtils.forward("/views/403.jsp", request, response);
+            return;
+        }
+
         String path = request.getPathInfo();
         if (path == null || path.equals("/")) {
             path = "/Index";
@@ -118,6 +127,13 @@ public class AdminCategoryServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User loggedUser = (User) session.getAttribute("authUser");
+        if (!loggedUser.isAdmin()) {
+            ServletUtils.forward("/views/403.jsp", request, response);
+            return;
+        }
+
         String path = request.getPathInfo();
         switch (path) {
             case "/Add":

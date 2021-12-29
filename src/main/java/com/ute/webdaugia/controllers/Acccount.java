@@ -80,6 +80,10 @@ public class Acccount extends HttpServlet {
 //                request.setAttribute("dsachsanpham",dsachsanpham);
 //                ServletUtils.forward("/views/vwAccount/Profile.jsp", request, response);
                 break;
+
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
+                break;
         }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
@@ -119,6 +123,10 @@ public class Acccount extends HttpServlet {
                 break;
             case "/Profile":
                 updateProfile(request,response);
+                break;
+
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
                 break;
         }
 

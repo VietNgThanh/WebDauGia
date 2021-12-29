@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "Home", value = "/Home/Index")
+@WebServlet(name = "Home", value = "/Home/*")
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -18,6 +18,10 @@ public class HomeServlet extends HttpServlet {
         switch (path) {
             case "/Index":
                 ServletUtils.forward("/views/vwHome/Home.jsp", request, response);
+                break;
+
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
                 break;
         }
     }
