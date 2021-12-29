@@ -5,8 +5,24 @@
 <jsp:useBean id="parentCategory" scope="request" type="com.ute.webdaugia.beans.ParentCategory"/>
 
 <t:adminUser>
+  <jsp:attribute name="js">
+    <script>
+        $('#frmAddChildCategory').on('submit', function (e) {
+            e.preventDefault();
+
+            const childCatName = $('#txtChildname').val().trim();
+            if (childCatName.length === 0) {
+                alert('Please enter child category name.');
+                $('#childCatName').select();
+            }
+            else {
+                $('#frmAddChildCategory').off('submit').submit();
+            }
+        });
+    </script>
+  </jsp:attribute>
   <jsp:body>
-    <form action="" method="post">
+    <form id="frmAddChildCategory" action="" method="post">
       <div class="card">
         <h4 class="card-header">
           New Child Category

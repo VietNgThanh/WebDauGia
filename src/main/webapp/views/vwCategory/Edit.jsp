@@ -9,11 +9,51 @@
 
 
 <t:adminUser>
+  <jsp:attribute name="js">
+    <script>
+        $('#btnSave').click(function (e) {
+            e.preventDefault();
+            const catName = $('#txtCatName').val().trim();
+
+            if (catName.length === 0) {
+                alert('Please enter category name.');
+                $('#txtCatName').select();
+            }
+            else {
+                $('#btnSave').off('click').click();
+            }
+        });
+
+        $('#btnDelete').click(function (e) {
+            e.preventDefault();
+            const id = $('#txtCatID').val();
+            let editChildOrParent = 'childId';
+            if ($('#headerr').text().includes('Main')) {
+                editChildOrParent = 'parentId';
+            }
+
+            $.getJSON('${pageContext.request.contextPath}/Admin/Category/CanDelete?' + editChildOrParent + '=' + id, function (data) {
+                if (data === true) {
+                    $('#btnDelete').off('click').click();
+                } else {
+                    alert('This category has product(s) and cannot be delete.');
+                    $('#btnDelete').select();
+                }
+            });
+        });
+    </script>
+  </jsp:attribute>
+
   <jsp:body>
-    <form action="" method="post">
+    <form id="frmEditCategory" action="" method="post">
       <div class="card">
-        <h4 class="card-header">
-          Category
+        <h4 id="headerr" class="card-header">
+          <c:if test="${not empty parentCategory}">
+            Edit Main Category
+          </c:if>
+          <c:if test="${not empty childCategory}">
+            Edit Child Category
+          </c:if>
         </h4>
         <div class="card-body">
           <div class="form-group">
@@ -43,7 +83,7 @@
             <i class="fa fa-backward" aria-hidden="true"></i>
             List
           </a>
-          <button type="submit" class="btn btn-danger"
+          <button id="btnDelete" type="submit" class="btn btn-danger"
                   <c:if test="${not empty parentCategory}">
                     formaction="${pageContext.request.contextPath}/Admin/Category/Delete">
                   </c:if>
@@ -53,7 +93,7 @@
           <i class="fa fa-trash-o" aria-hidden="true"></i>
             Delete
           </button>
-          <button type="submit" class="btn btn-primary"
+          <button id="btnSave" type="submit" class="btn btn-primary"
                   <c:if test="${not empty parentCategory}">
                     formaction="${pageContext.request.contextPath}/Admin/Category/Update">
                   </c:if>

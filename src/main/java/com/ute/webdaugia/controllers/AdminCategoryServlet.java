@@ -4,6 +4,7 @@ import com.ute.webdaugia.beans.ChildCategory;
 import com.ute.webdaugia.models.ChildCategoryModel;
 import com.ute.webdaugia.beans.ParentCategory;
 import com.ute.webdaugia.models.ParentCategoryModel;
+import com.ute.webdaugia.models.ProductModel;
 import com.ute.webdaugia.utils.ServletUtils;
 
 import javax.servlet.ServletException;
@@ -76,6 +77,37 @@ public class AdminCategoryServlet extends HttpServlet {
 
                 out.print(isAvailable);
                 out.flush();
+                break;
+
+            case "/CanDelete":
+                int childIdDelete = 0;
+                int parentIdDelete = 0;
+                boolean canDelete = false;
+
+                try {
+                    childIdDelete = Integer.parseInt(request.getParameter("childId"));
+                }
+                catch (NumberFormatException e) {
+                }
+
+                if (childIdDelete == 0) {
+                    try {
+                        parentIdDelete = Integer.parseInt(request.getParameter("parentId"));
+                    } catch (NumberFormatException e) {
+                    }
+
+                    canDelete = !(ParentCategoryModel.hasProduct(parentIdDelete));
+                }
+                else {
+                    canDelete = !(ChildCategoryModel.hasProduct(childIdDelete));
+                }
+
+                PrintWriter outD = response.getWriter();
+                response.setContentType("application/json");
+                response.setCharacterEncoding("utf-8");
+
+                outD.print(canDelete);
+                outD.flush();
                 break;
 
             default:

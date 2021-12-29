@@ -23,42 +23,83 @@
 
   <jsp:body>
     <div class="card">
-      <h6 class="card-header">
+      <h4 class="card-header">
         Kết quả tìm kiếm cho '${txtSearch}'
-      </h6>
+      </h4>
       <c:choose>
         <c:when test="${empty products}">
           <div class="card-body">
-            <div>
-              <div class="my-1">
+            <div id="show-sort" class="pb-2">
+              <div class="mb-2">
                 <span>Hiển thị: </span>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}">Tất cả</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=name">Theo tên</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=cat">Theo danh mục</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&sort=${searchSort}"
+                        <c:if test="${empty searchShow}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Tất Cả</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&show=name&sort=${searchSort}"
+                        <c:if test="${searchShow == 'name'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Theo Tên</a>
+                <a id="cat"
+                   href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&show=cat&sort=${searchSort}"
+                        <c:if test="${searchShow == 'cat'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Theo Danh Mục</a>
               </div>
-              <div class="my-1">
+              <div>
                 <span>Sắp xếp: </span>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=priceasc">Giá tăng dần</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=pricedes">Giá giảm dần</a>
-                <a href=""></a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&show=${searchShow}&sort=priceasc"
+                        <c:if test="${searchSort == 'priceasc'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Giá Thấp</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&show=${searchShow}&sort=pricedes"
+                        <c:if test="${searchSort == 'pricedes'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Giá Cao</a>
+                <a id="time"
+                   href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&show=${searchShow}&sort=time"
+                        <c:if test="${searchSort == 'time'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Sắp kết thúc</a>
               </div>
             </div>
-            <p class="card-text">Không có dữ liệu.</p>
+            <h5 class="card-text">Không có dữ liệu.</h5>
           </div>
         </c:when>
         <c:otherwise>
           <div class="card-body">
-            <div>
-              <div class="my-1">
+            <div id="show-sort-2" class="pb-2">
+              <div class="mb-2">
                 <span>Hiển thị: </span>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}">Tất cả</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=name">Theo tên</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&show=cat">Theo danh mục</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&sort=${searchSort}"
+                        <c:if test="${empty searchShow}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Tất Cả</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&show=name&sort=${searchSort}"
+                        <c:if test="${searchShow == 'name'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Theo Tên</a>
+                <a id="cat-2"
+                   href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&show=cat&sort=${searchSort}"
+                        <c:if test="${searchShow == 'cat'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Theo Danh Mục</a>
               </div>
-              <div class="my-1">
+              <div>
                 <span>Sắp xếp: </span>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=priceasc">Giá tăng dần</a>
-                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo}&sort=pricedes">Giá giảm dần</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&show=${searchShow}&sort=priceasc"
+                        <c:if test="${searchSort == 'priceasc'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Giá Thấp</a>
+                <a href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&show=${searchShow}&sort=pricedes"
+                        <c:if test="${searchSort == 'pricedes'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Giá Cao</a>
+                <a id="time-2"
+                   href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&show=${searchShow}&sort=time"
+                        <c:if test="${searchSort == 'time'}">
+                          style="color: #1a5394; border-bottom-color: #1a5394; font-weight: bolder;"
+                        </c:if>>Sắp kết thúc</a>
               </div>
             </div>
             <div class="row">
@@ -93,42 +134,46 @@
         </c:otherwise>
       </c:choose>
     </div>
-    <footer class="d-flex justify-content-center align-items-center my-5">
-      <nav>
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link"
-               <c:if test="${pageNo eq 1 || empty products}">style="pointer-events: none;" </c:if>
-               href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo-1}&show=${searchShow}&sort=${searchSort}">
-              Previous
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link"
-               <c:if test="${pageNo eq 1 || empty products}">style="pointer-events: none;" </c:if>
-               href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=1&show=${searchShow}&sort=${searchSort}">
-              1
-            </a>
-          </li>
-          <c:forEach begin="2" end="${pages}" step="1" var="i">
+
+    <%--    Paging--%>
+    <c:if test="${not empty products}">
+      <footer class="d-flex justify-content-center align-items-center my-5">
+        <nav>
+          <ul class="pagination">
             <li class="page-item">
               <a class="page-link"
-                 <c:if test="${pageNo eq i || empty products}">style="pointer-events: none;"</c:if>
-                 href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${i}&show=${searchShow}&sort=${searchSort}">
-                  ${i}
+                 <c:if test="${pageNo eq 1}">style="display: none;" </c:if>
+                 href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo-1}&show=${searchShow}&sort=${searchSort}">
+                Previous
               </a>
             </li>
-          </c:forEach>
-          <li class="page-item">
-            <a class="page-link"
-               <c:if test="${pageNo eq pages}">style="pointer-events: none;"</c:if>
-               href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo+1}">
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </footer>
+            <li class="page-item">
+              <a class="page-link"
+                 <c:if test="${pageNo eq 1 || pages eq 1}">style="pointer-events: none;" </c:if>
+                 href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=1&show=${searchShow}&sort=${searchSort}">
+                1
+              </a>
+            </li>
+            <c:forEach begin="2" end="${pages}" step="1" var="i">
+              <li class="page-item">
+                <a class="page-link"
+                   <c:if test="${pageNo eq i}">style="pointer-events: none;"</c:if>
+                   href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${i}&show=${searchShow}&sort=${searchSort}">
+                    ${i}
+                </a>
+              </li>
+            </c:forEach>
+            <li class="page-item">
+              <a class="page-link"
+                 <c:if test="${pageNo eq pages}">style="display: none;"</c:if>
+                 href="${pageContext.request.contextPath}/Product/Search?txtSearch=${txtSearch}&p=${pageNo+1}">
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </footer>
+    </c:if>
 
   </jsp:body>
 </t:main>

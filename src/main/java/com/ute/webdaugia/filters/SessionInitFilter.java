@@ -21,14 +21,6 @@ public class SessionInitFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("searchShow") == null) {
-            session.setAttribute("searchShow", "ALL");
-        }
-
-        if (session.getAttribute("searchSort") == null) {
-            session.setAttribute("searchSort", "ALL");
-        }
-
         if (session.getAttribute("auth") == null) {
             session.setAttribute("auth", false);
             session.setAttribute("authUser", new User());
