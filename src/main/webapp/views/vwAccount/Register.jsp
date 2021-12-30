@@ -9,6 +9,30 @@
     <jsp:attribute name="js">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+        function getranIndex(maxLength){
+            return Math.floor(Math.random() * maxLength)
+        }
+        var cap;
+        function getCapcha(){
+            var canvas = document.getElementById('canvas');
+            var pen = canvas.getContext('2d');
+            var captch = Math.random().toString(36).substring(2,10);
+
+            pen.font="30px Georgia";
+            pen.fillStyle = "grey";
+            pen.fillRect(0,0,400,400);
+            pen.fillStyle = "orange";
+            maxLength = captch.length;
+            index1 = getranIndex(maxLength);
+            index2 = getranIndex(maxLength);
+
+            captch = captch.substring(0, index1-1)+captch[index1].toUpperCase()+captch.substring(index1+1,maxLength);
+            captch = captch.substring(0, index2-1)+captch[index2].toUpperCase()+captch.substring(index2+1,maxLength);
+
+            cap = captch;
+            captch = captch.split('').join(' ');
+            pen.fillText(captch,40,40);
+        }
         $('#frmRegister').on('submit', function (e) {
             e.preventDefault();
             const username = $('#txtUsername').val();
@@ -17,7 +41,6 @@
             const cfpw =$('#txtConfirm').val();
             const email =$('#txtEmail').val();
             const add =$('#txtAddress').val();
-
             if (name.length === 0||rawpw.length ===0 || cfpw.length===0 || email.length ===0 ||add.length ===0) {
                 alert('Inv  avalible username.');
                 return;
@@ -26,7 +49,6 @@
                 alert('Mật khẩu xác nhận chưa đúng');
                 return;
             }
-
             $.getJSON('${pageContext.request.contextPath}/Account/IsAvailable?username=' + username, function (data){
 
                 if(data === false){
@@ -38,18 +60,26 @@
                             alert('Email này đã được đăng kí');
                         }
                         else {
-                            $('#frmRegister').off('submit').submit();
+                            typedata = document.getElementById('typedText').value;
+                            if(typedata === cap){
+                                $('#frmRegister').off('submit').submit();
+                            }
+                            else {
+                                alert('sai capcha');
+                                document.getElementById('typedText').value = "";
+                                getCapcha();
+                            }
+
                         }
                     });
                 }
             });
-
         });
-        $('#txtUsername').select();
     </script>
   </jsp:attribute>
     <jsp:body>
-        <form action="" method="post" id="frmRegister">
+        <body onload="getCapcha()">
+        <form action="" method="post" id="frmRegister" >
             <div class="card">
                 <h4 class="card-header">
                     Account Registration
@@ -82,13 +112,29 @@
                         <input type="text" class="form-control" id="txtAddress" name="address">
                     </div>
                 </div>
+                <table style="border: 2px solid black" >
+                    <tr>
+                        <td>Capcha</td>
+                        <td>
+                            <canvas  width="220" height="60" id="canvas" style="border: 2px solid grey"></canvas>
+                        </td>
+                        <td>
+                            <button type="button" onclick="getCapcha()"> Refresh</button>
+                        </td>
+                    </tr>
+                    <td>Enter</td>
+                    <td><input type="text" size="30" id="typedText"></td>
+                </table>
+
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" >
                         <i class="fa fa-check" aria-hidden="true"></i>
                         Register
                     </button>
                 </div>
             </div>
         </form>
+        </body>
+
     </jsp:body>
 </t:Account>

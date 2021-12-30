@@ -50,6 +50,7 @@ public class ProductModel {
             return list.get(0);
         }
     }
+
     public static void deteleProduct(int id){
         String sql = "DELETE FROM product where idProduct =:id \n";
         try (Connection con = DbUtils.getConnection()) {
@@ -58,6 +59,57 @@ public class ProductModel {
                     .executeUpdate();
         }
     }
+    //phuc thêm
+    public static void deteleProducttuchoi(int id){
+        String sql = "DELETE from tu_choi_bidder where id_product =:id";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
+    public static void deteleUsertuchoi(int id){
+        String sql = "DELETE from tu_choi_bidder where id_bidder =:id";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
+    public static Product findproductcontontai(int id) {
+        final String query = "SELECT * FROM product WHERE Availability = 1 and idProduct = :id  \n";
+        try (Connection con = DbUtils.getConnection()) {
+            List<Product> products = (List<Product>) con.createQuery(query)
+                    .addParameter("id",id)
+                    .executeAndFetch(Product.class);
+            if (products.isEmpty()) {
+                return null;
+            }
+            return products.get(0);
+        }
+    }
+    public static Product findproductdadaugia(int idPr, int idUser) {
+        final String query = "SELECT * FROM product WHERE Availability = 0 and idProduct = :id and id_Bidder_current = :idUser  \n";
+        try (Connection con = DbUtils.getConnection()) {
+            List<Product> products = (List<Product>) con.createQuery(query)
+                    .addParameter("id",idPr)
+                    .addParameter("idUser",idUser)
+                    .executeAndFetch(Product.class);
+            if (products.isEmpty()) {
+                return null;
+            }
+            return products.get(0);
+        }
+    }
+    public static ArrayList<Product> findProductbySeller(int id) {
+        final String query = "select * from product where User_id = :User_id";
+        try (Connection con = DbUtils.getConnection()) {
+            return (ArrayList<Product>) con.createQuery(query)
+                    .addParameter("User_id", id)
+                    .executeAndFetch(Product.class);
+        }
+    }
+    //
     public static List<Product> findbySeller(int id) {
         final String query = "select * from product where User_id = :User_id";
         try (Connection con = DbUtils.getConnection()) {

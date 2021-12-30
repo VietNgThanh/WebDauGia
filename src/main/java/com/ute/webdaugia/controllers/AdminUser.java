@@ -4,10 +4,13 @@ package com.ute.webdaugia.controllers;
 import com.ute.webdaugia.beans.Product;
 import com.ute.webdaugia.beans.User;
 import com.ute.webdaugia.models.AdminUserModel;
+import com.ute.webdaugia.models.OrderModel;
 import com.ute.webdaugia.models.ProductModel;
+import com.ute.webdaugia.models.SendMail;
 import com.ute.webdaugia.utils.ServletUtils;
 
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 @WebServlet(name = "AdminDkiSeller", value = "/Admin/*")
 public class AdminUser extends HttpServlet {
@@ -58,6 +62,13 @@ public class AdminUser extends HttpServlet {
             case "/QuanLiSeller/DeleteSeller":
                 int id_seller =0;
                 id_seller = Integer.parseInt(request.getParameter("id"));
+                ArrayList<Product> pro_seller = ProductModel.findProductbySeller(id_seller);
+                for(int i=0;i<pro_seller.size();i++){
+                    Product pr = pro_seller.get(i);
+                    OrderModel.deleteOrbyPr(pr.getIdProduct());
+                    ProductModel.deteleProducttuchoi(pr.getIdProduct());
+                    ProductModel.deteleProduct(pr.getIdProduct());
+                }
                 AdminUserModel.deleteSeller(id_seller);
                 String  url = "/Admin/QuanLiSeller/Index";
                 ServletUtils.redirect(url, request, response);
@@ -81,9 +92,73 @@ public class AdminUser extends HttpServlet {
             case"/QuanLiSanPham/DeleteProduct":
                 int id_product =0;
                 id_product = Integer.parseInt(request.getParameter("id"));
+                OrderModel.deleteOrbyPr(id_product);
+                ProductModel.deteleProducttuchoi(id_product);
                 ProductModel.deteleProduct(id_product);
                 String  urlproduct = "/Admin/QuanLiSanPham/Index";
                 ServletUtils.redirect(urlproduct, request, response);
+                break;
+            case "/QuanLiUser/Index":
+                List<User> listbidder = AdminUserModel.findBidder();
+                request.setAttribute("bidders",listbidder);
+                ServletUtils.forward("/views/vwAdminUser/ListUser.jsp", request, response);
+                break;
+            case "/QuanLiUser/Info":
+                int idbi = 0;
+                idbi = Integer.parseInt(request.getParameter("id"));
+                User bidder = AdminUserModel.findById(idbi);
+                ArrayList<Product> productdangdaugia = new ArrayList<Product>();
+                ArrayList<Product> productdadaugia = new ArrayList<Product>();
+                ArrayList<Integer> productid = OrderModel.findproductbidderDaugia(idbi);
+                for(int i=0; i<productid.size();i++){
+                    int x = productid.get(i);
+                    if(ProductModel.findproductcontontai(x) != null){
+                        productdangdaugia.add(ProductModel.findproductcontontai(x));
+                    }
+                    if(ProductModel.findproductdadaugia(x,idbi) != null){
+                        productdadaugia.add(ProductModel.findproductdadaugia(x,idbi));
+                    }
+                }
+                request.setAttribute("productdangdaugia",productdangdaugia);
+                request.setAttribute("productsus",productdadaugia);
+                request.setAttribute("bidder",bidder);
+                ServletUtils.forward("/views/vwAdminUser/InfoBidder.jsp", request, response);
+                break;
+            case"/ResetPassWord":
+                int idUser =0;
+                idUser = Integer.parseInt(request.getParameter("id"));
+                User UserReset = AdminUserModel.findById(idUser);
+                String pw ="";
+                String mess=" Mat Khau Tai khoan " + UserReset.getUsername() +" Da Duoc Reset";
+                AdminUserModel.resetPassword(pw,idUser);
+                SendMail sendMail = new SendMail();
+                try {
+                    sendMail.Sendmail(UserReset.getEmail(),mess);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+                String ulr ="/Admin/QuanLiUser/Info?id=" + UserReset.getIdUser();
+                ServletUtils.redirect(ulr,request,response);
+                break;
+            case"/DeleteUser":
+                int idUserx =0;
+                idUserx = Integer.parseInt(request.getParameter("id"));
+                User deU = AdminUserModel.findById(idUserx);
+                if(deU.getPermission() == 2){
+                    ArrayList<Product> pro_sellerx = ProductModel.findProductbySeller(idUserx);
+                    for(int i=0;i<pro_sellerx.size();i++){
+                        Product pr = pro_sellerx.get(i);
+                        OrderModel.deleteOrbyPr(pr.getIdProduct());
+                        ProductModel.deteleProducttuchoi(pr.getIdProduct());
+                        ProductModel.deteleProduct(pr.getIdProduct());
+                    }
+                    AdminUserModel.deletedanhgia(idUserx);
+                    AdminUserModel.deleteUser(idUserx);
+                }
+                else{
+                    OrderModel.deleteOrbyIdUser(idUserx);
+                    AdminUserModel.deletedanhgia(idUserx);
+                }
                 break;
             default:
                 ServletUtils.forward("/views/404.jsp", request, response);

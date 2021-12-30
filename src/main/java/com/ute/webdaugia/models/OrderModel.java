@@ -3,6 +3,7 @@ import com.ute.webdaugia.beans.Orders;
 import com.ute.webdaugia.utils.DbUtils;
 import org.sql2o.Connection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderModel {
@@ -21,6 +22,35 @@ public class OrderModel {
         try (Connection con = DbUtils.getConnection()) {
             return con.createQuery(query)
                     .executeAndFetch(Orders.class);
+        }
+    }
+    public static ArrayList<Integer> findproductbidderDaugia(int id){
+        final String query = "select distinct(id_Product) from orders_product where id_User = :id";
+        try (Connection con = DbUtils.getConnection()) {
+            ArrayList<Integer> products = (ArrayList<Integer>) con.createQuery(query)
+                    .addParameter("id",id)
+                    .executeAndFetch(Integer.class);
+            if (products.isEmpty()) {
+                return null;
+            }
+            return products;
+        }
+    }
+    public static void deleteOrbyPr(int id){
+        String sql = "DELETE FROM orders_product WHERE  id_product = :id;";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
+
+    public static void deleteOrbyIdUser(int id){
+        String sql = "DELETE FROM orders_product WHERE id_User = :id;";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
         }
     }
 //    public static List<Orders> find_top_gonna_expire(){
