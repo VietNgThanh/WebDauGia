@@ -15,6 +15,8 @@
   <jsp:useBean id="searchSort" scope="request" type="java.lang.String"/>
   <jsp:useBean id="auth" scope="session" type="java.lang.Boolean"/>
   <jsp:useBean id="wlists" scope="request" type="java.util.List<com.ute.webdaugia.beans.Wishlist>"/>
+  <jsp:useBean id="listuser1" scope="request" type="java.util.List<com.ute.webdaugia.beans.User>"/>
+  <jsp:useBean id="listragia" scope="request" type="java.util.List<com.ute.webdaugia.beans.SoLuotDauGia>"/>
 </c:catch>
 
 <t:main>
@@ -112,20 +114,52 @@
                          alt="${c.name}" title="${c.name}" class="card-img-top">
                     <div class="card-body">
                       <h6 class="card-title">${c.name}</h6>
-                      <h5 class="card-title text-danger">
-                        <fmt:formatNumber value="${c.current_Price}" type="number"/>
-                      </h5>
-                      <p class="card-text">${c.detail_tiny}</p>
+                      <c:if test="${c.availability == 0}">
+                        <p class="card-text"><span class="text-danger font-weight-bold">
+                                                    Sản phẩm đã được bán </span></p>
+                      </c:if>
+                      <c:if test="${c.availability == 1}">
+                        <h5 class="card-title text-danger">
+                          <fmt:formatNumber value="${c.current_Price}" type="number"/>
+                        </h5>
+                        <p class="card-text">Giá mua ngay: ${c.imme_Price}</p>
+
+                        <p class="card-text">Ngày Đăng Bán: ${c.ngay_bat_dau.toLocalDate()} ${c.ngay_bat_dau.toLocalTime()}</p>
+                        <p class="card-text">Ngày Kết Thúc: ${c.time_to_close.toLocalDate()} ${c.time_to_close.toLocalTime()}</p>
+                        <p class="card-text">Số lượt ra giá:
+                        <c:set scope="request" var="ragia" value="" />
+                        <c:forEach items="${listragia}" var="l">
+                          <c:if test="${l.idProduct == c.idProduct}">
+                            <c:set scope="request" var="ragia" value="true" />
+                          </c:if>
+                        </c:forEach>
+                        <c:if test="${ragia.length() == 0}">
+                          0
+                        </c:if>
+                        <c:if test="${ragia.length() != 0}">
+                          <c:forEach items="${listragia}" var="l">
+                            <c:if test="${l.idProduct == c.idProduct}">
+                              ${l.soluotragia}
+                            </c:if>
+                            <c:set scope="request" var="ragia" value="" />
+                          </c:forEach>
+                          <p class="card-text">Bidder ra giá cao nhất:
+                          <c:forEach items="${listuser1}" var="d">
+                            <c:if test="${d.idUser == c.id_Bidder_current}">
+                                                            <span id="maskten">
+                                                                *****${d.name.substring(d.name.lastIndexOf(' '),d.name.length())}</span>
+                            </c:if>
+                          </c:forEach>
+
+                        </c:if>
+                        </p>
+                      </c:if>
                     </div>
                     <div class="card-footer text-muted">
                       <a class="btn btn-sm btn-outline-primary"
                          href="${pageContext.request.contextPath}/Product/Detail?id=${c.idProduct}" role="button">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                         Details
-                      </a>
-                      <a class="btn btn-sm btn-outline-success" href="#" role="button">
-                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                        Add to cart
                       </a>
                       <c:set scope="request" var="check" value=""/>
                       <c:forEach items="${wlists}" var="wl">

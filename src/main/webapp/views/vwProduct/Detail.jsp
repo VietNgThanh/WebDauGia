@@ -236,7 +236,7 @@
             </div>
           </div>
           <div class="col-sm-5">
-            <h3>Tên Sản Phẩm: ${product.name}</h3>
+            <h3>b${product.name}</h3>
             <c:if test="${product.availability == 1}">
               <p class="card-text">Giá mua ngay: <span class="text-danger font-weight-bold">
                             <fmt:formatNumber value="${product.imme_Price}"/> </span></p>
