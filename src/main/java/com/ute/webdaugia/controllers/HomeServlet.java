@@ -2,6 +2,8 @@ package com.ute.webdaugia.controllers;
 
 import com.ute.webdaugia.beans.Orders;
 import com.ute.webdaugia.beans.Product;
+import com.ute.webdaugia.beans.User;
+import com.ute.webdaugia.beans.Wishlist;
 import com.ute.webdaugia.beans.SoLuotDauGia;
 import com.ute.webdaugia.models.OrderModel;
 import com.ute.webdaugia.models.ProductModel;
@@ -23,6 +25,8 @@ public class HomeServlet extends HttpServlet {
         }
         switch (path) {
             case "/Index":
+                HttpSession session2 = request.getSession();
+                User user2= (User) session2.getAttribute("authUser");
                 List<Product> list = ProductModel.find_top_highest_price();
                 List<SoLuotDauGia> list2= OrderModel.find_top_count_order();
                 List<Product> list3=ProductModel.find_top_gonna_expire();
@@ -31,6 +35,8 @@ public class HomeServlet extends HttpServlet {
                 request.setAttribute("top_product2",list2);
                 request.setAttribute("top_product3",list3);
                 request.setAttribute("products", list1);
+                List<Wishlist> wlist2=ProductModel.findAllWList(user2.getIdUser());
+                request.setAttribute("wlists",wlist2);
                 ServletUtils.forward("/views/vwHome/Home.jsp", request, response);
                 break;
 

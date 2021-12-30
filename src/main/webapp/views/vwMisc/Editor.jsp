@@ -3,8 +3,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<jsp:useBean id="abc" scope="request" type="java.util.List<com.ute.webdaugia.beans.ChildCategory>"/>
+<c:catch>
+    <jsp:useBean id="abc" scope="request" type="java.util.List<com.ute.webdaugia.beans.ChildCategory>"/>
+</c:catch>
 
 <t:main>
     <jsp:attribute name="css">
@@ -97,8 +98,11 @@
 
                 <div class="card-body">
                     <div class="form-group">
-                        <input type="checkbox" id="check" name="check_delay" value="1" >
-                        <label for="check">Bạn có muốn tự động gia hạn không</label><br>
+                        <label >Bạn có muốn tự động gia hạn không</label><br>
+                        <input type="radio" id="html" name="check_delay1" value="1" checked>
+                        <label for="html"><i class="fa fa-thumbs-up" aria-hidden="true"></i></label><br>
+                        <input type="radio" id="css" name="check_delay1" value="0" >
+                        <label for="css"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></label><br>
                     </div>
                 </div>
                 <div class="card-footer">

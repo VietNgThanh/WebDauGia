@@ -15,6 +15,7 @@
         <a href="${pageContext.request.contextPath}/Admin/Category/Index" class="list-group-item list-group-item-action">Quản Lí Catagories</a>
         <a href="${pageContext.request.contextPath}/Admin/QuanLiSanPham/Index" class="list-group-item list-group-item-action">Quản Lí Product</a>
         <a href="${pageContext.request.contextPath}/Admin/QuanLiSeller/Index" class="list-group-item list-group-item-action">Quản Lí Seller</a>
+        <a href="${pageContext.request.contextPath}/Admin/QuanLiUser/Index" class="list-group-item list-group-item-action">Quản Lí Bidder</a>
         <a href="${pageContext.request.contextPath}/Admin/DkiSeller/Index" class="list-group-item list-group-item-action">Danh Sách Đăng Kí Bán Hàng</a>
     </div>
 <%--    <div class="list-group list-group-flush">--%>

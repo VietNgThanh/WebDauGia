@@ -238,7 +238,8 @@ public class Acccount extends HttpServlet {
             User user= (User) session.getAttribute("FogotEmail");
             user.setPassword(password);
             AccountModel.updateUserFogotPassword(user);
-
+            String  urlz = "/Account/Login";
+            ServletUtils.redirect(urlz, request, response);
         }
         else{
             request.setAttribute("hasError", true);
@@ -354,8 +355,14 @@ public class Acccount extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("auth", true);
                     session.setAttribute("authUser", user);
-                    String ulr ="/Home";
-                    ServletUtils.redirect(ulr,request,response);
+                    if(user.getPermission() == 3){
+                        String ulr="/Admin/QuanLiUser/Index";
+                        ServletUtils.redirect(ulr,request,response);
+                    }
+                    else {
+                        String ulr ="/Home";
+                        ServletUtils.redirect(ulr,request,response);
+                    }
                 }
                 else {
                     request.setAttribute("hasError", true);
@@ -370,8 +377,14 @@ public class Acccount extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("auth", true);
                     session.setAttribute("authUser", user);
-                    String ulr ="/Home/Index";
-                    ServletUtils.redirect(ulr,request,response);
+                    if(user.getPermission() == 3){
+                        String ulr="/Admin/QuanLiSeller/Index";
+                        ServletUtils.redirect(ulr,request,response);
+                    }
+                    else {
+                        String ulr ="/Home";
+                        ServletUtils.redirect(ulr,request,response);
+                    }
                 }
                 else {
                     request.setAttribute("hasError", true);

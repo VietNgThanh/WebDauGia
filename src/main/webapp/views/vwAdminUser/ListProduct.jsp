@@ -38,7 +38,11 @@
                         <c:forEach items="${products}" var="c">
                             <tr>
                                 <td>${c.name}</td>
-                                <td>xxxx</td>
+                                <c:forEach items="${sellers}" var="sl">
+                                    <c:if test="${sl.idUser == c.userid}">
+                                        <td>${sl.name}</td>
+                                    </c:if>
+                                </c:forEach>
                                 <td> <fmt:formatNumber value="${c.start_price}" /></td>
                                 <td class="text-right">
                                     <a class="btn btn-outline-danger btn-sm " href="${pageContext.request.contextPath}/Admin/Dkiseller/Access?id=${c.idProduct}" role="button">
