@@ -193,217 +193,212 @@
 
         </script>
     </jsp:attribute>
-  <jsp:body>
-    <div class="card">
-    <div class="card-header">
-      <h4>
-          ${product.name}
-      </h4>
-      <div class="banner">
-        <hr>
-        <p id="dongho"></p>
-        <div style="visibility: hidden">Thời gian trong DB: <span id="dongho1">${product.time_to_close}</span>
-        </div>
-      </div>
-    </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-5">
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img class="d-block w-100"
-                       src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/1.jpg"
-                  >
+    <jsp:body>
+        <div class="card">
+        <div class="card-header">
+            <h4>
+                    ${product.name}
+            </h4>
+            <div class="banner">
+                <hr>
+                <p id="dongho"></p>
+                <div style="visibility: hidden">Thời gian trong DB: <span id="dongho1">${product.time_to_close}</span>
                 </div>
-                <div class="carousel-item">
-                  <c:forEach begin="2" end="${product.sohinhanh}" step="1" var="i">
-                    <img class="d-block w-100"
-                         src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/${i}.jpg">
-                  </c:forEach>
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" style="color: black"
-                 data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                 data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
             </div>
-          </div>
-          <div class="col-sm-5">
-            <h3>b${product.name}</h3>
-            <c:if test="${product.availability == 1}">
-              <p class="card-text">Giá mua ngay: <span class="text-danger font-weight-bold">
+        </div>
+        <form action="" method="post"onSubmit="if(!confirm('Bạn có chắn chắn muốn Ra Giá cho sản phẩm này?')){return false;}">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-5">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100"
+                                     src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/1.jpg"
+                                    >
+                            </div>
+                            <div class="carousel-item">
+                                <c:forEach begin="2" end="${product.sohinhanh}" step="1" var="i">
+                                    <img class="d-block w-100"
+                                         src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/${i}.jpg">
+                                </c:forEach>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" style="color: black"
+                           data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                           data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <h3>Tên Sản Phẩm: ${product.name}</h3>
+                    <c:if test="${product.availability == 1}">
+                        <p class="card-text">Giá mua ngay: <span class="text-danger font-weight-bold">
                             <fmt:formatNumber value="${product.imme_Price}"/> </span></p>
-              <p class="card-text">Giá Hiện Tại: <span class="text-danger font-weight-bold">
+                        <p class="card-text">${product.detail_full}</p>
+                        <p class="card-text">Giá Hiện Tại: <span class="text-danger font-weight-bold">
                             <fmt:formatNumber value="${product.current_Price + product.buoc_nhay}"/> </span></p>
-              <c:forEach items="${listuser}" var="d">
-                <c:if test="${d.idUser == product.userid}">
-                  <p id="maskten">Người Bán:
-                    *****${d.name.substring(d.name.lastIndexOf(' '),d.name.length())}</p>
-                </c:if>
-              </c:forEach>
-              <c:if test="${auth==true}">
-                <a href="${pageContext.request.contextPath}/Account/URLDanhGia?id=${product.userid}"
-                   role="button">
-                  <p class="card-text">Điểm Đánh Giá của Người Bán:
-                    <span class="text-danger font-weight-bold">
+                        <c:forEach items="${listuser}" var="d">
+                            <c:if test="${d.idUser == product.userid}">
+                                <p id="maskten">Người Bán:
+                                    *****${d.name.substring(d.name.lastIndexOf(' '),d.name.length())}</p>
+                            </c:if>
+                        </c:forEach>
+                        <c:if test="${auth==true}">
+                            <a href="${pageContext.request.contextPath}/Account/URLDanhGia?id=${product.userid}"
+                               role="button">
+                                <p class="card-text">Điểm Đánh Giá của Người Bán:
+                                    <span class="text-danger font-weight-bold">
                                 <c:forEach items="${listuser}" var="d">
                                   <c:if test="${product.userid == d.idUser}">
                                     <fmt:formatNumber value="${d.mark}"/>
                                   </c:if>
                                 </c:forEach>
                              </span>
-                  </p>
-                </a>
-              </c:if>
-              <c:if test="${auth==false}">
-                <a href="${pageContext.request.contextPath}/Account/Login" role="button">
-                  <p class="card-text">Điểm Đánh Giá của Người Bán:
-                    <span class="text-danger font-weight-bold">
+                                </p>
+                            </a>
+                        </c:if>
+                        <c:if test="${auth==false}">
+                            <a href="${pageContext.request.contextPath}/Account/Login" role="button">
+                                <p class="card-text">Điểm Đánh Giá của Người Bán:
+                                    <span class="text-danger font-weight-bold">
                                 <c:forEach items="${listuser}" var="d">
                                   <c:if test="${product.userid == d.idUser}">
                                     <fmt:formatNumber value="${d.mark}"/>
                                   </c:if>
                                 </c:forEach>
                              </span>
-                  </p>
-                </a>
-              </c:if>
-              <c:if test="${soluotragia != 0}">
-                <p class="card-text">Bidder ra giá cao nhất:
-                <c:forEach items="${listuser}" var="d">
-                  <c:if test="${d.idUser == product.id_Bidder_current}">
-                    <td id="maskten">
-                      *****${d.name.substring(d.name.lastIndexOf(' '),d.name.length())}</td>
-                  </c:if>
-                </c:forEach>
-                <c:if test="${auth==true}">
-                  <a href="${pageContext.request.contextPath}/Account/URLDanhGia?id=${product.id_Bidder_current}"
-                     role="button">
-                    <p class="card-text">Điểm Đánh Giá của Bidder Giữ Giá Cao Nhất: <span
-                            class="text-danger font-weight-bold">
+                                </p>
+                            </a>
+                        </c:if>
+                        <c:if test="${soluotragia != 0}">
+                            <p class="card-text">Bidder ra giá cao nhất:
+                            <c:forEach items="${listuser}" var="d">
+                                <c:if test="${d.idUser == product.id_Bidder_current}">
+                                    <td id="maskten">
+                                        *****${d.name.substring(d.name.lastIndexOf(' '),d.name.length())}</td>
+                                </c:if>
+                            </c:forEach>
+                            <c:if test="${auth==true}">
+                                <a href="${pageContext.request.contextPath}/Account/URLDanhGia?id=${product.id_Bidder_current}"
+                                   role="button">
+                                    <p class="card-text">Điểm Đánh Giá của Bidder Giữ Giá Cao Nhất: <span
+                                            class="text-danger font-weight-bold">
                                 <c:forEach items="${listuser}" var="d">
                                   <c:if test="${product.id_Bidder_current == d.idUser}">
                                     <fmt:formatNumber value="${d.mark}"/>
                                   </c:if>
                                 </c:forEach>
                              </span>
-                    </p>
-                  </a>
-                </c:if>
-                <c:if test="${auth==false}">
-                  <a href="${pageContext.request.contextPath}/Account/Login" role="button">
-                    <p class="card-text">Điểm Đánh Giá của Bidder Giữ Giá Cao Nhất: <span
-                            class="text-danger font-weight-bold">
+                                    </p>
+                                </a>
+                            </c:if>
+                            <c:if test="${auth==false}">
+                                <a href="${pageContext.request.contextPath}/Account/Login" role="button">
+                                    <p class="card-text">Điểm Đánh Giá của Bidder Giữ Giá Cao Nhất: <span
+                                            class="text-danger font-weight-bold">
                                 <c:forEach items="${listuser}" var="d">
                                   <c:if test="${product.id_Bidder_current == d.idUser}">
                                     <fmt:formatNumber value="${d.mark}"/>
                                   </c:if>
                                 </c:forEach>
                              </span></p>
-                  </a>
-                </c:if>
-              </c:if>
+                                </a>
+                            </c:if>
+                        </c:if>
 
-              <%--                            <p class="card-text">Điểm Đánh Giá của Bản Thân: <span class="text-danger font-weight-bold">--%>
-              <%--                            <fmt:formatNumber value="${mark.mark}" /> </span></p>--%>
-              <p class="card-text">Ngày Đăng: <span class="text-danger font-weight-bold">
+                        <%--                            <p class="card-text">Điểm Đánh Giá của Bản Thân: <span class="text-danger font-weight-bold">--%>
+                        <%--                            <fmt:formatNumber value="${mark.mark}" /> </span></p>--%>
+                        <p class="card-text">Ngày Đăng: <span class="text-danger font-weight-bold">
                                 ${product.ngay_bat_dau.toLocalDate()} ${product.ngay_bat_dau.toLocalTime()}
                             </span></p>
-              <p class="card-text">Số lượt ra giá: <span class="text-danger font-weight-bold">
-                  ${soluotragia}
-              </span></p>
-            </c:if>
-            <c:if test="${product.availability == 0}">
-              <p class="card-text"><span class="text-danger font-weight-bold">
+                        <p class="card-text">Số lượt ra giá: <span class="text-danger font-weight-bold">
+                                ${soluotragia}
+                        </span></p>
+                    </c:if>
+                    <c:if test="${product.availability == 0}">
+                        <p class="card-text"><span class="text-danger font-weight-bold">
                             Sản phẩm đã được bán </span></p>
-            </c:if>
+                    </c:if>
 
 
-          </div>
+                </div>
+            </div>
         </div>
-      </div>
-    <div class="card-footer text-muted">
-    <a class="btn btn-outline-success" href="${pageContext.request.contextPath}/Product/ByCat?id=${product.idCat}"
-       role="button">
-      <i class="fa fa-backward" aria-hidden="true"></i>
-      List
-    </a>
-    <c:if test="${auth == true}">
-      <c:set var="check_tuchoi" value=""/>
-      <c:forEach items="${listtuchoi}" var="tuchoi">
-        <c:if test="${tuchoi.id_bidder == user && tuchoi.id_product == product.idProduct}">
-          <c:set var="check_tuchoi" value="true"/>
-        </c:if>
-      </c:forEach>
-      <c:if test="${check_tuchoi.length() !=0}">
-                    <span class="btn btn-outline-danger">
+        <div class="card-footer text-muted">
+            <a class="btn btn-outline-success" href="${pageContext.request.contextPath}/Product/ByCat?id=${product.idCat}" role="button">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+                List
+            </a>
+            <c:if test="${auth == true}">
+                <c:set var="check_tuchoi" value=""/>
+                <c:forEach items="${listtuchoi}" var="tuchoi">
+                    <c:if test="${tuchoi.id_bidder == user && tuchoi.id_product == product.idProduct}">
+                        <c:set var="check_tuchoi" value="true"/>
+                    </c:if>
+                </c:forEach>
+                <c:if test="${check_tuchoi.length() !=0}">
+                    <span  class="btn btn-outline-danger">
                         <i class="fa fa-times-circle"></i>
                         Không được Đấu giá
                     </span>
-      </c:if>
-      <c:if test="${check_tuchoi.length() ==0}">
-
-        <c:forEach items="${listuser}" var="ls">
-          <c:if test="${ls.idUser==user}">
-            <c:if test="${ls.permission==1 || ls.permission==4}">
-              <c:set scope="request" var="check_diem" value=""/>
-
-              <c:if test="${mark.mark>= 80}">
-                <c:set scope="request" var="check_diem" value="true"/>
-              </c:if>
-              <c:if test="${product.availability == 1}">
-
-                <c:if test="${check_diem.length() == 0}">
-                  <a class="btn btn-outline-danger"
-                     href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}"
-                     role="button">
-                    <i class="fa fa-times-circle"></i>
-                    Không được Đấu giá
-                  </a>
                 </c:if>
-                <c:if test="${check_diem.length() != 0}">
-                  <a class="btn  btn-outline-warning" href="#" role="button">
-                    <i class="fa fa-check-circle"></i>
-                    Được Đấu Giá
-                  </a>
+                <c:if test="${check_tuchoi.length() ==0}">
 
+                <c:forEach items="${listuser}" var="ls">
+                    <c:if test="${ls.idUser==user}">
+                        <c:if test="${ls.permission==1 || ls.permission==4}">
+                            <c:set scope="request" var="check_diem" value="" />
+
+                            <c:if test="${mark.mark>= 80}">
+                                <c:set scope="request" var="check_diem" value="true" />
+                            </c:if>
+                            <c:if test="${product.availability == 1}">
+
+                                <c:if test="${check_diem.length() == 0}">
+                                    <a  class="btn btn-outline-danger" href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}" role="button">
+                                        <i class="fa fa-times-circle"></i>
+                                        Không được Đấu giá
+                                    </a>
+                                </c:if>
+                                <c:if test="${check_diem.length() != 0}">
+                                    <a  class="btn  btn-outline-warning" href="#" role="button">
+                                        <i class="fa fa-check-circle"></i>
+                                        Được Đấu Giá
+                                    </a>
+
+                                </c:if>
+                            </c:if>
+                        </c:if>
+                    </c:if>
+                </c:forEach>
                 </c:if>
-              </c:if>
+                <c:if test="${product.availability == 1}">
+            <c:set scope="request" var="check" value="" />
+            <c:forEach items="${wlists}" var="wl">
+                <c:if test="${product.idProduct == wl.id_product}">
+                    <c:set scope="request" var="check" value="true" />
+                </c:if>
+            </c:forEach>
+            <c:if test="${check.length() == 0}">
+                <a  class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Product/addwatlistDetail?id_product=${product.idProduct}" role="button">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                </a>
             </c:if>
-          </c:if>
-        </c:forEach>
-      </c:if>
-      <c:if test="${product.availability == 1}">
-        <c:set scope="request" var="check" value=""/>
-        <c:forEach items="${wlists}" var="wl">
-          <c:if test="${product.idProduct == wl.id_product}">
-            <c:set scope="request" var="check" value="true"/>
-          </c:if>
-        </c:forEach>
-        <c:if test="${check.length() == 0}">
-          <a class="btn btn-outline-primary"
-             href="${pageContext.request.contextPath}/Product/addwatlistDetail?id_product=${product.idProduct}"
-             role="button">
-            <i class="fa fa-heart" aria-hidden="true"></i>
-          </a>
-        </c:if>
-        <c:if test="${check.length() != 0}">
-          <a class="btn  btn-outline-primary"
-             href="${pageContext.request.contextPath}/Product/delwatlistDetail?id_product=${product.idProduct}"
-             role="button">
-            Unlike
-          </a>
-          <c:set scope="request" var="check" value=""/>
-        </c:if>
-      </c:if>
-      </div>
+            <c:if test="${check.length() != 0}">
+                <a  class="btn  btn-outline-primary" href="${pageContext.request.contextPath}/Product/delwatlistDetail?id_product=${product.idProduct}" role="button">
+                    Unlike
+                </a>
+                <c:set scope="request" var="check" value="" />
+            </c:if>
+            </c:if>
+        </div>
 
       <c:set var="check_tuchoi" value=""/>
       <c:forEach items="${listtuchoi}" var="tuchoi">

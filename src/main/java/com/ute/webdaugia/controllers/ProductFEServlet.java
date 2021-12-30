@@ -204,6 +204,15 @@ public class ProductFEServlet extends HttpServlet {
                 String urlproduct4 = "/Product/Detail?id=" + Integer.toString(watId4);
                 ServletUtils.redirect(urlproduct4, request, response);
                 break;
+            case "/addwatlistHome":
+                HttpSession session11 = request.getSession();
+                User user11 = (User) session11.getAttribute("authUser");
+                int watId11 = 0;
+                watId11 = Integer.parseInt(request.getParameter("id_product"));
+                addWatchList(user11.getIdUser(), watId11);
+                String urlproduct11 = "/Home";
+                ServletUtils.redirect(urlproduct11, request, response);
+                break;
             case "/addTuchoiBidderRagia":
                 int id_product = Integer.parseInt(request.getParameter("id_product"));
                 int id_bidder=Integer.parseInt(request.getParameter("id_bidder"));
@@ -254,6 +263,15 @@ public class ProductFEServlet extends HttpServlet {
                 delWatchList(user10.getIdUser(), watId10);
                 String urlproduct10 = "/Product/Detail?id=" + Integer.toString(watId10);
                 ServletUtils.redirect(urlproduct10, request, response);
+                break;
+            case "/delwatlistHome":
+                HttpSession session12 = request.getSession();
+                User user12 = (User) session12.getAttribute("authUser");
+                int watId12 = 0;
+                watId12 = Integer.parseInt(request.getParameter("id_product"));
+                delWatchList(user12.getIdUser(), watId12);
+                String urlproduct12 = "/Home";
+                ServletUtils.redirect(urlproduct12, request, response);
                 break;
             case "/delwatlistinWatList":
                 HttpSession session5 = request.getSession();

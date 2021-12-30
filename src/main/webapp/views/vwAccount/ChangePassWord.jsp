@@ -19,23 +19,28 @@
             </div>
         </c:if>
         <form action="" method="post" >
-            <div class="form-group">
-                <label for="txtOldPassWord">Password</label>
-                <input type="password" class="form-control" id="txtOldPassWord" name="oldpw">
-            </div>
-            <div class="form-group">
-                <label for="txtPassword">Password</label>
-                <input type="password" class="form-control" id="txtPassword" name="rawpw">
-            </div>
-            <div class="form-group">
-                <label for="txtConfirm">Confirm</label>
-                <input type="password" class="form-control" id="txtConfirm" name="cfmpw">
-            </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    Xac nhan
-                </button>
+            <div class="col-8" style="margin-left: 256px;margin-top: 120px">
+                <h4>
+                    Change Password
+                </h4>
+                <div class="form-group">
+                    <label for="txtOldPassWord">Old Password</label>
+                    <input type="password" class="form-control" id="txtOldPassWord" name="oldpw">
+                </div>
+                <div class="form-group">
+                    <label for="txtPassword">New Password</label>
+                    <input type="password" class="form-control" id="txtPassword" name="rawpw">
+                </div>
+                <div class="form-group">
+                    <label for="txtConfirm">Confirm New Password</label>
+                    <input type="password" class="form-control" id="txtConfirm" name="cfmpw">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        Xac nhan
+                    </button>
+                </div>
             </div>
         </form>
     </jsp:body>

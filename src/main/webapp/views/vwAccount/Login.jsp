@@ -5,7 +5,6 @@
     <jsp:attribute name="css">
           <style>
               #login-Body {
-                  margin-top: 100px;
                   height: 120vh;
               }
               body {
@@ -16,7 +15,7 @@
     <jsp:body>
         <div id="login-Body" class="container-fluid h-100">
             <div class="row h-100 justify-content-center align-items-center">
-                <div class="col-sm-4">
+                <div class="col-sm-4" style="margin-top: 200px">
                     <c:if test="${hasError}">
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <strong>Login failed!</strong> ${errorMessage}
@@ -46,8 +45,10 @@
                   <i class="fa fa-key" aria-hidden="true"></i>
                 </span>
                                 </div>
+
                             </div>
                         </div>
+                        <div style="text-align: right;margin-bottom: 3px" ><strong><a href="${pageContext.request.contextPath}/Account/FogotPassWord" class="text-info" >Quên Mật Khẩu?</a></strong></div>
                         <div class="form-group d-flex">
                             <div>
                                 <a class="btn btn-lg btn-outline-info" href="${pageContext.request.contextPath}/Home" role="button">

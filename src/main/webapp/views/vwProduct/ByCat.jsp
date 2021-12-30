@@ -45,9 +45,9 @@
                                             </c:if>
                                             <c:if test="${c.availability == 1}">
                                             <h5 class="card-title text-danger">
-                                                <fmt:formatNumber value="${c.current_Price}" type="number"/>
+                                                <fmt:formatNumber value="${c.current_Price}" type="number"/> VNĐ
                                             </h5>
-                                            <p class="card-text">Giá mua ngay: ${c.imme_Price}</p>
+                                            <p class="card-text">Giá mua ngay: ${c.imme_Price} VNĐ</p>
 
                                             <p class="card-text">Ngày Đăng Bán: ${c.ngay_bat_dau.toLocalDate()} ${c.ngay_bat_dau.toLocalTime()}</p>
                                                 <p class="card-text">Ngày Kết Thúc: ${c.time_to_close.toLocalDate()} ${c.time_to_close.toLocalTime()}</p>

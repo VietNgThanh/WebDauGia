@@ -98,7 +98,11 @@
                 Admin Tool
               </a>
               </c:if>
-              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/Account/ChangePassWord">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                Change PassWord
+              </a>
+<%--              <div class="dropdown-divider"></div>--%>
               <a class="dropdown-item" href="javascript: $('#frmLogout').submit()">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                 Sign Out
