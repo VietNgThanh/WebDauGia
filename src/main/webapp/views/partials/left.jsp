@@ -22,32 +22,16 @@
             <table class="table table-hover">
                 <tbody>
                 <c:forEach items="${parentCategories}" var="parentCat">
-                    <tr>
-                        <td colspan="2" style="width: 85%" >
-                            <a style="width: 90%" class="btn btn-sm btn-outline-secondary w-100 alert alert-primary"  href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${parentCat.id}&p=${1}">${parentCat.name}
-<%--                            <a style="width: 10%" class="btn btn-sm btn-outline-secondary w-100 alert alert-primary" data-toggle="collapse"--%>
-<%--                                                                 href="#collapse-main-${parentCat.id}" role="button" aria-expanded="false"--%>
-<%--                                                                  aria-controls="collapse-main-${parentCat.id}">--%>
-<%--                                <i class="fa fa-caret-down" aria-hidden="true"></i>--%>
-<%--                            </a>--%>
-
-                        </a>
-
+                    <tr class="text-right ">
+                        <td class="p-0 m-0">
+                            <a class="btn btn-sm btn-outline-secondary w-100 alert alert-primary "  href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${parentCat.id}&p=${1}">${parentCat.name}</a>
                         </td>
-                                    <%--                        <td style="width: 15%" class="text-right">--%>
-<%--                            <a class="btn btn-sm btn-outline-secondary w-100 alert alert-primary" data-toggle="collapse"--%>
-<%--                               href="#collapse-main-${parentCat.id}" role="button" aria-expanded="false"--%>
-<%--                               aria-controls="collapse-main-${parentCat.id}">--%>
-<%--                                <i class="fa fa-caret-down" aria-hidden="true"></i>--%>
-<%--                            </a>--%>
-<%--                        </td>--%>
                     </tr>
                     <c:forEach items="${childCategories}" var="childCat">
                         <c:if test="${parentCat.id eq childCat.parent_id}">
-                            <tr class="text-right" id="collapse-main-${parentCat.id}">
-                                    <td style="width: 15%">&nbsp;</td>
-                                    <td style="width: 70%">
-                                        <a href="${pageContext.request.contextPath}/Product/ByCat?id=${childCat.id}&p=${1}" class="btn btn-sm btn-outline-secondary w-100 alert alert-info" >${childCat.name}</a>
+                            <tr class="text-right " id="collapse-main-${parentCat.id}">
+                                    <td class="p-0 m-0">
+                                        <a href="${pageContext.request.contextPath}/Product/ByCat?id=${childCat.id}&p=${1}" class="btn btn-sm btn-outline-secondary w-100 alert alert-info m-0 mb-0" ><span class="">&#160;</span>${childCat.name}</a>
                                     </td>
                             </tr>
                         </c:if>
@@ -56,8 +40,7 @@
                 </tbody>
                 <thead>
                 <tr>
-                    <th >#</th>
-                    <th colspan="2" > <a href="${pageContext.request.contextPath}/Product/WatList">Watch List</a></th>
+                    <th> <a href="${pageContext.request.contextPath}/Product/WatList">Watch List</a></th>
                 </tr>
                 </thead>
             </table>

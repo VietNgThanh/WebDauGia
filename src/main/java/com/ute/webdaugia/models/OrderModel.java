@@ -1,5 +1,6 @@
 package com.ute.webdaugia.models;
 import com.ute.webdaugia.beans.Orders;
+import com.ute.webdaugia.beans.SoLuotDauGia;
 import com.ute.webdaugia.utils.DbUtils;
 import org.sql2o.Connection;
 
@@ -14,14 +15,14 @@ public class OrderModel {
 //                    .executeAndFetch(Orders.class);
 //        }
 //    }
-    public static List<Orders> find_top_count_order(){
-        final String query = "select id_Product from(SELECT id_Product,count(idOrder) FROM orders_product,product where idProduct=orders_product.id_Product and Availability=1\n" +
-                "                                      group by id_Product\n" +
-                "                                       order by count(idOrder) desc) as a\n" +
-                "                limit 6";
+    public static List<SoLuotDauGia> find_top_count_order(){
+        final String query ="SELECT idProduct,count(idOrder) as soluotragia FROM orders_product,product where idProduct=orders_product.id_Product and Availability=1\n" +
+                "        group by idProduct\n" +
+                "        order by count(idOrder) desc\n" +
+                "        limit 6" ;
         try (Connection con = DbUtils.getConnection()) {
             return con.createQuery(query)
-                    .executeAndFetch(Orders.class);
+                    .executeAndFetch(SoLuotDauGia.class);
         }
     }
     public static ArrayList<Integer> findproductbidderDaugia(int id){
