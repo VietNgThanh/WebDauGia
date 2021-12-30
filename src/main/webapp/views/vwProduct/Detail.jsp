@@ -434,7 +434,10 @@
         <c:set var="check_tuchoi" value=""/>
       </c:if>
       </form>
+      </c:if>
+    </div>
 
+    <div class="container my-5">
       <div class="px-5 py-0">
         <h3 class="text-center">Mô tả sản phẩm</h3>
         <p class="card-text">${product.detail_full}</p>
@@ -464,8 +467,8 @@
           </div>
         </c:if>
       </div>
+    </div>
 
-    </c:if>
     <c:if test="${auth==true}">
       <c:if test="${product.availability == 1}">
         <div class="card mt-4">

@@ -10,40 +10,42 @@
 
 <jsp:useBean id="parentCategories" scope="request" type="java.util.List<com.ute.webdaugia.beans.ParentCategory>"/>
 <jsp:useBean id="childCategories" scope="request" type="java.util.List<com.ute.webdaugia.beans.ChildCategory>"/>
-<div class="card">
+<div class="">
 <c:choose>
     <c:when test="${parentCategories.size() == 0}">
-        <div class="card-body">
+        <div class="">
             <p class="card-text">Không có dữ liệu.</p>
         </div>
     </c:when>
     <c:otherwise>
-        <div class="card-body">
-            <table class="table table-hover">
-                <tbody>
+        <div class="p-0">
+            <a href="${pageContext.request.contextPath}/Product/WatList" class="btn btn-sm btn-secondary w-100 m-0 alert alert-primary">Watch List</a>
+<%--            <table class="table table-hover">--%>
+<%--                <tbody>--%>
                 <c:forEach items="${parentCategories}" var="parentCat">
-                    <tr class="text-right ">
-                        <td class="p-0 m-0">
-                            <a class="btn btn-sm btn-outline-secondary w-100 alert alert-primary "  href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${parentCat.id}&p=${1}">${parentCat.name}</a>
-                        </td>
-                    </tr>
+<%--                    <tr class="text-right ">--%>
+<%--                        <td class="p-0 mt-5">--%>
+                            <a class="btn btn-sm btn-outline-secondary w-100 mb-0 mt-3 alert alert-primary "  href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${parentCat.id}&p=${1}">${parentCat.name}</a>
+<%--                        </td>--%>
+<%--                    </tr>--%>
                     <c:forEach items="${childCategories}" var="childCat">
                         <c:if test="${parentCat.id eq childCat.parent_id}">
-                            <tr class="text-right " id="collapse-main-${parentCat.id}">
-                                    <td class="p-0 m-0">
+<%--                            <tr class="text-right " id="collapse-main-${parentCat.id}">--%>
+<%--                                    <td class="p-0 m-0">--%>
                                         <a href="${pageContext.request.contextPath}/Product/ByCat?id=${childCat.id}&p=${1}" class="btn btn-sm btn-outline-secondary w-100 alert alert-info m-0 mb-0" ><span class="">&#160;</span>${childCat.name}</a>
-                                    </td>
-                            </tr>
+<%--                                    </td>--%>
+<%--                            </tr>--%>
                         </c:if>
                     </c:forEach>
                 </c:forEach>
-                </tbody>
-                <thead>
-                <tr>
-                    <th> <a href="${pageContext.request.contextPath}/Product/WatList">Watch List</a></th>
-                </tr>
-                </thead>
-            </table>
+<%--                </tbody>--%>
+<%--                <thead>--%>
+<%--                <tr>--%>
+<%--                    <th>--%>
+<%--                    </th>--%>
+<%--                </tr>--%>
+<%--                </thead>--%>
+<%--            </table>--%>
         </div>
     </c:otherwise>
 </c:choose>
