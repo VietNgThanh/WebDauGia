@@ -3,47 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<c:catch var="catchException">
-<jsp:useBean id="authUser" scope="session" type="com.ute.webdaugia.beans.User" />
 <jsp:useBean id="top_product" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 <jsp:useBean id="top_product2" scope="request" type="java.util.List<com.ute.webdaugia.beans.Orders>"/>
 <jsp:useBean id="top_product3" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 <jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
-</c:catch>
-<t:Account>
+
+<t:main>
     <jsp:body>
-        <c:choose>
-            <c:when test="${auth}">
-                <form id="frmLogout" method="post" action="${pageContext.request.contextPath}/Account/Logout"></form>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownR" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Hi, <b>${authUser.name}!</b>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Profile">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            Profile
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="javascript: $('#frmLogout').submit()">
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
-                            Sign Out
-                        </a>
-                    </div>
-                </li>
-            </c:when>
-            <c:otherwise>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/Account/Register">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/Account/Login">Login</a>
-                </li>
-            </c:otherwise>
-        </c:choose>
         <div class="card">
             <h4 class="card-header">
-                Top 5 Highest Products
+                Top 6 Highest Products
             </h4>
             <c:choose>
                 <c:when test="${top_product.size() == 0}">
@@ -73,10 +42,10 @@
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                                 Details
                                             </a>
-                                            <a class="btn btn-sm btn-outline-success" href="#" role="button">
-                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                Add to cart
-                                            </a>
+<%--                                            <a class="btn btn-sm btn-outline-success" href="#" role="button">--%>
+<%--                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>--%>
+<%--                                                Add to cart--%>
+<%--                                            </a>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +57,7 @@
         </div>
         <div class="card">
             <h4 class="card-header">
-                Top 5 Highest Order Turns
+                Top 6 Highest Order Turns
             </h4>
             <c:choose>
                 <c:when test="${top_product2.size() == 0}">
@@ -120,10 +89,10 @@
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                         Details
                                                     </a>
-                                                    <a class="btn btn-sm btn-outline-success" href="#" role="button">
-                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                        Add to cart
-                                                    </a>
+<%--                                                    <a class="btn btn-sm btn-outline-success" href="#" role="button">--%>
+<%--                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>--%>
+<%--                                                        Add to cart--%>
+<%--                                                    </a>--%>
                                                 </div>
                                             </div>
                                         </div>
@@ -137,7 +106,7 @@
         </div>
         <div class="card">
             <h4 class="card-header">
-                Top 5 Expired Products
+                Top 6 Expired Products
             </h4>
             <c:choose>
                 <c:when test="${top_product3.size() == 0}">
@@ -169,10 +138,10 @@
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                         Details
                                                     </a>
-                                                    <a class="btn btn-sm btn-outline-success" href="#" role="button">
-                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                        Add to cart
-                                                    </a>
+<%--                                                    <a class="btn btn-sm btn-outline-success" href="#" role="button">--%>
+<%--                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>--%>
+<%--                                                        Add to cart--%>
+<%--                                                    </a>--%>
                                                 </div>
                                             </div>
                                         </div>
@@ -185,4 +154,4 @@
             </c:choose>
         </div>
     </jsp:body>
-</t:Account>
+</t:main>

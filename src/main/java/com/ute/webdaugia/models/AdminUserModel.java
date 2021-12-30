@@ -58,7 +58,7 @@ public class AdminUserModel {
         }
     }
     public static List<User> findBidder(){
-        String query = "select * from users where permission = 1";
+        String query = "select * from users where permission = 1 or permission = 4";
         try (Connection con = DbUtils.getConnection()) {
             return  con.createQuery(query)
                     .executeAndFetch(User.class);
