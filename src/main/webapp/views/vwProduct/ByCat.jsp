@@ -87,10 +87,6 @@
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                                 Details
                                             </a>
-                                            <a class="btn btn-sm btn-outline-success" href="#" role="button">
-                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                Add to cart
-                                            </a>
                                             <c:set scope="request" var="check" value=""/>
                                             <c:forEach items="${wlists}" var="wl">
                                                 <c:if test="${c.idProduct == wl.id_product}">
