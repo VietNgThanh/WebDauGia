@@ -37,8 +37,8 @@
                                 <td>${c.name}</td>
                                 <td>${c.email}</td>
                                 <td class="text-right">
-                                    <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Admin/Dkiseller/Access?id=${c.idUser}" role="button">
-                                        <i class=" fa fa-pencil" aria-hidden="true"></i>
+                                    <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/Admin/DeleteUser?id=${c.idUser}" role="button">
+                                        <i class=" fa fa-trash" aria-hidden="true"></i>
                                     </a>
                                     <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/Info?id=${c.idUser}" role="button">
                                         <i class="fa fa-eye" aria-hidden="true"></i>

@@ -38,6 +38,19 @@ public class ProductModel {
             return products;
         }
     }
+    public static List<Product> findByUser(int id_Cat) {
+        final String query = "select * from product where User_id = :id_Cat";
+        try (Connection con = DbUtils.getConnection()) {
+            List<Product> products = con.createQuery(query)
+                    .addParameter("id_Cat", id_Cat)
+                    .executeAndFetch(Product.class);
+
+            if (products.isEmpty()) {
+                return null;
+            }
+            return products;
+        }
+    }
     public static Product findById(int id) {
         final String query = "select * from product where idProduct = :idProduct";
         try (Connection con = DbUtils.getConnection()) {
