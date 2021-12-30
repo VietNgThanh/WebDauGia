@@ -23,7 +23,7 @@
                             <c:forEach items="${products}" var="c">
                                 <div class="col-sm-4 mb-3">
                                     <div class="card h-100">
-                                        <img src="${pageContext.request.contextPath}/public/imgs/sp/${c.idProduct}/main_thumbs.jpg" alt="${c.name}" title="${c.name}" class="card-img-top">
+                                        <img src="${pageContext.request.contextPath}/public/imgs/${c.idProduct}/1.jpg" alt="${c.name}" title="${c.name}" class="card-img-top">
                                         <div class="card-body">
                                             <h6 class="card-title">${c.name}</h6>
                                             <h5 class="card-title text-danger">
@@ -35,10 +35,6 @@
                                             <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Product/Detail?id=${c.idProduct}" role="button">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                                 Details
-                                            </a>
-                                            <a class="btn btn-sm btn-outline-success" href="#" role="button">
-                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                Add to cart
                                             </a>
                                             <a  class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Product/delwatlistinWatList?id_product=${c.idProduct}" role="button">
                                                 Unlike

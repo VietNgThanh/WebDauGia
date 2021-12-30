@@ -105,14 +105,14 @@
                         <li class="page-item">
                             <a class="page-link"
                                <c:if test="${pageNo eq 1}">style="display: none;" </c:if>
-                               href="${pageContext.request.contextPath}/Product/ByCat?id=${products_PaCaID.get(0).idCat}&p=${pageNo - 1}">
+                               href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${products_PaCaID.get(0).id_ParentCat}&p=${pageNo - 1}">
                                 Previous
                             </a>
                         </li>
                         <li class="page-item">
                             <a class="page-link"
                                <c:if test="${pageNo eq 1 || pages eq 1}">style="pointer-events: none;" </c:if>
-                               href="${pageContext.request.contextPath}/Product/ByCat?id=${products_PaCaID.get(0).idCat}&p=1">
+                               href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${products_PaCaID.get(0).id_ParentCat}&p=1">
                                 1
                             </a>
                         </li>
@@ -120,7 +120,7 @@
                             <li class="page-item">
                                 <a class="page-link"
                                    <c:if test="${pageNo eq i}">style="pointer-events: none;"</c:if>
-                                   href="${pageContext.request.contextPath}/Product/ByCat?id=${products_PaCaID.get(0).idCat}&p=${i}">
+                                   href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${products_PaCaID.get(0).id_ParentCat}&p=${i}">
                                         ${i}
                                 </a>
                             </li>
@@ -128,7 +128,7 @@
                         <li class="page-item">
                             <a class="page-link"
                                <c:if test="${pageNo eq pages}">style="display: none;"</c:if>
-                               href="${pageContext.request.contextPath}/Product/ByCat?id=${products_PaCaID.get(0).idCat}&p=${pageNo + 1}">
+                               href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${products_PaCaID.get(0).id_ParentCat}&p=${pageNo + 1}">
                                 Next
                             </a>
                         </li>

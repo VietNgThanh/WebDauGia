@@ -13,7 +13,7 @@
                     ${product.name}
             </h4>
             <div class="card-body">
-                <img src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/main.jpg" alt="${product.name}" title="${product.name}">
+                <img src="${pageContext.request.contextPath}/public/imgs/${product.idProduct}/1.jpg" alt="${product.name}" title="${product.name}">
                 <p class="card-text mt-3">
                     Giá bán:
                     <span class="text-danger font-weight-bold">

@@ -1,6 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.ute.webdaugia.beans.Product" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -120,7 +120,7 @@
                       </c:if>
                       <c:if test="${c.availability == 1}">
                         <h5 class="card-title text-danger">
-                          <fmt:formatNumber value="${c.current_Price}" type="number"/>
+                          <fmt:formatNumber value="${c.current_Price}" type="number"/> VNĐ
                         </h5>
                         <p class="card-text">Giá mua ngay: ${c.imme_Price}</p>
 
