@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Montserrat:wght@400;600&family=Roboto:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Montserrat:wght@400;600&family=Roboto:wght@300;400;500&display=swap");
 
 html,
 body {
@@ -31,8 +31,10 @@ header .logo {
 }
 
 header .user-font {
+    display: inline-block;
+    width: 100px;
     font-family: "Roboto", sans-serif;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 header .user-size {
@@ -138,4 +140,8 @@ header ul {
 
 .sub-menu > li:hover > .sub-menu2 {
     display: block;
+}
+
+.user-font a:hover {
+    font-weight: bolder;
 }

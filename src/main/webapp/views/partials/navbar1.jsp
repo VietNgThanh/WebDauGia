@@ -3,7 +3,7 @@
 
 <jsp:useBean id="parentCategories" scope="request" type="java.util.List<com.ute.webdaugia.beans.ParentCategory>"/>
 <jsp:useBean id="childCategories" scope="request" type="java.util.List<com.ute.webdaugia.beans.ChildCategory>"/>
-<jsp:useBean id="authUser" scope="session" type="com.ute.webdaugia.beans.User" />
+<jsp:useBean id="authUser" scope="session" type="com.ute.webdaugia.beans.User"/>
 
 <header class="mb-3">
   <nav class="navbar navbar-expand-lg">
@@ -29,7 +29,8 @@
                   <c:set var="x" value="0"/>
                   <c:forEach items="${parentCategories}" var="parentCat">
                     <li>
-                    <a class="w-100 h-100 d-flex align-items-center pl-4" href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${parentCat.id}&p=1">${parentCat.name}</a>
+                    <a class="w-100 h-100 d-flex align-items-center pl-4"
+                       href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${parentCat.id}&p=1">${parentCat.name}</a>
                     <ul class="sub-menu2" style="top: ${x}rem">
                       <c:set var="x" value="${x+2.5}"/>
                       <c:forEach items="${childCategories}" var="childCat">
@@ -76,8 +77,9 @@
         <c:when test="${auth}">
           <form id="frmLogout" method="post" action="${pageContext.request.contextPath}/Account/Logout"></form>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownR" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="text-light">Hi, <b>${authUser.name}!</b></span>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownR" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              <span class="text-light user-font ml-5">Hi, ${authUser.name.substring(authUser.name.lastIndexOf(" ")+1)}!</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <c:if test="${authUser.permission==1 || authUser.permission==4}">
@@ -115,12 +117,10 @@
           </li>
         </c:when>
         <c:otherwise>
-          <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/Account/Register">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/Account/Login">Login</a>
-          </li>
+          <div class="user-font ml-5">
+              <a class="nav-link p-1 text-light" href="${pageContext.request.contextPath}/Account/Register">Register</a>
+              <a class="nav-link p-1 text-light" href="${pageContext.request.contextPath}/Account/Login">Login</a>
+          </div>
         </c:otherwise>
       </c:choose>
           </span>

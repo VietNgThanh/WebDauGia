@@ -4,6 +4,8 @@ import com.ute.webdaugia.beans.*;
 import com.ute.webdaugia.models.*;
 import com.ute.webdaugia.utils.ServletUtils;
 import org.sql2o.converters.Convert;
+
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 import javax.mail.MessagingException;
@@ -18,6 +20,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.io.UnsupportedEncodingException;
 
 import static com.ute.webdaugia.models.ProductModel.*;
 
@@ -192,7 +197,8 @@ public class ProductFEServlet extends HttpServlet {
                 {
                     pageName="Search";
                 }
-                String urlproduct = "/Product/"+ pageName +"?id=" + Integer.toString(catId1) +"&p=" + pageNo1 + "&show="+show1 +"&sort="+sort1 + "&txtSearch="+txtSearch1;
+                String txtSearchEncoded = encodeValue(txtSearch1);
+                String urlproduct = "/Product/"+ pageName +"?id=" + Integer.toString(catId1) +"&p=" + pageNo1 + "&show="+show1 +"&sort="+sort1 + "&txtSearch="+txtSearchEncoded;
                 ServletUtils.redirect(urlproduct, request, response);
                 break;
             case "/addwatlistDetail":
@@ -240,6 +246,7 @@ public class ProductFEServlet extends HttpServlet {
                 String show2= request.getParameter("show");
                 String sort2 = request.getParameter("sort");
                 String txtSearch2 = request.getParameter("txtSearch");
+                String txtSearchEncoded2 = encodeValue(txtSearch2);
 //                request.setAttribute("pageNo", pageNo2);
                 HttpSession session6 = request.getSession();
                 User user6 = (User) session6.getAttribute("authUser");
@@ -252,7 +259,7 @@ public class ProductFEServlet extends HttpServlet {
                 {
                     pageName1="Search";
                 }
-                String urlproduct1 = "/Product/"+ pageName1 +"?id=" + Integer.toString(catId2) +"&p=" + pageNo2 + "&show="+show2 +"&sort="+sort2 + "&txtSearch="+txtSearch2;
+                String urlproduct1 = "/Product/"+ pageName1 +"?id=" + Integer.toString(catId2) +"&p=" + pageNo2 + "&show="+show2 +"&sort="+sort2 + "&txtSearch="+txtSearchEncoded2;
                 ServletUtils.redirect(urlproduct1, request, response);
                 break;
             case "/delwatlistDetail":
@@ -438,6 +445,14 @@ public class ProductFEServlet extends HttpServlet {
         request.setAttribute("txtSearch", txtSearch);
         request.setAttribute("pages", pages);
         ServletUtils.forward("/views/vwProduct/Search.jsp", request, response);
+    }
+
+    private static String encodeValue(String value) {
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException ex) {
+            throw new RuntimeException(ex.getCause());
+        }
     }
 }
 

@@ -35,7 +35,7 @@
                             <c:forEach items="${products_PaCaID}" var="c">
                                 <div class="col-sm-4 mb-3">
                                     <div class="card h-100">
-                                        <img src="${pageContext.request.contextPath}/public/imgs/${c.idProduct}/1.jpg"
+                                        <img src="${pageContext.request.contextPath}/public/imgs/${c.idProduct}/1Zna.jpg"
                                              alt="${c.name}" title="${c.name}" class="card-img-top">
                                         <div class="card-body">
                                             <h6 class="card-title">${c.name}</h6>
@@ -105,14 +105,14 @@
                         <li class="page-item">
                             <a class="page-link"
                                <c:if test="${pageNo eq 1}">style="display: none;" </c:if>
-                               href="${pageContext.request.contextPath}/Product/ByCat?id=${products_PaCaID.get(0).idCat}&p=${pageNo - 1}">
+                               href="${pageContext.request.contextPath}/Product/ByParentCat?id=${products_PaCaID.get(0).idCat}&p=${pageNo - 1}">
                                 Previous
                             </a>
                         </li>
                         <li class="page-item">
                             <a class="page-link"
                                <c:if test="${pageNo eq 1 || pages eq 1}">style="pointer-events: none;" </c:if>
-                               href="${pageContext.request.contextPath}/Product/ByCat?id=${products_PaCaID.get(0).idCat}&p=1">
+                               href="${pageContext.request.contextPath}/Product/ByParentCat?id=${products_PaCaID.get(0).idCat}&p=1">
                                 1
                             </a>
                         </li>
@@ -120,7 +120,7 @@
                             <li class="page-item">
                                 <a class="page-link"
                                    <c:if test="${pageNo eq i}">style="pointer-events: none;"</c:if>
-                                   href="${pageContext.request.contextPath}/Product/ByCat?id=${products_PaCaID.get(0).idCat}&p=${i}">
+                                   href="${pageContext.request.contextPath}/Product/ByParentCat?id=${products_PaCaID.get(0).idCat}&p=${i}">
                                         ${i}
                                 </a>
                             </li>
@@ -128,7 +128,7 @@
                         <li class="page-item">
                             <a class="page-link"
                                <c:if test="${pageNo eq pages}">style="display: none;"</c:if>
-                               href="${pageContext.request.contextPath}/Product/ByCat?id=${products_PaCaID.get(0).idCat}&p=${pageNo + 1}">
+                               href="${pageContext.request.contextPath}/Product/ByParentCat?id=${products_PaCaID.get(0).idCat}&p=${pageNo + 1}">
                                 Next
                             </a>
                         </li>
