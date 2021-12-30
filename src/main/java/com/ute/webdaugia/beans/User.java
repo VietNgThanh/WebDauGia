@@ -115,5 +115,9 @@ public class User {
     public boolean isAdmin() {
         return this.permission == 3;
     }
+
+    public boolean isSeller() {
+        return this.permission == 2;
+    }
 }
 

@@ -29,8 +29,15 @@ public class MiscServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    User loggedUser = (User) session.getAttribute("authUser");
+    if (!loggedUser.isSeller()) {
+      ServletUtils.forward("/views/403.jsp", request, response);
+      return;
+    }
     String path = request.getPathInfo();
     switch (path) {
+
       case "/Editor":
         List<ChildCategory> list1= ChildCategoryModel.findAll();
         List<Product> list2=ProductModel.findAll();
