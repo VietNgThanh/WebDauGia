@@ -2,9 +2,11 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:catch var="catchException">
 <jsp:useBean id="profile" scope="request" type="com.ute.webdaugia.beans.User"/>
 <jsp:useBean id="bangdanhgia" scope="request" type="java.util.List<com.ute.webdaugia.beans.Danh_Gia_NguoiDung>"/>
 <jsp:useBean id="listuser" scope="request" type="java.util.List<com.ute.webdaugia.beans.User>"/>
+</c:catch>
 <t:main>
     <jsp:body>
         <c:if test="${auth == true}">

@@ -114,6 +114,13 @@ public class Acccount extends HttpServlet {
                 request.setAttribute("listuser",listuser2);
                 ServletUtils.forward("/views/vwAccount/URLDanhGia.jsp",request,response);
                 break;
+            case "/Uptoseller":
+                HttpSession session5 = request.getSession();
+                User user5= (User) session5.getAttribute("authUser");
+                AccountModel.uptoSeller(user5);
+                String  urlproduct = "/Account/Profile";
+                ServletUtils.redirect(urlproduct, request, response);
+                break;
         }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {

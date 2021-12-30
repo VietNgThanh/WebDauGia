@@ -1,13 +1,12 @@
 package com.ute.webdaugia.controllers;
 
 import com.ute.webdaugia.beans.*;
-import com.ute.webdaugia.models.AdminUserModel;
-import com.ute.webdaugia.models.ProductModel;
-import com.ute.webdaugia.models.OrderModel;
+import com.ute.webdaugia.models.*;
 import com.ute.webdaugia.utils.ServletUtils;
 import org.sql2o.converters.Convert;
 import java.time.Duration;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -112,6 +111,8 @@ public class ProductFEServlet extends HttpServlet {
                     request.setAttribute("listuser",listuser);
                     Integer soluotragia = ProductModel.SoluotraGia(proId);
                     request.setAttribute("soluotragia",soluotragia);
+                    List<TuChoiBidder> listtuchoi = ProductModel.listTuchoi();
+                    request.setAttribute("listtuchoi",listtuchoi);
                     ServletUtils.forward("/views/vwProduct/Detail.jsp", request, response);
                 }
                 break;
@@ -172,13 +173,27 @@ public class ProductFEServlet extends HttpServlet {
 
             case "/addwatlist":
                 int catId1 = 0;
+                int pageNo1 = 1;
+                try {
+                    pageNo1 = Integer.parseInt(request.getParameter("p"));
+                } catch (NumberFormatException e) {
+                }
+                String show1= request.getParameter("show");
+                String sort1 = request.getParameter("sort");
+                String txtSearch1 = request.getParameter("txtSearch");
+//                request.setAttribute("pageNo", pageNo1);
                 HttpSession session3 = request.getSession();
                 User user3 = (User) session3.getAttribute("authUser");
                 int watId = 0;
                 watId = Integer.parseInt(request.getParameter("id_product"));
                 addWatchList(user3.getIdUser(), watId);
                 catId1 = findidCatByidproduct(watId);
-                String urlproduct = "/Product/ByCat?id=" + Integer.toString(catId1);
+                String pageName="ByCat";
+                if(txtSearch1!=null)
+                {
+                    pageName="Search";
+                }
+                String urlproduct = "/Product/"+ pageName +"?id=" + Integer.toString(catId1) +"&p=" + pageNo1 + "&show="+show1 +"&sort="+sort1 + "&txtSearch="+txtSearch1;
                 ServletUtils.redirect(urlproduct, request, response);
                 break;
             case "/addwatlistDetail":
@@ -190,16 +205,47 @@ public class ProductFEServlet extends HttpServlet {
                 String urlproduct4 = "/Product/Detail?id=" + Integer.toString(watId4);
                 ServletUtils.redirect(urlproduct4, request, response);
                 break;
+            case "/addTuchoiBidderRagia":
+                int id_product = Integer.parseInt(request.getParameter("id_product"));
+                int id_bidder=Integer.parseInt(request.getParameter("id_bidder"));
+                addTuchoiBidderRagia(id_product,id_bidder);
+                Product m = ProductModel.findById(id_product);
+                String mess= "Ban vua bi tu choi ra gia san pham " + m.getName();
+                User n = AccountModel.findByidUser(id_bidder);
+                String email = n.getEmail();
+                SendMail sendMail = new SendMail();
+                try {
+                    boolean sm = sendMail.Sendmail(email,mess);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+                String urlproduct5 = "/Product/Detail?id=" + Integer.toString(id_product);
+                ServletUtils.redirect(urlproduct5, request, response);
+                break;
             case "/delwatlist":
                 int catId2 = 0;
+                int pageNo2 = 1;
+                try {
+                    pageNo2 = Integer.parseInt(request.getParameter("p"));
+                } catch (NumberFormatException e) {
+                }
+                String show2= request.getParameter("show");
+                String sort2 = request.getParameter("sort");
+                String txtSearch2 = request.getParameter("txtSearch");
+//                request.setAttribute("pageNo", pageNo2);
                 HttpSession session6 = request.getSession();
                 User user6 = (User) session6.getAttribute("authUser");
                 int watId2 = 0;
                 watId2 = Integer.parseInt(request.getParameter("id_product"));
                 delWatchList(user6.getIdUser(), watId2);
                 catId2 = findidCatByidproduct(watId2);
-                String urlproduct2 = "/Product/ByCat?id=" + Integer.toString(catId2);
-                ServletUtils.redirect(urlproduct2, request, response);
+                String pageName1="ByCat";
+                if(txtSearch2!=null)
+                {
+                    pageName1="Search";
+                }
+                String urlproduct1 = "/Product/"+ pageName1 +"?id=" + Integer.toString(catId2) +"&p=" + pageNo2 + "&show="+show2 +"&sort="+sort2 + "&txtSearch="+txtSearch2;
+                ServletUtils.redirect(urlproduct1, request, response);
                 break;
             case "/delwatlistDetail":
                 HttpSession session10 = request.getSession();
@@ -228,6 +274,11 @@ public class ProductFEServlet extends HttpServlet {
                 ServletUtils.forward("/views/vwProduct/WatList.jsp", request, response);
                 break;
             case "/Search":
+                HttpSession session8 = request.getSession();
+                User user8 = (User) session8.getAttribute("authUser");
+                List<Wishlist> wlist3=ProductModel.findAllWList(user8.getIdUser());
+                request.setAttribute("wlists",wlist3);
+
                 String txtSearch = request.getParameter("txtSearch");
                 String show = request.getParameter("show");
                 String sort = request.getParameter("sort");
@@ -295,6 +346,15 @@ public class ProductFEServlet extends HttpServlet {
         Orders c = new Orders(id_Product, user.getIdUser(), Price);
         ProductModel.BiderRaGia(c);
         System.out.println("abc");
+        Product z = ProductModel.findById(id_Product);
+        String mess= "Ban vua ra gia thanh cong san pham " + z.getName() + " voi gia la: " + Price;
+        String email = user.getEmail();
+        SendMail sendMail = new SendMail();
+        try {
+            boolean sm = sendMail.Sendmail(email,mess);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
         String urlproduct = "/Product/Detail?id=" + Integer.toString(id_Product);
         ServletUtils.redirect(urlproduct, request, response);
     }

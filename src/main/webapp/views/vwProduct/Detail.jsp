@@ -12,6 +12,7 @@
     <jsp:useBean id="auth" scope="session" type="java.lang.Boolean"/>
     <jsp:useBean id="user" scope="request" type="java.lang.Integer"/>
     <jsp:useBean id="soluotragia" scope="request" type="java.lang.Integer"/>
+    <jsp:useBean id="listtuchoi" scope="request" type="java.util.List<com.ute.webdaugia.beans.TuChoiBidder>"/>
 </c:catch>
 
 <t:main>
@@ -291,27 +292,49 @@
                 List
             </a>
             <c:if test="${auth == true}">
-            <c:set scope="request" var="check_diem" value="" />
+                <c:set var="check_tuchoi" value=""/>
+                <c:forEach items="${listtuchoi}" var="tuchoi">
+                    <c:if test="${tuchoi.id_bidder == user && tuchoi.id_product == product.idProduct}">
+                        <c:set var="check_tuchoi" value="true"/>
+                    </c:if>
+                </c:forEach>
+                <c:if test="${check_tuchoi.length() !=0}">
+                    <span  class="btn btn-outline-danger">
+                        <i class="fa fa-times-circle"></i>
+                        Không được Đấu giá
+                    </span>
+                </c:if>
+                <c:if test="${check_tuchoi.length() ==0}">
 
-            <c:if test="${mark.mark>= 80}">
-                <c:set scope="request" var="check_diem" value="true" />
-            </c:if>
-            <c:if test="${product.availability == 1}">
+                <c:forEach items="${listuser}" var="ls">
+                    <c:if test="${ls.idUser==user}">
+                        <c:if test="${ls.permission==1 || ls.permission==4}">
+                            <c:set scope="request" var="check_diem" value="" />
 
-            <c:if test="${check_diem.length() == 0}">
-                <a  class="btn btn-outline-danger" href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}" role="button">
-                    <i class="fa fa-times-circle"></i>
-                    Không được Đấu giá
-                </a>
-            </c:if>
-            <c:if test="${check_diem.length() != 0}">
-                <a  class="btn  btn-outline-warning" href="#" role="button">
-                    <i class="fa fa-check-circle"></i>
-                    Được Đấu Giá
-                </a>
+                            <c:if test="${mark.mark>= 80}">
+                                <c:set scope="request" var="check_diem" value="true" />
+                            </c:if>
+                            <c:if test="${product.availability == 1}">
 
-            </c:if>
+                                <c:if test="${check_diem.length() == 0}">
+                                    <a  class="btn btn-outline-danger" href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}" role="button">
+                                        <i class="fa fa-times-circle"></i>
+                                        Không được Đấu giá
+                                    </a>
+                                </c:if>
+                                <c:if test="${check_diem.length() != 0}">
+                                    <a  class="btn  btn-outline-warning" href="#" role="button">
+                                        <i class="fa fa-check-circle"></i>
+                                        Được Đấu Giá
+                                    </a>
 
+                                </c:if>
+                            </c:if>
+                        </c:if>
+                    </c:if>
+                </c:forEach>
+                </c:if>
+                <c:if test="${product.availability == 1}">
             <c:set scope="request" var="check" value="" />
             <c:forEach items="${wlists}" var="wl">
                 <c:if test="${product.idProduct == wl.id_product}">
@@ -331,24 +354,42 @@
             </c:if>
             </c:if>
         </div>
-                    <c:if test="${product.availability == 1}">
-        <div class="card-body">
-            <c:if test="${check_diem.length() != 0}">
-            <div>Bước nhảy: <span id="buocnhay">${product.buoc_nhay}</span></div>
-                <div class="quantity">
-                    <button class="btn minus-btn disabled" type="button">-</button>
-                    <input type="text" id="quantity" name="Price" value="${product.current_Price}">
-                    <button class="btn plus-btn" type="button">+</button>
-                </div>
-                </div>
-                <c:set scope="request" var="check_diem" value="" />
-            </c:if>
-        </div>
-                <button type="submit" class="btn btn-primary">
-                    Ra Giá
-                </button>
+
+                <c:set var="check_tuchoi" value=""/>
+                <c:forEach items="${listtuchoi}" var="tuchoi">
+                    <c:if test="${tuchoi.id_bidder == user && tuchoi.id_product == product.idProduct}">
+                        <c:set var="check_tuchoi" value="true"/>
+                    </c:if>
+                </c:forEach>
+                <c:if test="${check_tuchoi.length() ==0}">
+                    <c:forEach items="${listuser}" var="ls">
+                        <c:if test="${ls.idUser==user}">
+                            <c:if test="${ls.permission==1 || ls.permission==4}">
+                                <c:if test="${product.availability == 1 }">
+                                    <div class="card-body">
+                                    <c:if test="${check_diem.length() != 0}">
+                                        <div>Bước nhảy: <span id="buocnhay">${product.buoc_nhay}</span></div>
+                                        <div class="quantity">
+                                            <button class="btn minus-btn disabled" type="button">-</button>
+                                            <input type="text" id="quantity" name="Price" value="${product.current_Price+product.buoc_nhay}">
+                                            <button class="btn plus-btn" type="button">+</button>
+                                        </div>
+                                        </div>
+                                        <c:set scope="request" var="check_diem" value="" />
+                                    </c:if>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        Ra Giá
+                                    </button>
+                                </c:if>
+                            </c:if>
+                        </c:if>
+                    </c:forEach>
+                    <c:set var="check_tuchoi" value=""/>
+                </c:if>
+
         </c:if>
-        </c:if>
+        <c:if test="${auth==true}">
         <c:if test="${product.availability == 1}">
         <div class="card mt-4">
             <h4 class="card-header">
@@ -369,6 +410,7 @@
                             <th>Giá</th>
                             <c:if test="${user==product.userid}">
                                 <th>Đánh Giá Người Mua</th>
+                                <th>Từ chối Ra Giá</th>
                             </c:if>
                         </tr>
                         </thead>
@@ -385,7 +427,7 @@
                                 <c:if test="${user==product.userid}">
                                 <td>
                                     <c:if test="${auth==true}">
-                                        <a href="${pageContext.request.contextPath}/Account/DanhGia?id=${c.id_User}" role="button">
+                                        <a href="${pageContext.request.contextPath}/Account/URLDanhGia?id=${c.id_User}" role="button">
                                             <i class="fa fa-commenting-o" aria-hidden="true"></i>
                                         </a>
                                     </c:if>
@@ -395,6 +437,11 @@
                                         </a>
                                     </c:if>
                                 </td>
+                                    <td>
+                                        <a href="${pageContext.request.contextPath}/Product/addTuchoiBidderRagia?id_product=${product.idProduct}&id_bidder=${c.id_User}" role="button">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
                                 </c:if>
                             </tr>
                             </tbody>
@@ -404,6 +451,7 @@
             </c:choose>
         </div>
                     </c:if>
+        </c:if>
             </form>
         </div>
 

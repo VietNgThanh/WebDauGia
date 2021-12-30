@@ -50,6 +50,17 @@ public class ProductModel {
             return list.get(0);
         }
     }
+    public static List<TuChoiBidder> listTuchoi(){
+        final String sql ="select id_product,id_bidder from tu_choi_bidder";
+        try (Connection con = DbUtils.getConnection()){
+            List<TuChoiBidder> list = con.createQuery(sql)
+                    .executeAndFetch(TuChoiBidder.class);
+            if (list.size() == 0) {
+                return null;
+            }
+            return list;
+        }
+    }
     public static void deteleProduct(int id){
         String sql = "DELETE FROM product where idProduct =:id \n";
         try (Connection con = DbUtils.getConnection()) {
@@ -86,6 +97,15 @@ public class ProductModel {
             con.createQuery(sql)
                     .addParameter("id_user", id_user)
                     .addParameter("id_product", id_product)
+                    .executeUpdate();
+        }
+    }
+    public static void addTuchoiBidderRagia(int id_product,int id_bidder){
+        String sql ="INSERT INTO tu_choi_bidder(id_product,id_bidder) VALUES(:id_product,:id_bidder);";
+        try(Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id_product",id_product)
+                    .addParameter("id_bidder",id_bidder)
                     .executeUpdate();
         }
     }
@@ -185,7 +205,7 @@ public class ProductModel {
         }
     }
     public static List<Orders> LichSuDauGia(int id_Product){
-        String sql = "select id_User,current_price,Time_make_price from orders_product where id_Product= :id_Product order by idOrder desc LIMIT 0,6 ;";
+        String sql = "select id_User,current_price,Time_make_price from orders_product where id_Product= :id_Product order by idOrder desc;";
         try (Connection con = DbUtils.getConnection()){
           List<Orders> lichsu =  con.createQuery(sql)
                     .addParameter("id_Product",id_Product)

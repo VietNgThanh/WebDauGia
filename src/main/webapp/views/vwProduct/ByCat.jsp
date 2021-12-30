@@ -48,13 +48,7 @@
                                                 <fmt:formatNumber value="${c.current_Price}" type="number"/>
                                             </h5>
                                             <p class="card-text">Giá mua ngay: ${c.imme_Price}</p>
-                                            <p class="card-text">Bidder ra giá cao nhất:
-                                                <c:forEach items="${listuser1}" var="d">
-                                                <c:if test="${d.idUser == c.id_Bidder_current}">
-                                            <td id="maskten">
-                                                *****${d.name.substring(d.name.lastIndexOf(' '),d.name.length())}</td>
-                                            </c:if>
-                                            </c:forEach>
+
                                             <p class="card-text">Ngày Đăng Bán: ${c.ngay_bat_dau.toLocalDate()} ${c.ngay_bat_dau.toLocalTime()}</p>
                                                 <p class="card-text">Ngày Kết Thúc: ${c.time_to_close.toLocalDate()} ${c.time_to_close.toLocalTime()}</p>
                                             <p class="card-text">Số lượt ra giá:
@@ -73,6 +67,13 @@
                                                             ${l.soluotragia}
                                                         </c:if>
                                                         <c:set scope="request" var="ragia" value="" />
+                                                    </c:forEach>
+                                                    <p class="card-text">Bidder ra giá cao nhất:
+                                                    <c:forEach items="${listuser1}" var="d">
+                                                        <c:if test="${d.idUser == c.id_Bidder_current}">
+                                                            <span id="maskten">
+                                                                *****${d.name.substring(d.name.lastIndexOf(' '),d.name.length())}</span>
+                                                        </c:if>
                                                     </c:forEach>
 
                                                 </c:if>
@@ -100,14 +101,14 @@
                                                 <c:if test="${c.availability==1}">
                                                 <c:if test="${check.length() == 0}">
                                                     <a class="btn btn-sm btn-outline-primary"
-                                                       href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}"
+                                                       href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}&p=${pageNo}"
                                                        role="button">
                                                         <i class="fa fa-heart" aria-hidden="true"></i>
                                                     </a>
                                                 </c:if>
                                                 <c:if test="${check.length() != 0}">
                                                     <a class="btn btn-sm btn-outline-primary"
-                                                       href="${pageContext.request.contextPath}/Product/delwatlist?id_product=${c.idProduct}"
+                                                       href="${pageContext.request.contextPath}/Product/delwatlist?id_product=${c.idProduct}&p=${pageNo}"
                                                        role="button">
                                                         Unlike
                                                     </a>

@@ -60,6 +60,14 @@ public class AccountModel {
                         .executeUpdate();
             }
     }
+    public static void uptoSeller(User p){
+        String sql = "UPDATE users SET  permission = 4 WHERE idUser = :idUser \n";
+        try(Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("idUser",p.getIdUser())
+                    .executeUpdate();
+        }
+    }
 
     public static User findByEmail(String email){
         String query = "select * from users where email = :email";

@@ -13,6 +13,8 @@
   <jsp:useBean id="pages" scope="request" type="java.lang.Integer"/>
   <jsp:useBean id="searchShow" scope="request" type="java.lang.String"/>
   <jsp:useBean id="searchSort" scope="request" type="java.lang.String"/>
+  <jsp:useBean id="auth" scope="session" type="java.lang.Boolean"/>
+  <jsp:useBean id="wlists" scope="request" type="java.util.List<com.ute.webdaugia.beans.Wishlist>"/>
 </c:catch>
 
 <t:main>
@@ -125,6 +127,30 @@
                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
                         Add to cart
                       </a>
+                      <c:set scope="request" var="check" value=""/>
+                      <c:forEach items="${wlists}" var="wl">
+                        <c:if test="${c.idProduct == wl.id_product}">
+                          <c:set scope="request" var="check" value="true"/>
+                        </c:if>
+                      </c:forEach>
+                      <c:if test="${auth == true}">
+                      <c:if test="${c.availability==1}">
+                      <c:if test="${check.length() == 0}">
+                        <a class="btn btn-sm btn-outline-primary"
+                           href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}&p=${pageNo}&show=${searchShow}&sort=${searchSort}&txtSearch=${txtSearch}"
+                           role="button">
+                          <i class="fa fa-heart" aria-hidden="true"></i>
+                        </a>
+                      </c:if>
+                      <c:if test="${check.length() != 0}">
+                      <a class="btn btn-sm btn-outline-primary"
+                         href="${pageContext.request.contextPath}/Product/delwatlist?id_product=${c.idProduct}&p=${pageNo}&show=${searchShow}&sort=${searchSort}&txtSearch=${txtSearch}"
+                         role="button">
+                        Unlike
+                      </a>
+                      </c:if>
+                      </c:if>
+                      </c:if>
                     </div>
                   </div>
                 </div>

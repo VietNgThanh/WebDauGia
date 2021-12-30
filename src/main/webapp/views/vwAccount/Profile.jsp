@@ -2,15 +2,20 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:catch var="catchException">
 <jsp:useBean id="profile" scope="request" type="com.ute.webdaugia.beans.User"/>
 <jsp:useBean id="bangdanhgia" scope="request" type="java.util.List<com.ute.webdaugia.beans.Danh_Gia_NguoiDung>"/>
 <jsp:useBean id="dsachsanpham" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 <jsp:useBean id="dsachdathang" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 <jsp:useBean id="listuser" scope="request" type="java.util.List<com.ute.webdaugia.beans.User>"/>
+</c:catch>
 <t:main>
     <jsp:body>
         <c:if test="${auth == true}">
         <form action="" method="post" >
+            <c:if test="${profile.permission==4}">
+                <div class="text-dark mb-1"><strong>Up to Seller: <span class="text-danger">Đang Chờ Xác Thực.</span></strong></div>
+            </c:if>
         <div class="card">
             <h4 class="card-header">
                 Profile
@@ -45,7 +50,11 @@
                 Save Profile
             </button>
         </div>
-
+            <c:if test="${profile.permission==1}">
+                <a class="btn btn-lg btn-warning mt-1" href="${pageContext.request.contextPath}/Account/Uptoseller" role="button">
+                    <i class="fa fa-angle-double-up" aria-hidden="true"></i> Up to Seller <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+                </a>
+            </c:if>
             <div class="card mt-4">
                 <div class="card-header">
                     <h4 >
@@ -120,7 +129,7 @@
                                 <tr>
                                     <td scope="row">${c.name}</td>
                                     <td>${c.current_Price}
-                                        <c:if test="${c.id_Bidder_current == profile.idUser}">(Đang Giữ Giá Cao Nhất)</c:if>
+                                        <span class="text-danger"><strong><c:if test="${c.id_Bidder_current == profile.idUser}">(Đang Giữ Giá Cao Nhất)</c:if></strong></span></td>
                                     </td>
                                     <td> <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Product/Detail?id=${c.idProduct}" role="button">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
