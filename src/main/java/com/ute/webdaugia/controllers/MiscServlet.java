@@ -132,14 +132,13 @@ public class MiscServlet extends HttpServlet {
     String txtIdProType = txtProType.split("\\.")[0];
     int idCat = Integer.parseInt(txtIdProType);
     System.out.println(txtIdProType);
-    int checkdelay=0;
-    if(request.getParameter("check_delay")=="")
-    {
-         checkdelay=0;
-    }
-    else {
-      checkdelay = 1;
-    }
+    int checkdelay=Integer.parseInt(request.getParameter("check_delay1"));
+//    String[] abc=request.getParameterValues("check_delay");
+//    String abc=request.getParameterValues("check_delay").toString();
+//    if(abc!=null)
+//    {
+//         checkdelay=1;
+//    }
     int immeP=  Integer.parseInt(request.getParameter("ImmePrice"));
     System.out.println(immeP);
 
