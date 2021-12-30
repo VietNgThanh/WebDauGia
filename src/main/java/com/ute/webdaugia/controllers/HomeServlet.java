@@ -4,6 +4,7 @@ import com.ute.webdaugia.beans.Orders;
 import com.ute.webdaugia.beans.Product;
 import com.ute.webdaugia.beans.User;
 import com.ute.webdaugia.beans.Wishlist;
+import com.ute.webdaugia.beans.SoLuotDauGia;
 import com.ute.webdaugia.models.OrderModel;
 import com.ute.webdaugia.models.ProductModel;
 import com.ute.webdaugia.utils.ServletUtils;
@@ -27,7 +28,7 @@ public class HomeServlet extends HttpServlet {
                 HttpSession session2 = request.getSession();
                 User user2= (User) session2.getAttribute("authUser");
                 List<Product> list = ProductModel.find_top_highest_price();
-                List<Orders> list2= OrderModel.find_top_count_order();
+                List<SoLuotDauGia> list2= OrderModel.find_top_count_order();
                 List<Product> list3=ProductModel.find_top_gonna_expire();
                 List<Product> list1 = ProductModel.findAll();
                 request.setAttribute("top_product", list);

@@ -308,6 +308,11 @@ public class ProductFEServlet extends HttpServlet {
                 pagingSearchResult(request, response, txtSearch, searchPageNo, show, sort);
                 break;
 
+            case "/AddFullDes":
+                int productId = Integer.parseInt(request.getParameter("id"));
+                ServletUtils.forward("/views/vwProduct/Detail.jsp", request, response);
+                break;
+
             default:
                 ServletUtils.forward("/views/404.jsp", request, response);
                 break;

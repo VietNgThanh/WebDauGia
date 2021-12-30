@@ -24,7 +24,7 @@
                 <a href="${pageContext.request.contextPath}/Home" class="link p-3">Home</a>
               </li>
               <li class="nav-item">
-                <a href="#" class="link p-3">Shop</a>
+                <a href="" style="pointer-events: none;" class="link p-3">Shop</a>
                 <ul id="shop" class="sub-menu">
                   <c:set var="x" value="0"/>
                   <c:forEach items="${parentCategories}" var="parentCat">
@@ -45,12 +45,12 @@
                   </c:forEach>
                 </ul>
               </li>
-<%--              <li class="nav-item">--%>
-<%--                <a href="#" class="link p-3">About</a>--%>
-<%--              </li>--%>
-<%--              <li class="nav-item">--%>
-<%--                <a href="#" class="link p-3">Contact</a>--%>
-<%--              </li>--%>
+              <li class="nav-item">
+                <a href="https://hcmute.edu.vn/" target="_blank" class="link p-3">About</a>
+              </li>
+              <li class="nav-item">
+                <a href="mailto:ltwdaugia2021@gmail.com" target="_blank" class="link p-3">Contact</a>
+              </li>
             </ul>
           </span>
 
@@ -90,6 +90,12 @@
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Seller_Profile">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 Profile
+              </a>
+              </c:if>
+              <c:if test="${authUser.permission==3}">
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/Admin/Category">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Admin Tool
               </a>
               </c:if>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/Account/ChangePassWord">

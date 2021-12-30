@@ -62,6 +62,10 @@ public class MiscServlet extends HttpServlet {
         postUpload(request, response);
         break;
 
+      case "/AddFullDes":
+        addDescription(request, response);
+        break;
+
       default:
         ServletUtils.forward("/views/404.jsp", request, response);
         break;
@@ -160,5 +164,21 @@ public class MiscServlet extends HttpServlet {
     ProductModel.Add_Seller_Product(a);
     String  urlz = "/Product/Index";
     ServletUtils.redirect(urlz, request, response);
+  }
+
+
+  private void addDescription(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    int proId = 0;
+    String txtAddFullDes = request.getParameter("txtAddFullDes").trim();
+    try {
+        proId = Integer.parseInt(request.getParameter("id"));
+    }
+    catch (NumberFormatException e){}
+    if (proId == 0 || txtAddFullDes == null) {
+        return;
+    }
+
+    ProductModel.addFullDes(proId, txtAddFullDes);
+    ServletUtils.redirect("/Product/Detail?id=" + proId, request, response);
   }
 }

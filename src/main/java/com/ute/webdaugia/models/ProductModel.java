@@ -383,4 +383,20 @@ public class ProductModel {
             return list.get(0).getIdProduct();
         }
     }
+
+    public static void addFullDes(int proId, String txtAddFullDes) {
+        final String fetchFullDes = "SELECT Detail_full FROM product WHERE idProduct = :idProduct";
+        final String updateFullDes ="UPDATE product SET Detail_full = :detailFull WHERE idProduct = :idProduct";
+        String fullDes = "";
+        try (Connection con = DbUtils.getConnection()) {
+            List<Product> result = con.createQuery(fetchFullDes)
+                .addParameter("idProduct", proId)
+                .executeAndFetch(Product.class);
+            fullDes = result.get(0).getDetail_full() + txtAddFullDes;
+            con.createQuery(updateFullDes)
+                .addParameter("detailFull", fullDes)
+                .addParameter("idProduct", proId)
+                .executeUpdate();
+        }
+    }
 }
