@@ -195,17 +195,17 @@
     </jsp:attribute>
   <jsp:body>
     <div class="card">
-    <div class="card-header">
-      <h4>
-          ${product.name}
-      </h4>
-      <div class="banner">
-        <hr>
-        <p id="dongho"></p>
-        <div style="visibility: hidden">Thời gian trong DB: <span id="dongho1">${product.time_to_close}</span>
+      <div class="card-header">
+        <h4>
+            ${product.name}
+        </h4>
+        <div class="banner">
+          <hr>
+          <p id="dongho"></p>
+          <div style="visibility: hidden">Thời gian trong DB: <span id="dongho1">${product.time_to_close}</span>
+          </div>
         </div>
       </div>
-    </div>
       <div class="card-body">
         <div class="row">
           <div class="col-sm-5">
@@ -329,80 +329,80 @@
           </div>
         </div>
       </div>
-    <div class="card-footer text-muted">
-    <a class="btn btn-outline-success" href="${pageContext.request.contextPath}/Product/ByCat?id=${product.idCat}"
-       role="button">
-      <i class="fa fa-backward" aria-hidden="true"></i>
-      List
-    </a>
-    <c:if test="${auth == true}">
-      <c:set var="check_tuchoi" value=""/>
-      <c:forEach items="${listtuchoi}" var="tuchoi">
-        <c:if test="${tuchoi.id_bidder == user && tuchoi.id_product == product.idProduct}">
-          <c:set var="check_tuchoi" value="true"/>
-        </c:if>
-      </c:forEach>
-      <c:if test="${check_tuchoi.length() !=0}">
+      <div class="card-footer text-muted">
+        <a class="btn btn-outline-success" href="${pageContext.request.contextPath}/Product/ByCat?id=${product.idCat}"
+           role="button">
+          <i class="fa fa-backward" aria-hidden="true"></i>
+          List
+        </a>
+        <c:if test="${auth == true}">
+        <c:set var="check_tuchoi" value=""/>
+        <c:forEach items="${listtuchoi}" var="tuchoi">
+          <c:if test="${tuchoi.id_bidder == user && tuchoi.id_product == product.idProduct}">
+            <c:set var="check_tuchoi" value="true"/>
+          </c:if>
+        </c:forEach>
+        <c:if test="${check_tuchoi.length() !=0}">
                     <span class="btn btn-outline-danger">
                         <i class="fa fa-times-circle"></i>
                         Không được Đấu giá
                     </span>
-      </c:if>
-      <c:if test="${check_tuchoi.length() ==0}">
+        </c:if>
+        <c:if test="${check_tuchoi.length() ==0}">
 
-        <c:forEach items="${listuser}" var="ls">
-          <c:if test="${ls.idUser==user}">
-            <c:if test="${ls.permission==1 || ls.permission==4}">
-              <c:set scope="request" var="check_diem" value=""/>
+          <c:forEach items="${listuser}" var="ls">
+            <c:if test="${ls.idUser==user}">
+              <c:if test="${ls.permission==1 || ls.permission==4}">
+                <c:set scope="request" var="check_diem" value=""/>
 
-              <c:if test="${mark.mark>= 80}">
-                <c:set scope="request" var="check_diem" value="true"/>
-              </c:if>
-              <c:if test="${product.availability == 1}">
-
-                <c:if test="${check_diem.length() == 0}">
-                  <a class="btn btn-outline-danger"
-                     href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}"
-                     role="button">
-                    <i class="fa fa-times-circle"></i>
-                    Không được Đấu giá
-                  </a>
+                <c:if test="${mark.mark>= 80}">
+                  <c:set scope="request" var="check_diem" value="true"/>
                 </c:if>
-                <c:if test="${check_diem.length() != 0}">
-                  <a class="btn  btn-outline-warning" href="#" role="button">
-                    <i class="fa fa-check-circle"></i>
-                    Được Đấu Giá
-                  </a>
+                <c:if test="${product.availability == 1}">
 
+                  <c:if test="${check_diem.length() == 0}">
+                    <a class="btn btn-outline-danger"
+                       href="${pageContext.request.contextPath}/Product/addwatlist?id_product=${c.idProduct}"
+                       role="button">
+                      <i class="fa fa-times-circle"></i>
+                      Không được Đấu giá
+                    </a>
+                  </c:if>
+                  <c:if test="${check_diem.length() != 0}">
+                    <a class="btn  btn-outline-warning" href="#" role="button">
+                      <i class="fa fa-check-circle"></i>
+                      Được Đấu Giá
+                    </a>
+
+                  </c:if>
                 </c:if>
               </c:if>
             </c:if>
-          </c:if>
-        </c:forEach>
-      </c:if>
-      <c:if test="${product.availability == 1}">
-        <c:set scope="request" var="check" value=""/>
-        <c:forEach items="${wlists}" var="wl">
-          <c:if test="${product.idProduct == wl.id_product}">
-            <c:set scope="request" var="check" value="true"/>
-          </c:if>
-        </c:forEach>
-        <c:if test="${check.length() == 0}">
-          <a class="btn btn-outline-primary"
-             href="${pageContext.request.contextPath}/Product/addwatlistDetail?id_product=${product.idProduct}"
-             role="button">
-            <i class="fa fa-heart" aria-hidden="true"></i>
-          </a>
+          </c:forEach>
         </c:if>
-        <c:if test="${check.length() != 0}">
-          <a class="btn  btn-outline-primary"
-             href="${pageContext.request.contextPath}/Product/delwatlistDetail?id_product=${product.idProduct}"
-             role="button">
-            Unlike
-          </a>
+        <c:if test="${product.availability == 1}">
           <c:set scope="request" var="check" value=""/>
+          <c:forEach items="${wlists}" var="wl">
+            <c:if test="${product.idProduct == wl.id_product}">
+              <c:set scope="request" var="check" value="true"/>
+            </c:if>
+          </c:forEach>
+          <c:if test="${check.length() == 0}">
+            <a class="btn btn-outline-primary"
+               href="${pageContext.request.contextPath}/Product/addwatlistDetail?id_product=${product.idProduct}"
+               role="button">
+              <i class="fa fa-heart" aria-hidden="true"></i>
+            </a>
+          </c:if>
+          <c:if test="${check.length() != 0}">
+            <a class="btn  btn-outline-primary"
+               href="${pageContext.request.contextPath}/Product/delwatlistDetail?id_product=${product.idProduct}"
+               role="button">
+              Unlike
+            </a>
+            <c:set scope="request" var="check" value=""/>
+          </c:if>
         </c:if>
-      </c:if>
       </div>
 
       <c:set var="check_tuchoi" value=""/>
@@ -412,34 +412,37 @@
         </c:if>
       </c:forEach>
       <form action="" method="post"
-      onSubmit="if(!confirm('Bạn có chắn chắn muốn Ra Giá cho sản phẩm này?')){return false;}">
-      <c:if test="${check_tuchoi.length() ==0}">
-        <c:forEach items="${listuser}" var="ls">
-          <c:if test="${ls.idUser==user}">
-            <c:if test="${ls.permission==1 || ls.permission==4}">
-              <c:if test="${product.availability == 1 }">
-                <div class="card-body">
-                <c:if test="${check_diem.length() != 0}">
-                  <div>Bước nhảy: <span id="buocnhay">${product.buoc_nhay}</span></div>
-                  <div class="quantity">
-                    <button class="btn minus-btn disabled" type="button">-</button>
-                    <input type="text" id="quantity" name="Price" value="${product.current_Price+product.buoc_nhay}">
-                    <button class="btn plus-btn" type="button">+</button>
-                  </div>
-                  </div>
-                  <c:set scope="request" var="check_diem" value=""/>
+            onSubmit="if(!confirm('Bạn có chắn chắn muốn Ra Giá cho sản phẩm này?')){return false;}">
+        <c:if test="${check_tuchoi.length() ==0}">
+          <c:forEach items="${listuser}" var="ls">
+            <c:if test="${ls.idUser==user}">
+              <c:if test="${ls.permission==1 || ls.permission==4}">
+                <c:if test="${product.availability == 1 }">
+                  <div class="card-body">
+                  <c:if test="${check_diem.length() != 0}">
+                    <div>Bước nhảy: <span id="buocnhay">${product.buoc_nhay}</span></div>
+                    <div class="quantity">
+                      <button class="btn minus-btn disabled" type="button">-</button>
+                      <input type="text" id="quantity" name="Price" value="${product.current_Price+product.buoc_nhay}">
+                      <button class="btn plus-btn" type="button">+</button>
+                    </div>
+                    </div>
+                    <c:set scope="request" var="check_diem" value=""/>
+                  </c:if>
+                  <button type="submit" class="btn btn-primary">
+                    Ra Giá
+                  </button>
                 </c:if>
-                <button type="submit" class="btn btn-primary">
-                  Ra Giá
-                </button>
               </c:if>
             </c:if>
-          </c:if>
-        </c:forEach>
-        <c:set var="check_tuchoi" value=""/>
-      </c:if>
+          </c:forEach>
+          <c:set var="check_tuchoi" value=""/>
+        </c:if>
       </form>
+      </c:if>
+    </div>
 
+    <div class="container my-5">
       <div class="px-5 py-0">
         <h3 class="text-center">Mô tả sản phẩm</h3>
         <p class="card-text">${product.detail_full}</p>
@@ -469,8 +472,8 @@
           </div>
         </c:if>
       </div>
+    </div>
 
-    </c:if>
     <c:if test="${auth==true}">
       <c:if test="${product.availability == 1}">
         <div class="card mt-4">
