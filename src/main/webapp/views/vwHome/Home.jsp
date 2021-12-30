@@ -27,7 +27,7 @@
                             <c:forEach items="${top_product}" var="c">
                                 <div class="col-sm-4 mb-3">
                                     <div class="card h-100">
-                                        <img src="${pageContext.request.contextPath}/public/imgs/sp/${c.idProduct}/main_thumbs.jpg"
+                                        <img src="${pageContext.request.contextPath}/public/imgs/${c.idProduct}/1.jpg"
                                              alt="${c.name}" title="${c.name}" class="card-img-top">
                                         <div class="card-body">
                                             <h6 class="card$-title">${c.name}</h6>
@@ -93,7 +93,7 @@
                                     <c:if test="${top_id.idProduct eq c.idProduct}">
                                         <div class="col-sm-4 mb-3">
                                             <div class="card h-100">
-                                                <img src="${pageContext.request.contextPath}/public/imgs/sp/${c.idProduct}/main_thumbs.jpg"
+                                                <img src="${pageContext.request.contextPath}/public/imgs/${c.idProduct}/1.jpg"
                                                      alt="${c.name}" title="${c.name}" class="card-img-top">
                                                 <div class="card-body">
                                                     <h6 class="card-title">${c.name}</h6>
@@ -181,7 +181,7 @@
                                     <c:if test="${top_id.idProduct eq c.idProduct}">
                                         <div class="col-sm-4 mb-3">
                                             <div class="card h-100">
-                                                <img src="${pageContext.request.contextPath}/public/imgs/sp/${c.idProduct}/main_thumbs.jpg"
+                                                <img src="${pageContext.request.contextPath}/public/imgs/${c.idProduct}/1.jpg"
                                                      alt="${c.name}" title="${c.name}" class="card-img-top">
                                                 <div class="card-body">
                                                     <h6 class="card-title">${c.name}</h6>

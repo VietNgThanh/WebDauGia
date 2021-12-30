@@ -103,24 +103,7 @@ public class MiscServlet extends HttpServlet {
   private void postEditor(HttpServletRequest request, HttpServletResponse response) throws
           ServletException, IOException
   {
-    counter=ProductModel.Max_idpro()+1;
-    String b=String.valueOf(counter);
-    int  countImage= 1;
-    for ( Part part : request.getParts()){
-      if (part.getName().equals("fuMain")) {
 
-        String targetDir = this.getServletContext().getRealPath("public/imgs/" + b);
-
-        File dir = new File(targetDir);
-        if (!dir.exists()) {
-          dir.mkdir();
-        }
-        String filename = String.valueOf(countImage) + ".jpg";
-        String destination = targetDir + "/" + filename;
-        part.write(destination);
-        countImage = countImage + 1;
-      }
-    }
     String namePro=request.getParameter("ProName");
     System.out.println(namePro);
 
@@ -159,9 +142,33 @@ public class MiscServlet extends HttpServlet {
 
     System.out.println("Check delay 3");
     System.out.println(checkdelay);
+    int  countImage= 1;
+    for ( Part part : request.getParts()){
+      if (part.getName().equals("fuMain")) {
+        countImage = countImage + 1;
+      }
+    }
     Product a=new Product(idCat,startP,immeP,buocnhay,namePro,tinyDesc,desc, user.getIdUser(), checkdelay,1,0,countImage-1);
     ProductModel.Add_Seller_Product(a);
-    String  urlz = "/Product/Index";
+    counter=ProductModel.Max_idpro();
+    String b=String.valueOf(counter);
+    countImage=1;
+    for ( Part part : request.getParts()){
+      if (part.getName().equals("fuMain")) {
+
+        String targetDir = this.getServletContext().getRealPath("public/imgs/" + b);
+
+        File dir = new File(targetDir);
+        if (!dir.exists()) {
+          dir.mkdir();
+        }
+        String filename = String.valueOf(countImage) + ".jpg";
+        String destination = targetDir + "/" + filename;
+        part.write(destination);
+        countImage = countImage + 1;
+      }
+    }
+    String  urlz = "/Product/ByCat?id="+idCat;
     ServletUtils.redirect(urlz, request, response);
   }
 

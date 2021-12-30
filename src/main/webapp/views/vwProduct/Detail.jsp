@@ -19,11 +19,11 @@
 <jsp:attribute name="css">
         <style>
 
-            ul li {
-                margin-left: 20px;
-                display: inline-block;
-                list-style: none;
-            }
+            /*ul li {*/
+            /*    margin-left: 20px;*/
+            /*    display: inline-block;*/
+            /*    list-style: none;*/
+            /*}*/
 
             ul, #main-img {
                 float: left;
@@ -214,15 +214,17 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img class="d-block w-100"
-                                     src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/1.jpg"
+                                     src="${pageContext.request.contextPath}/public/imgs/${product.idProduct}/1.jpg"
                                     >
                             </div>
+                            <c:forEach begin="2" end="${product.sohinhanh}" step="1" var="i">
+
                             <div class="carousel-item">
-                                <c:forEach begin="2" end="${product.sohinhanh}" step="1" var="i">
                                     <img class="d-block w-100"
-                                         src="${pageContext.request.contextPath}/public/imgs/sp/${product.idProduct}/${i}.jpg">
-                                </c:forEach>
+                                         src="${pageContext.request.contextPath}/public/imgs/${product.idProduct}/${i}.jpg">
                             </div>
+                            </c:forEach>
+
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" style="color: black"
                            data-slide="prev">
@@ -237,11 +239,11 @@
                     </div>
                 </div>
                 <div class="col-sm-5">
-                    <h3>Tên Sản Phẩm: ${product.name}</h3>
+                    <h3> ${product.name}</h3>
                     <c:if test="${product.availability == 1}">
                         <p class="card-text">Giá mua ngay: <span class="text-danger font-weight-bold">
                             <fmt:formatNumber value="${product.imme_Price}"/> VNĐ </span></p>
-                        <p class="card-text">${product.detail_full}</p>
+                        <p class="card-text">${product.detail_tiny}</p>
                         <p class="card-text">Giá Hiện Tại: <span class="text-danger font-weight-bold">
                             <fmt:formatNumber value="${product.current_Price + product.buoc_nhay}"/> VNĐ </span></p>
                         <c:forEach items="${listuser}" var="d">

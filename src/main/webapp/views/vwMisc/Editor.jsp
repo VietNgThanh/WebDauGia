@@ -49,7 +49,7 @@
         <form action="" method="post" enctype="multipart/form-data">
             <div class="card">
                 <h4 class="card-header">
-                    New Category
+                    New Product
                 </h4>
                 <div class="card-body">
                     <div class="form-group">

@@ -35,44 +35,50 @@
                             <c:forEach items="${products_PaCaID}" var="c">
                                 <div class="col-sm-4 mb-3">
                                     <div class="card h-100">
-                                        <img src="${pageContext.request.contextPath}/public/imgs/sp/${c.idProduct}/main_thumbs.jpg"
+                                        <img src="${pageContext.request.contextPath}/public/imgs/${c.idProduct}/main_thumbs.jpg"
                                              alt="${c.name}" title="${c.name}" class="card-img-top">
                                         <div class="card-body">
                                             <h6 class="card-title">${c.name}</h6>
-                                            <h5 class="card-title text-danger"
-                                                style="display: flex;justify-content: space-between">
-                                                <c:forEach items="${list_user}" var="c1">
-                                                    <c:if test="${c.id_Bidder_current eq c1.idUser}">
-                                                        <fmt:formatNumber value="${c.current_Price}" type="number"/>
-                                                        <p id="maskten">
-                                                            *****${c1.name.substring(c1.name.lastIndexOf(' '),c1.name.length())}</p>
+                                            <c:if test="${c.availability == 0}">
+                                                <p class="card-text"><span class="text-danger font-weight-bold">
+                                                    Sản phẩm đã được bán </span></p>
+                                            </c:if>
+                                            <c:if test="${c.availability == 1}">
+                                                <h5 class="card-title text-danger">
+                                                    <fmt:formatNumber value="${c.current_Price}" type="number"/> VNĐ
+                                                </h5>
+                                                <p class="card-text">Giá mua ngay: ${c.imme_Price} VNĐ</p>
+
+                                                <p class="card-text">Ngày Đăng Bán: ${c.ngay_bat_dau.toLocalDate()} ${c.ngay_bat_dau.toLocalTime()}</p>
+                                                <p class="card-text">Ngày Kết Thúc: ${c.time_to_close.toLocalDate()} ${c.time_to_close.toLocalTime()}</p>
+                                                <p class="card-text">Số lượt ra giá:
+                                                <c:set scope="request" var="ragia" value="" />
+                                                <c:forEach items="${listragia}" var="l">
+                                                    <c:if test="${l.idProduct == c.idProduct}">
+                                                        <c:set scope="request" var="ragia" value="true" />
                                                     </c:if>
                                                 </c:forEach>
-                                            </h5>
+                                                <c:if test="${ragia.length() == 0}">
+                                                    0
+                                                </c:if>
+                                                <c:if test="${ragia.length() != 0}">
+                                                    <c:forEach items="${listragia}" var="l">
+                                                        <c:if test="${l.idProduct == c.idProduct}">
+                                                            ${l.soluotragia}
+                                                        </c:if>
+                                                        <c:set scope="request" var="ragia" value="" />
+                                                    </c:forEach>
+                                                    <p class="card-text">Bidder ra giá cao nhất:
+                                                    <c:forEach items="${listuser1}" var="d">
+                                                        <c:if test="${d.idUser == c.id_Bidder_current}">
+                                                            <span id="maskten">
+                                                                *****${d.name.substring(d.name.lastIndexOf(' '),d.name.length())}</span>
+                                                        </c:if>
+                                                    </c:forEach>
 
-                                            <div class="card-body">
-                                                Thời gian đăng : <fmt:parseDate
-                                                    value="${ c.ngay_bat_dau}"
-                                                    pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
-                                                    type="both"/>
-                                                <fmt:formatDate pattern="dd.MM.yyyy HH:mm"
-                                                                value="${ parsedDateTime }"/>
-                                                <br/>
-                                                Thời gian kết thúc : <fmt:parseDate
-                                                    value="${ c.time_to_close}"
-                                                    pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
-                                                    type="both"/>
-                                                <fmt:formatDate pattern="dd.MM.yyyy HH:mm"
-                                                                value="${ parsedDateTime }"/>
-
-                                            </div>
-                                            <div class="card-body"> <span class="text-danger font-weight-bold">Giá mua
-                                                ngay ${c.imme_Price}
-                                            </span>
-                                            </div>
-
-                                            <br/>
-                                            <p class="card-text">${c.detail_tiny}</p>
+                                                </c:if>
+                                                </p>
+                                            </c:if>
                                         </div>
                                         <div class="card-footer text-muted">
                                             <a class="btn btn-sm btn-outline-primary"

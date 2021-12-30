@@ -34,7 +34,13 @@ public class Daugiathanhcong implements Filter {
         ArrayList<Product> productavai= ProductModel.findProductAvai();
         SimpleDateFormat ab = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String timnow = ab.format(java.util.Calendar.getInstance().getTime());
-        for (int i = 0; i < productavai.size(); i++) {
+//        for (int i = 0; i < productavai.size(); i++) {
+        int len = 0;
+        try {
+            len = productavai.size();
+        }
+        catch (NullPointerException e){}
+        for (int i = 0; i < len; i++) {
             Product product = productavai.get(i);
             LocalDateTime timee = product.getTime_to_close();
             Instant instant = timee.toInstant(ZoneOffset.UTC);

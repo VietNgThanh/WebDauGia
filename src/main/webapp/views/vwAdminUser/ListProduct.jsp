@@ -45,7 +45,7 @@
                                 </c:forEach>
                                 <td> <fmt:formatNumber value="${c.start_price}" /></td>
                                 <td class="text-right">
-                                    <a class="btn btn-outline-danger btn-sm " href="${pageContext.request.contextPath}/Admin/Dkiseller/Access?id=${c.idProduct}" role="button">
+                                    <a class="btn btn-outline-danger btn-sm " href="${pageContext.request.contextPath}/Admin/QuanLiSanPham/DeleteProduct?id=${c.idProduct}" role="button">
                                         <i class=" fa fa-trash" aria-hidden="true"></i>
                                     </a>
                                     <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Admin/QuanLiSanPham/Info?id=${c.idProduct}" role="button">
