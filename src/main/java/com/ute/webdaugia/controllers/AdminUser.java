@@ -45,6 +45,13 @@ public class AdminUser extends HttpServlet {
                 String  urlz = "/Admin/DkiSeller/Index";
                 ServletUtils.redirect(urlz, request, response);
                 break;
+            case "/DkiSeller/NoAccess":
+                int idx =0;
+                idx = Integer.parseInt(request.getParameter("id"));
+                AdminUserModel.nouptoSeller(idx);
+                String  urlzx = "/Admin/DkiSeller/Index";
+                ServletUtils.redirect(urlzx, request, response);
+                break;
             case"/QuanLiSeller/Index":
                 List<User> listseller = AdminUserModel.findAllSeller();
                 request.setAttribute("sellers",listseller);
@@ -54,7 +61,7 @@ public class AdminUser extends HttpServlet {
                 int idseller =0;
                 idseller = Integer.parseInt(request.getParameter("id"));
                 User user = AdminUserModel.findById(idseller);
-                List<Product> productbySeller = ProductModel.findByCatId(idseller);
+                List<Product> productbySeller = ProductModel.findByUser(idseller);
                 request.setAttribute("products",productbySeller);
                 request.setAttribute("seller",user);
                 ServletUtils.forward("/views/vwAdminUser/InfoSeller.jsp", request, response);
@@ -158,7 +165,10 @@ public class AdminUser extends HttpServlet {
                 else{
                     OrderModel.deleteOrbyIdUser(idUserx);
                     AdminUserModel.deletedanhgia(idUserx);
+                    AdminUserModel.deleteUser(idUserx);
                 }
+                String ulrz ="/Admin/QuanLiUser/Index" ;
+                ServletUtils.redirect(ulrz,request,response);
                 break;
             default:
                 ServletUtils.forward("/views/404.jsp", request, response);

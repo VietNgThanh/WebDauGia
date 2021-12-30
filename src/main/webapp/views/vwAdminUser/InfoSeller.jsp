@@ -2,10 +2,10 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<c:catch var="catchException">
 <jsp:useBean id="seller" scope="request" type="com.ute.webdaugia.beans.User"/>
 <jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
-
+</c:catch>
 <t:adminUser>
   <jsp:attribute name="css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha512-f0tzWhCwVFS3WeYaofoLWkTP62ObhewQ1EZn65oSYDZUg1+CyywGKkWzm8BxaJj5HGKI72PnMH9jYyIFz+GH7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -62,7 +62,13 @@
                                                 Không cho bán hàng
                                             </a>
                                         </div>
-                                        <div class="flex-fill ml-1">
+                                        <div class="flex-fill">
+                                            <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/Admin/DeleteUser?id=${seller.idUser}" role="button">
+                                                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                Xoá tài khoản
+                                            </a>
+                                        </div>
+                                        <div class="flex-fill">
                                             <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/Admin/ResetPassWord?id=${seller.idUser}" role="button">
                                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                                                 Reset Password

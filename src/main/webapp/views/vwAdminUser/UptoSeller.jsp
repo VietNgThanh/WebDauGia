@@ -10,39 +10,48 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </jsp:attribute>
     <jsp:body>
-            <c:choose>
-                <c:when test="${users.size() == 0}">
-                    <div class="card-body">
-                        <p class="card-text">Không có dữ liệu.</p>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="card-body">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Upto Seller</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${users}" var="c">
+        <div class="card">
+            <div class="card-header">
+                Up to Seller
+            </div>
+            <div class="card-body">
+                <c:choose>
+                    <c:when test="${users.size() == 0}">
+                            <p class="card-text">Không có dữ liệu.</p>
+                    </c:when>
+                    <c:otherwise>
+                        <div>
+                            <table class="table table-hover">
+                                <thead>
                                 <tr>
-                                    <td>${c.idUser}</td>
-                                    <td>${c.name}</td>
-                                    <td class="text-right">
-                                        <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Admin/DkiSeller/Access?id=${c.idUser}" role="button">
-                                            <i class=" fa fa-check" aria-hidden="true"></i>
-                                        </a>
-                                    </td>
+                                    <th>#</th>
+                                    <th>Tên</th>
+                                    <th>Email</th>
                                 </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </c:otherwise>
-            </c:choose>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${users}" var="c">
+                                    <tr>
+                                        <td>${c.idUser}</td>
+                                        <td>${c.name}</td>
+                                        <td>${c.email}</td>
+                                        <td class="text-right">
+                                            <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Admin/DkiSeller/Access?id=${c.idUser}" role="button">
+                                                <i class=" fa fa-check" aria-hidden="true"></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/Admin/DkiSeller/NoAccess?id=${c.idUser}" role="button">
+                                                <i class=" fa fa-times" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
         </div>
     </jsp:body>
 </t:adminUser>

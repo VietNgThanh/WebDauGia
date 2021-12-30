@@ -30,6 +30,14 @@ public class AdminUserModel {
                     .executeUpdate();
         }
     }
+    public static void nouptoSeller(int id){
+        String sql = "UPDATE users SET permission = 1 WHERE idUser =:id \n";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
     public static List<User> findAllSeller() {
         final String query = "select * from users where  permission =2";
         try (Connection con = DbUtils.getConnection()) {
