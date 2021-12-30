@@ -77,7 +77,7 @@
           <form id="frmLogout" method="post" action="${pageContext.request.contextPath}/Account/Logout"></form>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownR" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Hi, <b>${authUser.name}!</b>
+              <span class="text-light">Hi, <b>${authUser.name}!</b></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <c:if test="${authUser.permission==1 || authUser.permission==4}">
@@ -91,6 +91,10 @@
                 <i class="fa fa-user" aria-hidden="true"></i>
                 Profile
               </a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/Misc/Editor">
+                <i class="fa fa-upload" aria-hidden="true"></i>
+                Upload Product
+              </a>
               </c:if>
               <c:if test="${authUser.permission==3}">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/Admin/Category">
@@ -99,7 +103,7 @@
               </a>
               </c:if>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/Account/ChangePassWord">
-                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <i class="fa fa-key" aria-hidden="true"></i>
                 Change PassWord
               </a>
 <%--              <div class="dropdown-divider"></div>--%>

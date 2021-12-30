@@ -193,7 +193,7 @@ public class Acccount extends HttpServlet {
         User user= (User) session.getAttribute("authUser");
 
         String name = request.getParameter("name");
-        String email = request.getParameter("email1");
+        String email = request.getParameter("email");
         String address = request.getParameter("address");
         User c = new User(user.getIdUser(),user.getUsername(),user.getPassword(),name,email,address,user.getPermission());
         AccountModel.updateProfile(c);

@@ -240,10 +240,10 @@
                     <h3>Tên Sản Phẩm: ${product.name}</h3>
                     <c:if test="${product.availability == 1}">
                         <p class="card-text">Giá mua ngay: <span class="text-danger font-weight-bold">
-                            <fmt:formatNumber value="${product.imme_Price}"/> </span></p>
+                            <fmt:formatNumber value="${product.imme_Price}"/> VNĐ </span></p>
                         <p class="card-text">${product.detail_full}</p>
                         <p class="card-text">Giá Hiện Tại: <span class="text-danger font-weight-bold">
-                            <fmt:formatNumber value="${product.current_Price + product.buoc_nhay}"/> </span></p>
+                            <fmt:formatNumber value="${product.current_Price + product.buoc_nhay}"/> VNĐ </span></p>
                         <c:forEach items="${listuser}" var="d">
                             <c:if test="${d.idUser == product.userid}">
                                 <p id="maskten">Người Bán:
@@ -415,7 +415,7 @@
               <c:if test="${product.availability == 1 }">
                 <div class="card-body">
                 <c:if test="${check_diem.length() != 0}">
-                  <div>Bước nhảy: <span id="buocnhay">${product.buoc_nhay}</span></div>
+                  <div>Bước nhảy: <span id="buocnhay">${product.buoc_nhay} VNĐ</span></div>
                   <div class="quantity">
                     <button class="btn minus-btn disabled" type="button">-</button>
                     <input type="text" id="quantity" name="Price" value="${product.current_Price+product.buoc_nhay}">
