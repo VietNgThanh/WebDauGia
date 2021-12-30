@@ -50,6 +50,7 @@ public class ProductModel {
             return list.get(0);
         }
     }
+
     public static List<TuChoiBidder> listTuchoi(){
         final String sql ="select id_product,id_bidder from tu_choi_bidder";
         try (Connection con = DbUtils.getConnection()){
@@ -69,6 +70,57 @@ public class ProductModel {
                     .executeUpdate();
         }
     }
+    //phuc thêm
+    public static void deteleProducttuchoi(int id){
+        String sql = "DELETE from tu_choi_bidder where id_product =:id";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
+    public static void deteleUsertuchoi(int id){
+        String sql = "DELETE from tu_choi_bidder where id_bidder =:id";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
+    public static Product findproductcontontai(int id) {
+        final String query = "SELECT * FROM product WHERE Availability = 1 and idProduct = :id  \n";
+        try (Connection con = DbUtils.getConnection()) {
+            List<Product> products = (List<Product>) con.createQuery(query)
+                    .addParameter("id",id)
+                    .executeAndFetch(Product.class);
+            if (products.isEmpty()) {
+                return null;
+            }
+            return products.get(0);
+        }
+    }
+    public static Product findproductdadaugia(int idPr, int idUser) {
+        final String query = "SELECT * FROM product WHERE Availability = 0 and idProduct = :id and id_Bidder_current = :idUser  \n";
+        try (Connection con = DbUtils.getConnection()) {
+            List<Product> products = (List<Product>) con.createQuery(query)
+                    .addParameter("id",idPr)
+                    .addParameter("idUser",idUser)
+                    .executeAndFetch(Product.class);
+            if (products.isEmpty()) {
+                return null;
+            }
+            return products.get(0);
+        }
+    }
+    public static ArrayList<Product> findProductbySeller(int id) {
+        final String query = "select * from product where User_id = :User_id";
+        try (Connection con = DbUtils.getConnection()) {
+            return (ArrayList<Product>) con.createQuery(query)
+                    .addParameter("User_id", id)
+                    .executeAndFetch(Product.class);
+        }
+    }
+    //
     public static List<Product> findbySeller(int id) {
         final String query = "select * from product where User_id = :User_id";
         try (Connection con = DbUtils.getConnection()) {
@@ -185,7 +237,7 @@ public class ProductModel {
     public static User diemdanhgia(int id_user){
         String sql = "select * from users where iduser= :id_user;";
         try (Connection con = DbUtils.getConnection()) {
-           List<User> mark = con.createQuery(sql)
+            List<User> mark = con.createQuery(sql)
                     .addParameter("id_user", id_user)
                     .executeAndFetch(User.class);
             if (mark.size() == 0) {
@@ -207,7 +259,7 @@ public class ProductModel {
     public static List<Orders> LichSuDauGia(int id_Product){
         String sql = "select id_User,current_price,Time_make_price from orders_product where id_Product= :id_Product order by idOrder desc;";
         try (Connection con = DbUtils.getConnection()){
-          List<Orders> lichsu =  con.createQuery(sql)
+            List<Orders> lichsu =  con.createQuery(sql)
                     .addParameter("id_Product",id_Product)
                     .executeAndFetch(Orders.class);
             if (lichsu.size() == 0) {
@@ -235,17 +287,17 @@ public class ProductModel {
             List<Product> products = new ArrayList<>();
             if (!Objects.equals(show, "cat")) {
                 products = con.createQuery(queryProducts)
-                    .executeAndFetch(Product.class);
+                        .executeAndFetch(Product.class);
             }
 
             if (!Objects.equals(show, "name")) {
                 List<Integer> proIds = products
-                    .stream().map(Product::getIdProduct)
-                    .collect(Collectors.toList());
+                        .stream().map(Product::getIdProduct)
+                        .collect(Collectors.toList());
                 List<Integer> catIdsSearchByCatName = con.createQuery(queryCat)
-                    .executeAndFetch(ChildCategory.class)
-                    .stream().map(ChildCategory::getId)
-                    .collect(Collectors.toList());
+                        .executeAndFetch(ChildCategory.class)
+                        .stream().map(ChildCategory::getId)
+                        .collect(Collectors.toList());
 
                 List<Product> proByCatID = new ArrayList<>();
                 for (int catId : catIdsSearchByCatName) {
@@ -307,6 +359,15 @@ public class ProductModel {
             con.createQuery(sql)
                     .addParameter("idProduct", id)
                     .executeUpdate();
+        }
+    }
+    public static int Max_idpro() {
+        String sql = "SELECT * FROM product ORDER BY idProduct DESC LIMIT 1";
+
+        try (Connection con = DbUtils.getConnection()) {
+            List<Product> list = con.createQuery(sql)
+                    .executeAndFetch(Product.class);
+            return list.get(0).getIdProduct();
         }
     }
 }

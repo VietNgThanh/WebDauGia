@@ -121,6 +121,10 @@ public class Acccount extends HttpServlet {
                 String  urlproduct = "/Account/Profile";
                 ServletUtils.redirect(urlproduct, request, response);
                 break;
+
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
+                break;
         }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
@@ -163,6 +167,10 @@ public class Acccount extends HttpServlet {
                 break;
             case "/DanhGia":
                 addDanhGia(request,response);
+                break;
+
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
                 break;
         }
 
@@ -341,18 +349,35 @@ public class Acccount extends HttpServlet {
         String password = request.getParameter("password");
         User user = AccountModel.findByusername(username);
         if (user != null) {
-            BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
-            if (result.verified) {
-                HttpSession session = request.getSession();
-                session.setAttribute("auth", true);
-                session.setAttribute("authUser", user);
-                String ulr ="/Home/Index";
-                ServletUtils.redirect(ulr,request,response);
+            if(user.getPassword().isEmpty()){
+                if(password.isEmpty()){
+                    HttpSession session = request.getSession();
+                    session.setAttribute("auth", true);
+                    session.setAttribute("authUser", user);
+                    String ulr ="/Home1/Index";
+                    ServletUtils.redirect(ulr,request,response);
+                }
+                else {
+                    request.setAttribute("hasError", true);
+                    request.setAttribute("errorMessage", "Invalid login.");
+                    ServletUtils.forward("/views/vwAccount/Login.jsp", request, response);
+                }
             }
-            else {
-                request.setAttribute("hasError", true);
-                request.setAttribute("errorMessage", "Invalid login.");
-                ServletUtils.forward("/views/vwAccount/Login.jsp", request, response);
+            else
+            {
+                BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
+                if (result.verified) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("auth", true);
+                    session.setAttribute("authUser", user);
+                    String ulr ="/Home1/Index";
+                    ServletUtils.redirect(ulr,request,response);
+                }
+                else {
+                    request.setAttribute("hasError", true);
+                    request.setAttribute("errorMessage", "Invalid login.");
+                    ServletUtils.forward("/views/vwAccount/Login.jsp", request, response);
+                }
             }
         }
         else {

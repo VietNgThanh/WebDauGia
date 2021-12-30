@@ -49,8 +49,40 @@ public class AdminUserModel {
             return list.get(0);
         }
     }
+    public static List<User> findBidder(){
+        String query = "select * from users where permission = 1";
+        try (Connection con = DbUtils.getConnection()) {
+            return  con.createQuery(query)
+                    .executeAndFetch(User.class);
+        }
+    }
     public static void deleteSeller(int id){
-        String sql = "UPDATE users SET permission = 0 WHERE idUser =:id \n";
+        String sql = "UPDATE users SET permission = 1 WHERE idUser =:id \n";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
+    public static void resetPassword(String pw, int id){
+        String sql = "UPDATE users SET  password =  :pw WHERE idUser = :id \n";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("pw",pw)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
+    public static void deleteUser(int id){
+        String sql = "DELETE FROM users WHERE iduser = :id \n";
+        try (Connection con = DbUtils.getConnection()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
+    public static void deletedanhgia(int id){
+        String sql = "DELETE FROM danh_gia_nguoidung WHERE id_nguoidanhgia = :id or id_nguoi_duoc_danhgia = :id";
         try (Connection con = DbUtils.getConnection()) {
             con.createQuery(sql)
                     .addParameter("id", id)

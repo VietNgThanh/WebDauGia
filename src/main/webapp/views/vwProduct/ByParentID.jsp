@@ -8,7 +8,6 @@
 <c:catch var="catchException">
     <jsp:useBean id="products_PaCaID" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
     <jsp:useBean id="list_user" scope="request" type="java.util.List<com.ute.webdaugia.beans.User>"/>
-    <jsp:useBean id="list_date_update" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
     <jsp:useBean id="pageNo" scope="request" type="java.lang.Integer"/>
     <jsp:useBean id="pages" scope="request" type="java.lang.Integer"/>
 </c:catch>
@@ -45,20 +44,34 @@
                                                 <c:forEach items="${list_user}" var="c1">
                                                     <c:if test="${c.id_Bidder_current eq c1.idUser}">
                                                         <fmt:formatNumber value="${c.current_Price}" type="number"/>
-                                                        ${c1.name}
+                                                        <p id="maskten">
+                                                            *****${c1.name.substring(c1.name.lastIndexOf(' '),c1.name.length())}</p>
                                                     </c:if>
                                                 </c:forEach>
-                                                <c:forEach items="${list_date_update}" var="c2">
-                                                    <c:if test="${c.idProduct eq c2.id_Product}">
-                                                        <fmt:parseDate value="${ c2.a}"
-                                                                       pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
-                                                                       type="both"/>
-                                                        <fmt:formatDate pattern="dd.MM.yyyy HH:mm"
-                                                                        value="${ parsedDateTime }"/>
-                                                    </c:if>
-                                                </c:forEach>
-                                                <p class="card-text"> Giá mua ngay ${c.imme_Price} </p>
                                             </h5>
+
+                                            <div class="card-body">
+                                                Thời gian đăng : <fmt:parseDate
+                                                    value="${ c.ngay_bat_dau}"
+                                                    pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
+                                                    type="both"/>
+                                                <fmt:formatDate pattern="dd.MM.yyyy HH:mm"
+                                                                value="${ parsedDateTime }"/>
+                                                <br/>
+                                                Thời gian kết thúc : <fmt:parseDate
+                                                    value="${ c.time_to_close}"
+                                                    pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
+                                                    type="both"/>
+                                                <fmt:formatDate pattern="dd.MM.yyyy HH:mm"
+                                                                value="${ parsedDateTime }"/>
+
+                                            </div>
+                                            <div class="card-body"> <span class="text-danger font-weight-bold">Giá mua
+                                                ngay ${c.imme_Price}
+                                            </span>
+                                            </div>
+
+                                            <br/>
                                             <p class="card-text">${c.detail_tiny}</p>
                                         </div>
                                         <div class="card-footer text-muted">
@@ -121,7 +134,5 @@
                 </nav>
             </footer>
         </c:if>
-
-
     </jsp:body>
 </t:main>

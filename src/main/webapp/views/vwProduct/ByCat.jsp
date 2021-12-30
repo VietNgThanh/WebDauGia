@@ -35,7 +35,7 @@
                             <c:forEach items="${products}" var="c">
                                 <div class="col-sm-4 mb-3">
                                     <div class="card h-100">
-                                        <img src="${pageContext.request.contextPath}/public/imgs/sp/${c.idProduct}/main_thumbs.jpg"
+                                        <img src="${pageContext.request.contextPath}/public/imgs/sp/${c.idProduct}/1.jpg"
                                              alt="${c.name}" title="${c.name}" class="card-img-top">
                                         <div class="card-body">
                                             <h6 class="card-title">${c.name}</h6>

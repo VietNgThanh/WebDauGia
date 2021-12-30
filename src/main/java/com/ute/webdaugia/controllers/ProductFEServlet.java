@@ -98,8 +98,8 @@ public class ProductFEServlet extends HttpServlet {
                 } else {
                     request.setAttribute("product", product);
                     int userId2 =0;
-            HttpSession session2 = request.getSession();
-            User user2= (User) session2.getAttribute("authUser");
+                    HttpSession session2 = request.getSession();
+                    User user2= (User) session2.getAttribute("authUser");
                     request.setAttribute("user",user2.getIdUser());
                     List<Wishlist> wlist2=ProductModel.findAllWList(user2.getIdUser());
                     request.setAttribute("wlists",wlist2);
@@ -121,7 +121,6 @@ public class ProductFEServlet extends HttpServlet {
                 int PaCaID = Integer.parseInt(request.getParameter("id"));
                 List<Product> productsByParentID = ProductModel.findbyparentID(PaCaID);
                 List<User> list2 = AdminUserModel.findAllUser_verpa();
-                List<Product> list3 = ProductModel.find_all_product_per1();
 
                 if (productsByParentID == null) {
                     request.setAttribute("products", productsByParentID);
@@ -167,7 +166,7 @@ public class ProductFEServlet extends HttpServlet {
                 //                Duration a=Orders.main()
                 request.setAttribute("products_PaCaID", proByParentIDSubList);
                 request.setAttribute("list_user", list2);
-                request.setAttribute("list_date_update", list3);
+
                 ServletUtils.forward("/views/vwProduct/ByParentID.jsp", request, response);
                 break;
 

@@ -111,5 +111,9 @@ public class User {
     public void setCode(String code) {
         this.code = code;
     }
+
+    public boolean isAdmin() {
+        return this.permission == 3;
+    }
 }
 

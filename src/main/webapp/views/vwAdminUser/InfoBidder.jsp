@@ -2,10 +2,11 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
-<jsp:useBean id="seller" scope="request" type="com.ute.webdaugia.beans.User"/>
-<jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
-
+<c:catch var="catchException">
+<jsp:useBean id="bidder" scope="request" type="com.ute.webdaugia.beans.User"/>
+<jsp:useBean id="productdangdaugia" scope="request" type="java.util.ArrayList<com.ute.webdaugia.beans.Product>"/>
+<jsp:useBean id="productsus" scope="request" type="java.util.ArrayList<com.ute.webdaugia.beans.Product>"/>
+</c:catch>
 <t:adminUser>
   <jsp:attribute name="css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha512-f0tzWhCwVFS3WeYaofoLWkTP62ObhewQ1EZn65oSYDZUg1+CyywGKkWzm8BxaJj5HGKI72PnMH9jYyIFz+GH7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -16,20 +17,6 @@
     <jsp:body>
         <div class="row">
             <div class="col">
-                <div class="d-flex mb-2">
-                    <div>
-                        <a class="btn btn-sm btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/Index" role="button">
-                            <i class="fa fa-home" aria-hidden="true"></i>
-                            Quit
-                        </a>
-                    </div>
-                    <div class="flex-fill ml-1">
-                        <a class="btn btn-sm btn-outline-info" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/DeleteSeller?id=${seller.idUser}" role="button">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i>
-                            Không cho bán hàng
-                        </a>
-                    </div>
-                </div>
                 <div class="card">
                     <h4 class="card-header d-flex justify-content-between">
                         Thong Tin Seller
@@ -39,15 +26,15 @@
                                 <form>
                                     <div class="form-group">
                                         <label for="txtId">ID</label>
-                                        <input type="text" class="form-control" name="idsl" id="txtId" readonly value="${seller.idUser}" >
+                                        <input type="text" class="form-control" name="idsl" id="txtId" readonly value="${bidder.idUser}" >
                                     </div>
                                     <div class="form-group">
                                         <label for="txtName">Họ và tên</label>
-                                        <input type="text" class="form-control" id="txtName" readonly value="${seller.name}">
+                                        <input type="text" class="form-control" id="txtName" readonly value="${bidder.name}">
                                     </div>
                                     <div class="form-group">
                                         <label for="txtAddress">Địa Chỉ</label>
-                                        <input type="text" class="form-control" id="txtAddress" readonly value="${seller.address}">
+                                        <input type="text" class="form-control" id="txtAddress" readonly value="${bidder.address}">
                                     </div>
                                     <div class="form-group d-flex ml-6">
                                         <div>
@@ -57,13 +44,13 @@
                                             </a>
                                         </div>
                                         <div class="flex-fill ml-1">
-                                            <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/Admin/QuanLiSeller/DeleteSeller?id=${seller.idUser}" role="button">
+                                            <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/Admin/DeleteUser?id=${bidder.idUser}" role="button">
                                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                                Không cho bán hàng
+                                                Xoá người dùng
                                             </a>
                                         </div>
                                         <div class="flex-fill ml-1">
-                                            <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/Admin/ResetPassWord?id=${seller.idUser}" role="button">
+                                            <a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/Admin/ResetPassWord?id=${bidder.idUser}" role="button">
                                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                                                 Reset Password
                                             </a>
@@ -78,10 +65,10 @@
 
         <div class="card mt-3">
             <h4 class="card-header d-flex justify-content-between">
-                Các Sản Phẩm Đang Bán
+                Các Sản Phẩm Đang Dau Gia
             </h4>
             <c:choose>
-                <c:when test="${products.size() == 0}">
+                <c:when test="${productdangdaugia.size() == 0}">
                     <div class="card-body">
                         <p class="card-text">Không có dữ liệu.</p>
                     </div>
@@ -96,7 +83,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${products}" var="c">
+                            <c:forEach items="${productdangdaugia}" var="c">
                                 <tr>
                                     <td>${c.name}</td>
                                     <td> <fmt:formatNumber value="${c.start_price}" /></td>
@@ -115,7 +102,46 @@
                     </div>
                 </c:otherwise>
             </c:choose>
-
-    </div>
+        </div>
+        <div class="card mt-3">
+            <h4 class="card-header d-flex justify-content-between">
+                Các Sản Phẩm đấu giá thành công
+            </h4>
+            <c:choose>
+                <c:when test="${productsus.size() == 0}">
+                    <div class="card-body">
+                        <p class="card-text">Không có dữ liệu.</p>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="card-body d-flex justify-content-between ">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Tên </th>
+                                <th>Giá khởi điểm</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${productsus}" var="c">
+                                <tr>
+                                    <td>${c.name}</td>
+                                    <td> <fmt:formatNumber value="${c.start_price}" /></td>
+                                    <td class="text-right">
+                                        <a class="btn btn-outline-danger btn-sm " href="${pageContext.request.contextPath}/Admin/Dkiseller/Access?id=${c.idProduct}" role="button">
+                                            <i class=" fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/Admin/QuanLiSanPham/Info?id=${c.idProduct}" role="button">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </jsp:body>
 </t:adminUser>
