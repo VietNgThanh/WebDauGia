@@ -97,8 +97,8 @@
 
                 <div class="card-body">
                     <div class="form-group">
-                        <input type="checkbox" id="check" name="check_delay" value="1" >
-                        <label for="check">Bạn có muốn tự động gia hạn không</label><br>
+                        <input type="checkbox" id="check_delay" name="check_delay" value="1" >
+                        <label for="check_delay">Bạn có muốn tự động gia hạn không</label><br>
                     </div>
                 </div>
                 <div class="card-footer">

@@ -132,7 +132,7 @@ public class MiscServlet extends HttpServlet {
     String txtIdProType = txtProType.split("\\.")[0];
     int idCat = Integer.parseInt(txtIdProType);
     System.out.println(txtIdProType);
-    int checkdelay;
+    int checkdelay=0;
     if(request.getParameter("check_delay")=="")
     {
          checkdelay=0;
