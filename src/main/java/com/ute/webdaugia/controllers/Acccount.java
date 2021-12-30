@@ -354,7 +354,7 @@ public class Acccount extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("auth", true);
                     session.setAttribute("authUser", user);
-                    String ulr ="/Home1/Index";
+                    String ulr ="/Home";
                     ServletUtils.redirect(ulr,request,response);
                 }
                 else {
@@ -393,7 +393,7 @@ public class Acccount extends HttpServlet {
 
         //String urlz = request.getHeader("referer");
         //if (urlz == null)
-        String  urlz = "/Home/Index";
+        String  urlz = "/Home";
         ServletUtils.redirect(urlz, request, response);
     }
 }
