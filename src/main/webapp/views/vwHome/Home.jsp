@@ -2,12 +2,13 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<c:catch var="catchException">
 <jsp:useBean id="top_product" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 <jsp:useBean id="top_product2" scope="request" type="java.util.List<com.ute.webdaugia.beans.Orders>"/>
 <jsp:useBean id="top_product3" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 <jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
-
+<jsp:useBean id="auth" scope="session" type="java.lang.Boolean"/>
+</c:catch>
 <t:main>
     <jsp:body>
         <div class="card">
@@ -31,17 +32,36 @@
                                         <div class="card-body">
                                             <h6 class="card$-title">${c.name}</h6>
                                             <h5 class="card-title text-danger">
-                                                <fmt:formatNumber value="${c.current_Price}" type="number"/>
+                                                <fmt:formatNumber value="${c.current_Price}" type="number"/> VNĐ
                                             </h5>
                                             <p class="card-text">${c.detail_tiny}</p>
                                         </div>
                                         <div class="card-footer text-muted">
-                                            <a class="btn btn-sm btn-outline-primary"
+                                            <a class="btn btn-outline-primary"
                                                href="${pageContext.request.contextPath}/Product/Detail?id=${c.idProduct}"
                                                role="button">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                                 Details
                                             </a>
+                                            <c:if test="${auth == true}">
+                                            <c:set scope="request" var="check" value="" />
+                                            <c:forEach items="${wlists}" var="wl">
+                                                <c:if test="${c.idProduct == wl.id_product}">
+                                                    <c:set scope="request" var="check" value="true" />
+                                                </c:if>
+                                            </c:forEach>
+                                            <c:if test="${check.length() == 0}">
+                                                <a  class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Product/addwatlistHome?id_product=${c.idProduct}" role="button">
+                                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                                </a>
+                                            </c:if>
+                                            <c:if test="${check.length() != 0}">
+                                                <a  class="btn  btn-outline-primary" href="${pageContext.request.contextPath}/Product/delwatlistHome?id_product=${c.idProduct}" role="button">
+                                                    Unlike
+                                                </a>
+                                                <c:set scope="request" var="check" value="" />
+                                            </c:if>
+                                            </c:if>
 <%--                                            <a class="btn btn-sm btn-outline-success" href="#" role="button">--%>
 <%--                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>--%>
 <%--                                                Add to cart--%>
@@ -78,17 +98,36 @@
                                                 <div class="card-body">
                                                     <h6 class="card-title">${c.name}</h6>
                                                     <h5 class="card-title text-danger">
-                                                        <fmt:formatNumber value="${c.current_Price}" type="number"/>
+                                                        <fmt:formatNumber value="${c.current_Price}" type="number"/> <span>VNĐ</span>
                                                     </h5>
                                                     <p class="card-text">${c.detail_tiny}</p>
                                                 </div>
                                                 <div class="card-footer text-muted">
-                                                    <a class="btn btn-sm btn-outline-primary"
+                                                    <a class="btn  btn-outline-primary"
                                                        href="${pageContext.request.contextPath}/Product/Detail?id=${c.idProduct}"
                                                        role="button">
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                         Details
                                                     </a>
+                                    <c:if test="${auth == true}">
+                                                    <c:set scope="request" var="check" value="" />
+                                                    <c:forEach items="${wlists}" var="wl">
+                                                        <c:if test="${c.idProduct == wl.id_product}">
+                                                            <c:set scope="request" var="check" value="true" />
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <c:if test="${check.length() == 0}">
+                                                        <a  class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Product/addwatlistHome?id_product=${c.idProduct}" role="button">
+                                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                                        </a>
+                                                    </c:if>
+                                                    <c:if test="${check.length() != 0}">
+                                                        <a  class="btn  btn-outline-primary" href="${pageContext.request.contextPath}/Product/delwatlistHome?id_product=${c.idProduct}" role="button">
+                                                            Unlike
+                                                        </a>
+                                                        <c:set scope="request" var="check" value="" />
+                                                    </c:if>
+                                    </c:if>
 <%--                                                    <a class="btn btn-sm btn-outline-success" href="#" role="button">--%>
 <%--                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>--%>
 <%--                                                        Add to cart--%>
@@ -127,17 +166,36 @@
                                                 <div class="card-body">
                                                     <h6 class="card-title">${c.name}</h6>
                                                     <h5 class="card-title text-danger">
-                                                        <fmt:formatNumber value="${c.current_Price}" type="number"/>
+                                                        <fmt:formatNumber value="${c.current_Price}" type="number"/> VNĐ
                                                     </h5>
                                                     <p class="card-text">${c.detail_tiny}</p>
                                                 </div>
                                                 <div class="card-footer text-muted">
-                                                    <a class="btn btn-sm btn-outline-primary"
+                                                    <a class="btn btn-outline-primary"
                                                        href="${pageContext.request.contextPath}/Product/Detail?id=${c.idProduct}"
                                                        role="button">
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                         Details
                                                     </a>
+                                    <c:if test="${auth == true}">
+                                                    <c:set scope="request" var="check" value="" />
+                                                    <c:forEach items="${wlists}" var="wl">
+                                                        <c:if test="${c.idProduct == wl.id_product}">
+                                                            <c:set scope="request" var="check" value="true" />
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <c:if test="${check.length() == 0}">
+                                                        <a  class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Product/addwatlistHome?id_product=${c.idProduct}" role="button">
+                                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                                        </a>
+                                                    </c:if>
+                                                    <c:if test="${check.length() != 0}">
+                                                        <a  class="btn  btn-outline-primary" href="${pageContext.request.contextPath}/Product/delwatlistHome?id_product=${c.idProduct}" role="button">
+                                                            Unlike
+                                                        </a>
+                                                        <c:set scope="request" var="check" value="" />
+                                                    </c:if>
+                                    </c:if>
 <%--                                                    <a class="btn btn-sm btn-outline-success" href="#" role="button">--%>
 <%--                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>--%>
 <%--                                                        Add to cart--%>

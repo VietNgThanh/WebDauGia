@@ -162,7 +162,7 @@ public class AccountModel {
             }
     }
     public static void updateUserFogotPassword(User c) {
-        String sql = "UPDATE users SET  username = :username, password = :password, name = :name, email = :email, address = :address, permission = :permission, mark =: mark WHERE idUser = :id \n";
+        String sql = "UPDATE users SET  username = :username, password = :password, name = :name, email = :email, address = :address, permission = :permission, mark = :mark WHERE idUser = :id \n";
         try (Connection con = DbUtils.getConnection()) {
             con.createQuery(sql)
                 .addParameter("username", c.getUsername())

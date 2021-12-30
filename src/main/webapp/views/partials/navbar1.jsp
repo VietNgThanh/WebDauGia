@@ -21,7 +21,7 @@
       <span>
             <ul id="menu" class="navbar-nav">
               <li class="nav-item">
-                <a href="#" class="link p-3">Home</a>
+                <a href="${pageContext.request.contextPath}/Home" class="link p-3">Home</a>
               </li>
               <li class="nav-item">
                 <a href="#" class="link p-3">Shop</a>
@@ -45,12 +45,12 @@
                   </c:forEach>
                 </ul>
               </li>
-              <li class="nav-item">
-                <a href="#" class="link p-3">About</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="link p-3">Contact</a>
-              </li>
+<%--              <li class="nav-item">--%>
+<%--                <a href="#" class="link p-3">About</a>--%>
+<%--              </li>--%>
+<%--              <li class="nav-item">--%>
+<%--                <a href="#" class="link p-3">Contact</a>--%>
+<%--              </li>--%>
             </ul>
           </span>
 
@@ -80,7 +80,7 @@
               Hi, <b>${authUser.name}!</b>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <c:if test="${authUser.permission==1}">
+              <c:if test="${authUser.permission==1 || authUser.permission==4}">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Profile">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 Profile
@@ -92,7 +92,11 @@
                 Profile
               </a>
               </c:if>
-              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/Account/ChangePassWord">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                Change PassWord
+              </a>
+<%--              <div class="dropdown-divider"></div>--%>
               <a class="dropdown-item" href="javascript: $('#frmLogout').submit()">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                 Sign Out

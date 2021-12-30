@@ -111,20 +111,31 @@
                         <label for="txtAddress">Address</label>
                         <input type="text" class="form-control" id="txtAddress" name="address">
                     </div>
+                    <h5 class="mt-4">Authentication by Capcha</h5>
+                    <div class="form-group">
+                        <canvas  width="220" height="60" id="canvas" style="border: 2px solid grey"></canvas>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success" onclick="getCapcha()">Refresh</button>
+                    </div>
+                    <div class="form-group">
+<%--                        <label for="txtEmail">Email</label>--%>
+                        <input type="text" class="form-control"  id="typedText" placeholder="Enter Code">
+                    </div>
                 </div>
-                <table style="border: 2px solid black" >
-                    <tr>
-                        <td>Capcha</td>
-                        <td>
-                            <canvas  width="220" height="60" id="canvas" style="border: 2px solid grey"></canvas>
-                        </td>
-                        <td>
-                            <button type="button" onclick="getCapcha()"> Refresh</button>
-                        </td>
-                    </tr>
-                    <td>Enter</td>
-                    <td><input type="text" size="30" id="typedText"></td>
-                </table>
+<%--                <table style="border: none" >--%>
+<%--                    <tr>--%>
+<%--                        <td>Capcha</td>--%>
+<%--                        <td>--%>
+<%--                            <canvas  width="220" height="60" id="canvas" style="border: 2px solid grey"></canvas>--%>
+<%--                        </td>--%>
+<%--                        <td>--%>
+<%--                            <button type="button" onclick="getCapcha()"> Refresh</button>--%>
+<%--                        </td>--%>
+<%--                    </tr>--%>
+<%--                    <td>Enter</td>--%>
+<%--                    <td><input type="text" size="30" id="typedText"></td>--%>
+<%--                </table>--%>
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary" >
