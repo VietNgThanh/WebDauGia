@@ -81,10 +81,6 @@
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                                 Details
                                             </a>
-                                            <a class="btn btn-sm btn-outline-success" href="#" role="button">
-                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                Add to cart
-                                            </a>
                                         </div>
                                     </div>
                                 </div>

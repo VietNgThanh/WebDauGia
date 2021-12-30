@@ -11,9 +11,6 @@
 <jsp:useBean id="parentCategories" scope="request" type="java.util.List<com.ute.webdaugia.beans.ParentCategory>"/>
 <jsp:useBean id="childCategories" scope="request" type="java.util.List<com.ute.webdaugia.beans.ChildCategory>"/>
 <div class="card">
-    <h4 class="card-header">
-        Categories
-    </h4>
 <c:choose>
     <c:when test="${parentCategories.size() == 0}">
         <div class="card-body">
@@ -23,31 +20,34 @@
     <c:otherwise>
         <div class="card-body">
             <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th colspan="2">Category</th>
-                </tr>
-                </thead>
                 <tbody>
                 <c:forEach items="${parentCategories}" var="parentCat">
                     <tr>
-                        <td style="width: 15%">${parentCat.id}</td>
-                        <td colspan="2" style="width: 70%">${parentCat.name}</td>
-                        <td style="width: 15%" class="text-right">
-                            <a class="btn btn-sm btn-outline-secondary" data-toggle="collapse"
-                               href="#collapse-main-${parentCat.id}" role="button" aria-expanded="false"
-                               aria-controls="collapse-main-${parentCat.id}">
-                                <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            </a>
+                        <td colspan="2" style="width: 85%" >
+                            <a style="width: 90%" class="btn btn-sm btn-outline-secondary w-100 alert alert-primary"  href="${pageContext.request.contextPath}/Product/ByParentCatID?id=${parentCat.id}&p=${1}">${parentCat.name}
+<%--                            <a style="width: 10%" class="btn btn-sm btn-outline-secondary w-100 alert alert-primary" data-toggle="collapse"--%>
+<%--                                                                 href="#collapse-main-${parentCat.id}" role="button" aria-expanded="false"--%>
+<%--                                                                  aria-controls="collapse-main-${parentCat.id}">--%>
+<%--                                <i class="fa fa-caret-down" aria-hidden="true"></i>--%>
+<%--                            </a>--%>
+
+                        </a>
+
                         </td>
+                                    <%--                        <td style="width: 15%" class="text-right">--%>
+<%--                            <a class="btn btn-sm btn-outline-secondary w-100 alert alert-primary" data-toggle="collapse"--%>
+<%--                               href="#collapse-main-${parentCat.id}" role="button" aria-expanded="false"--%>
+<%--                               aria-controls="collapse-main-${parentCat.id}">--%>
+<%--                                <i class="fa fa-caret-down" aria-hidden="true"></i>--%>
+<%--                            </a>--%>
+<%--                        </td>--%>
                     </tr>
                     <c:forEach items="${childCategories}" var="childCat">
                         <c:if test="${parentCat.id eq childCat.parent_id}">
                             <tr class="text-right" id="collapse-main-${parentCat.id}">
                                     <td style="width: 15%">&nbsp;</td>
-                                    <td style="width: 70%" colspan="2">
-                                        <a href="${pageContext.request.contextPath}/Product/ByCat?id=${childCat.id}&p=1" class="btn btn-sm btn-outline-secondary w-100" >${childCat.name}</a>
+                                    <td style="width: 70%">
+                                        <a href="${pageContext.request.contextPath}/Product/ByCat?id=${childCat.id}&p=${1}" class="btn btn-sm btn-outline-secondary w-100 alert alert-info" >${childCat.name}</a>
                                     </td>
                             </tr>
                         </c:if>
@@ -56,7 +56,7 @@
                 </tbody>
                 <thead>
                 <tr>
-                    <th>#</th>
+                    <th >#</th>
                     <th colspan="2" > <a href="${pageContext.request.contextPath}/Product/WatList">Watch List</a></th>
                 </tr>
                 </thead>

@@ -17,8 +17,8 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getPathInfo();
-        if (path == null || path.equals("/")) {
-            ServletUtils.forward("/views/vwHome/Home.jsp", request, response);
+        if(path == null || path.equals("/")){
+            path = "/Index";
         }
         switch (path) {
             case "/Index":
@@ -30,7 +30,7 @@ public class HomeServlet extends HttpServlet {
                 request.setAttribute("top_product2",list2);
                 request.setAttribute("top_product3",list3);
                 request.setAttribute("products", list1);
-                ServletUtils.forward("/views/vwHome/Home1.jsp", request, response);
+                ServletUtils.forward("/views/vwHome/Home.jsp", request, response);
                 break;
 
             default:

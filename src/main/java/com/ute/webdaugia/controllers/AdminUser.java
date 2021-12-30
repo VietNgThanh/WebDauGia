@@ -117,15 +117,20 @@ public class AdminUser extends HttpServlet {
                 ArrayList<Product> productdangdaugia = new ArrayList<Product>();
                 ArrayList<Product> productdadaugia = new ArrayList<Product>();
                 ArrayList<Integer> productid = OrderModel.findproductbidderDaugia(idbi);
-                for(int i=0; i<productid.size();i++){
-                    int x = productid.get(i);
-                    if(ProductModel.findproductcontontai(x) != null){
-                        productdangdaugia.add(ProductModel.findproductcontontai(x));
-                    }
-                    if(ProductModel.findproductdadaugia(x,idbi) != null){
-                        productdadaugia.add(ProductModel.findproductdadaugia(x,idbi));
+                if(productid != null)
+                {
+                    for(int i=0; i<productid.size();i++){
+                        int x = productid.get(i);
+                        if(ProductModel.findproductcontontai(x) != null){
+                            productdangdaugia.add(ProductModel.findproductcontontai(x));
+                        }
+                        if(ProductModel.findproductdadaugia(x,idbi) != null){
+                            productdadaugia.add(ProductModel.findproductdadaugia(x,idbi));
+                        }
                     }
                 }
+
+
                 request.setAttribute("productdangdaugia",productdangdaugia);
                 request.setAttribute("productsus",productdadaugia);
                 request.setAttribute("bidder",bidder);
@@ -137,15 +142,30 @@ public class AdminUser extends HttpServlet {
                 User UserReset = AdminUserModel.findById(idUser);
                 String pw ="";
                 String mess=" Mat Khau Tai khoan " + UserReset.getUsername() +" Da Duoc Reset";
-                AdminUserModel.resetPassword(pw,idUser);
-                SendMail sendMail = new SendMail();
-                try {
-                    sendMail.Sendmail(UserReset.getEmail(),mess);
-                } catch (MessagingException e) {
-                    e.printStackTrace();
+                if(UserReset.getPermission()==1 || UserReset.getPermission()==4){
+                    AdminUserModel.resetPassword(pw,idUser);
+                    SendMail sendMail = new SendMail();
+                    try {
+                        sendMail.Sendmail(UserReset.getEmail(),mess);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+
+                    String ulr ="/Admin/QuanLiUser/Info?id=" + UserReset.getIdUser();
+                    ServletUtils.redirect(ulr,request,response);
                 }
-                String ulr ="/Admin/QuanLiUser/Info?id=" + UserReset.getIdUser();
-                ServletUtils.redirect(ulr,request,response);
+                else {
+                    AdminUserModel.resetPassword(pw,idUser);
+                    SendMail sendMail = new SendMail();
+                    try {
+                        sendMail.Sendmail(UserReset.getEmail(),mess);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+
+                    String ulr ="/Admin/QuanLiSeller/Info?id=" + UserReset.getIdUser();
+                    ServletUtils.redirect(ulr,request,response);
+                }
                 break;
             case"/DeleteUser":
                 int idUserx =0;
