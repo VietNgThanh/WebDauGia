@@ -184,6 +184,7 @@ public class AdminUser extends HttpServlet {
                 }
                 else{
                     OrderModel.deleteOrbyIdUser(idUserx);
+                    ProductModel.deteleUsertuchoi(idUserx);
                     AdminUserModel.deletedanhgia(idUserx);
                     AdminUserModel.deleteUser(idUserx);
                 }
