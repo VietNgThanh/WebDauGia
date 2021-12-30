@@ -4,9 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <jsp:useBean id="top_product" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
-<jsp:useBean id="top_product2" scope="request" type="java.util.List<com.ute.webdaugia.beans.Orders>"/>
+<jsp:useBean id="top_product2" scope="request" type="java.util.List<com.ute.webdaugia.beans.SoLuotDauGia>"/>
 <jsp:useBean id="top_product3" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
 <jsp:useBean id="products" scope="request" type="java.util.List<com.ute.webdaugia.beans.Product>"/>
+
 
 <t:main>
     <jsp:body>
@@ -70,7 +71,7 @@
                         <div class="row">
                             <c:forEach items="${top_product2}" var="top_id">
                                 <c:forEach items="${products}" var="c">
-                                    <c:if test="${top_id.id_Product eq c.idProduct}">
+                                    <c:if test="${top_id.idProduct eq c.idProduct}">
                                         <div class="col-sm-4 mb-3">
                                             <div class="card h-100">
                                                 <img src="${pageContext.request.contextPath}/public/imgs/sp/${c.idProduct}/main_thumbs.jpg"
@@ -81,6 +82,26 @@
                                                         <fmt:formatNumber value="${c.current_Price}" type="number"/>
                                                     </h5>
                                                     <p class="card-text">${c.detail_tiny}</p>
+                                                    <p class="card-text"> Số lượt ra giá:${top_id.soluotragia}</p>
+<%--                                                    <p class="card-text">Số lượt ra giá:--%>
+<%--                                                        <c:set scope="request" var="ragia" value=""/>--%>
+<%--                                                        <c:forEach items="${listragia}" var="l">--%>
+<%--                                                            <c:if test="${l.idProduct == c.idProduct}">--%>
+<%--                                                                <c:set scope="request" var="ragia" value="true"/>--%>
+<%--                                                            </c:if>--%>
+<%--                                                        </c:forEach>--%>
+<%--                                                        <c:if test="${ragia.length() == 0}">--%>
+<%--                                                            0--%>
+<%--                                                        </c:if>--%>
+<%--                                                        <c:if test="${ragia.length() != 0}">--%>
+<%--                                                            <c:forEach items="${listragia}" var="l">--%>
+<%--                                                                <c:if test="${l.idProduct == c.idProduct}">--%>
+<%--                                                                    ${l.soluotragia}--%>
+<%--                                                                </c:if>--%>
+<%--                                                                <c:set scope="request" var="ragia" value=""/>--%>
+<%--                                                            </c:forEach>--%>
+<%--                                                        </c:if>--%>
+<%--                                                    </p>--%>
                                                 </div>
                                                 <div class="card-footer text-muted">
                                                     <a class="btn btn-sm btn-outline-primary"
@@ -130,6 +151,7 @@
                                                         <fmt:formatNumber value="${c.current_Price}" type="number"/>
                                                     </h5>
                                                     <p class="card-text">${c.detail_tiny}</p>
+                                                    <p class="card-text">Ngày Kết Thúc: ${c.time_to_close.toLocalDate()} ${c.time_to_close.toLocalTime()}</p>
                                                 </div>
                                                 <div class="card-footer text-muted">
                                                     <a class="btn btn-sm btn-outline-primary"
@@ -138,10 +160,6 @@
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                         Details
                                                     </a>
-<%--                                                    <a class="btn btn-sm btn-outline-success" href="#" role="button">--%>
-<%--                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>--%>
-<%--                                                        Add to cart--%>
-<%--                                                    </a>--%>
                                                 </div>
                                             </div>
                                         </div>
