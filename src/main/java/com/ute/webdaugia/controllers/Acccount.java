@@ -370,7 +370,7 @@ public class Acccount extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("auth", true);
                     session.setAttribute("authUser", user);
-                    String ulr ="/Home1/Index";
+                    String ulr ="/Home/Index";
                     ServletUtils.redirect(ulr,request,response);
                 }
                 else {
