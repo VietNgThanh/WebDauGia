@@ -197,7 +197,12 @@ public class ProductFEServlet extends HttpServlet {
                 {
                     pageName="Search";
                 }
-                String txtSearchEncoded = encodeValue(txtSearch1);
+
+                String txtSearchEncoded = "";
+                try {
+                    txtSearchEncoded = encodeValue(txtSearch1);
+                }
+                catch (Exception e) {}
                 String urlproduct = "/Product/"+ pageName +"?id=" + Integer.toString(catId1) +"&p=" + pageNo1 + "&show="+show1 +"&sort="+sort1 + "&txtSearch="+txtSearchEncoded;
                 ServletUtils.redirect(urlproduct, request, response);
                 break;
@@ -246,7 +251,11 @@ public class ProductFEServlet extends HttpServlet {
                 String show2= request.getParameter("show");
                 String sort2 = request.getParameter("sort");
                 String txtSearch2 = request.getParameter("txtSearch");
-                String txtSearchEncoded2 = encodeValue(txtSearch2);
+                String txtSearchEncoded2 = "";
+                try {
+                    txtSearchEncoded2 = encodeValue(txtSearch2);
+                }
+                catch (Exception e) {}
 //                request.setAttribute("pageNo", pageNo2);
                 HttpSession session6 = request.getSession();
                 User user6 = (User) session6.getAttribute("authUser");
